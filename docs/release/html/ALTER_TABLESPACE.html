@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:43">
+    <title>ALTER TABLESPACE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="ALTER_TABLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="ALTER_TRIGGER.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp137232"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+ALTER TABLESPACE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp137233"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Changes the definition of a tablespace.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> RENAME TO <code><font face="Courier New, Courier, mono" size="2"><i>newname</i></font></code></font></p><a name="wp136515"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> OWNER TO <code><font face="Courier New, Courier, mono" size="2"><i>newowner</i></font></code></font></p><a name="wp134797"> </a>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp136490"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">ALTER TABLESPACE</font></code> changes the definition of a tablespace. 
+</font></p>
+<a name="wp136492"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You must own the tablespace to use <code><font face="Courier New, Courier, mono" size="2">ALTER TABLESPACE</font></code>. To alter the owner, you must also be a direct or indirect member of the new owning role. (Note that superusers have these privileges automatically.)
+</font></p>
+<a name="wp134773"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp136532"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp136533"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of an existing tablespace. 
+</font></div>
+<a name="wp136535"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>newname</i></b></font>
+</b></font></h6>
+<a name="wp136536"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The new name of the tablespace. The new name cannot begin with pg_ (reserved for system tablespaces). 
+</font></div>
+<a name="wp136538"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>newowner</i></b></font>
+</b></font></h6>
+<a name="wp136539"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The new owner of the tablespace.
+</font></div>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp136897"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Rename tablespace index_space to fast_raid:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLESPACE index_space RENAME TO fast_raid;</font><a name="wp136899"> </a>
+</pre>
+<a name="wp136900"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Change the owner of tablespace index_space:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLESPACE index_space OWNER TO mary;</font><a name="wp136327"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp136328"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is no <code><font face="Courier New, Courier, mono" size="2">ALTER TABLESPACE</font></code> statement in the SQL standard.
+</font></p>
+<a name="wp136314"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp136319"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_TABLESPACE.html">CREATE TABLESPACE</a>, <a href="DROP_TABLESPACE.html">DROP TABLESPACE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="ALTER_TABLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="ALTER_TRIGGER.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

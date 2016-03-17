@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:13">
+    <title>SELECT INTO</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="SELECT.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="SET.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+SELECT INTO
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new table from the results of a query.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SELECT [ALL | DISTINCT [ON ( <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [, ...] )]]</font></p><a name="wp141455"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">    * | <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [AS <code><font face="Courier New, Courier, mono" size="2"><i>output_name</i></font></code>] [, ...]</font><a name="wp141456"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    INTO [TEMPORARY | TEMP] [TABLE] <code><font face="Courier New, Courier, mono" size="2"><i>new_table</i></font></code></font><a name="wp141457"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [FROM <code><font face="Courier New, Courier, mono" size="2"><i>from_item</i></font></code> [, ...]]</font><a name="wp141458"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [WHERE <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code>]</font><a name="wp141459"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [GROUP BY <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [, ...]]</font><a name="wp141460"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [HAVING <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code> [, ...]]</font><a name="wp141461"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [{UNION | INTERSECT | EXCEPT} [ALL] <code><font face="Courier New, Courier, mono" size="2"><i>select</i></font></code>]</font><a name="wp141462"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [ORDER BY <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [ASC | DESC | USING <code><font face="Courier New, Courier, mono" size="2"><i>operator</i></font></code>] [, ...]]</font><a name="wp141463"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [LIMIT {<code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> | ALL}]</font><a name="wp141464"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [OFFSET <code><font face="Courier New, Courier, mono" size="2"><i>start</i></font></code>]</font><a name="wp141465"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    [FOR {UPDATE | SHARE} [OF <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> [, ...]] [NOWAIT] 
+[...]]</font><a name="wp138520"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp141518"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">SELECT INTO</font></code> creates a new table and fills it with data computed by a query. The data is not returned to the client, as it is with a normal <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>. The new table&#39;s columns have the names and data types associated with the output columns of the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>. 
+</font></p>
+<a name="wp134773"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp141591"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The majority of parameters for <code><font face="Courier New, Courier, mono" size="2">SELECT INTO</font></code> are the same as <a href="SELECT.html">SELECT</a>. 
+</font></p>
+<a name="wp141538"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+TEMPORARY <br>TEMP
+</b></font></h6>
+<a name="wp141539"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If specified, the table is created as a temporary table.
+</font></div>
+<a name="wp141541"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_table</i></b></font>
+</b></font></h6>
+<a name="wp141542"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the table to be created.
+</font></div>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp141650"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a new table films_recent consisting of only recent entries from the table films: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * INTO films_recent FROM films WHERE date_prod &gt;= 
+&#39;2006-01-01&#39;;</font><a name="wp141648"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp141614"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard uses <code><font face="Courier New, Courier, mono" size="2">SELECT INTO</font></code> to represent selecting values into scalar variables of a host program, rather than creating a new table. The Greenplum Database usage of <code><font face="Courier New, Courier, mono" size="2">SELECT INTO</font></code> to represent table creation is historical. It is best to use <a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a> for this purpose in new applications.
+</font></p>
+<a name="wp137693"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp137697"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="SELECT.html">SELECT</a>, <a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="SELECT.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="SET.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

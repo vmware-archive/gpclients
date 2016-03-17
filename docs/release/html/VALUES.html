@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:16">
+    <title>VALUES</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="VACUUM.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="IX.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+VALUES
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Computes a set of rows.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">VALUES ( <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [, ...] ) [, ...]</font></p><a name="wp155532"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[ORDER BY <code><font face="Courier New, Courier, mono" size="2"><i>sort_expression</i></font></code> [ASC | DESC | USING <code><font face="Courier New, Courier, mono" size="2"><i>operator</i></font></code>] [, ...]]</font><a name="wp155533"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">[LIMIT {<code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> | ALL}] [OFFSET <code><font face="Courier New, Courier, mono" size="2"><i>start</i></font></code>]</font><a name="wp155534"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp155798"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> computes a row value or set of row values specified by value expressions. It is most commonly used to generate a `constant table&#39; within a larger command, but it can be used on its own.
+</font></p>
+<a name="wp155800"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When more than one row is specified, all the rows must have the same number of elements. The data types of the resulting table&#39;s columns are determined by combining the explicit or inferred types of the expressions appearing in that column, using the same rules as for <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>. 
+</font></p>
+<a name="wp155802"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Within larger commands, <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> is syntactically allowed anywhere that <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> is. Because it is treated like a <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> by the grammar, it is possible to use the <code><font face="Courier New, Courier, mono" size="2">ORDER</font></code> <code><font face="Courier New, Courier, mono" size="2">BY</font></code>, <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code>, and <code><font face="Courier New, Courier, mono" size="2">OFFSET</font></code> clauses with a <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> command.
+</font></p>
+<a name="wp155587"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp155874"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>expression</i></b></font>
+</b></font></h6>
+<a name="wp155875"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A constant or expression to compute and insert at the indicated place in the resulting table (set of rows). In a <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> list appearing at the top level of an <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, an expression can be replaced by <code><font face="Courier New, Courier, mono" size="2">DEFAULT</font></code> to indicate that the destination column&#39;s default value should be inserted. <code><font face="Courier New, Courier, mono" size="2">DEFAULT</font></code> cannot be used when <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> appears in other contexts.
+</font></div>
+<a name="wp155877"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>sort_expression</i></b></font>
+</b></font></h6>
+<a name="wp155878"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An expression or integer constant indicating how to sort the result rows. This expression may refer to the columns of the <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> result as <code><font face="Courier New, Courier, mono" size="2">column1</font></code>, <code><font face="Courier New, Courier, mono" size="2">column2</font></code>, etc. For more details see <a href="SELECT.html#wp139977">&quot;The ORDER BY Clause&quot; </a>. 
+</font></div>
+<a name="wp155880"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>operator</i></b></font>
+</b></font></h6>
+<a name="wp155881"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A sorting operator. For details see <a href="SELECT.html#wp139977">&quot;The ORDER BY Clause&quot; </a>. 
+</font></div>
+<a name="wp155883"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+LIMIT <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>count</i></b></font> <br>OFFSET <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>start</i></b></font>
+</b></font></h6>
+<a name="wp155884"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The maximum number of rows to return. For details see <a href="SELECT.html#wp140009">&quot;The LIMIT Clause&quot; </a>.
+</font></div>
+<a name="wp155588"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp155852"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> lists with very large numbers of rows should be avoided, as you may encounter out-of-memory failures or poor performance. <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> appearing within <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> is a special case (because the desired column types are known from the <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>&#39;s target table, and need not be inferred by scanning the <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> list), so it can handle larger lists than are practical in other contexts.
+</font></p>
+<a name="wp155851"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp155622"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A bare <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> command: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">VALUES (1, &#39;one&#39;), (2, &#39;two&#39;), (3, &#39;three&#39;);</font><a name="wp155624"> </a>
+</pre>
+<a name="wp155658"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This will return a table of two columns and three rows. It is effectively equivalent to:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT 1 AS column1, &#39;one&#39; AS column2</font><a name="wp155626"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">UNION ALL</font><a name="wp155627"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT 2, &#39;two&#39;</font><a name="wp155628"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">UNION ALL</font><a name="wp155629"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT 3, &#39;three&#39;;</font><a name="wp155630"> </a>
+</pre>
+<a name="wp155631"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+More usually, <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> is used within a larger SQL command. The most common use is in <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films (code, title, did, date_prod, kind)</font><a name="wp155633"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    VALUES (&#39;T_601&#39;, &#39;Yojimbo&#39;, 106, &#39;1961-06-16&#39;, &#39;Drama&#39;);</font><a name="wp155634"> </a>
+</pre>
+<a name="wp155635"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In the context of <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, entries of a <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> list can be <code><font face="Courier New, Courier, mono" size="2">DEFAULT</font></code> to indicate that the column default should be used here instead of specifying a value: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films VALUES</font><a name="wp155637"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    (&#39;UA502&#39;, &#39;Bananas&#39;, 105, DEFAULT, &#39;Comedy&#39;, &#39;82 
+minutes&#39;),</font><a name="wp155638"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    (&#39;T_601&#39;, &#39;Yojimbo&#39;, 106, DEFAULT, &#39;Drama&#39;, DEFAULT);</font><a name="wp155639"> </a>
+</pre>
+<a name="wp155640"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> can also be used where a sub-<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> might be written, for example in a <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT f.* FROM films f, (VALUES(&#39;MGM&#39;, &#39;Horror&#39;), (&#39;UA&#39;, 
+&#39;Sci-Fi&#39;)) AS t (studio, kind) WHERE f.studio = t.studio AND 
+f.kind = t.kind;</font><a name="wp155642"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">UPDATE employees SET salary = salary * v.increase FROM 
+(VALUES(1, 200000, 1.2), (2, 400000, 1.4)) AS v (depno, 
+target, increase) WHERE employees.depno = v.depno AND 
+employees.sales &gt;= v.target;</font><a name="wp155646"> </a>
+</pre>
+<a name="wp155680"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Note that an <code><font face="Courier New, Courier, mono" size="2">AS</font></code> clause is required when <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> is used in a <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause, just as is true for <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>. It is not required that the <code><font face="Courier New, Courier, mono" size="2">AS</font></code> clause specify names for all the columns, but it is good practice to do so. The default column names for <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> are <code><font face="Courier New, Courier, mono" size="2">column1</font></code>, <code><font face="Courier New, Courier, mono" size="2">column2</font></code>, etc. in Greenplum Database, but these names might be different in other database systems.
+</font></p>
+<a name="wp155717"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> is used in <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, the values are all automatically coerced to the data type of the corresponding destination column. When it is used in other contexts, it may be necessary to specify the correct data type. If the entries are all quoted literal constants, coercing the first is sufficient to determine the assumed type for all: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM machines WHERE ip_address IN 
+(VALUES(&#39;192.168.0.1&#39;::inet), (&#39;192.168.0.10&#39;), 
+(&#39;192.168.1.43&#39;));</font><a name="wp155719"> </a>
+</pre>
+<a name="wp155721"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Note: For simple <code><font face="Courier New, Courier, mono" size="2">IN</font></code> tests, it is better to rely on the list-of-scalars form of <code><font face="Courier New, Courier, mono" size="2">IN</font></code> than to write a <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> query as shown above. The list of scalars method requires less writing and is often more efficient.
+</font></div>
+<a name="wp154035"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp155599"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> conforms to the SQL standard, except that <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> and <code><font face="Courier New, Courier, mono" size="2">OFFSET</font></code> are Greenplum Database extensions.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp152557"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="INSERT.html">INSERT</a>, <a href="SELECT.html">SELECT</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="VACUUM.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="IX.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

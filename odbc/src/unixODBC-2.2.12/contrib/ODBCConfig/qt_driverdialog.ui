@@ -1,0 +1,195 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>qt_driverDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>qt_driverDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>464</width>
+            <height>192</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>View ODBC Driver Configuration</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QFrame" row="1" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>driverFrame</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Raised</enum>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLineEdit" row="1" column="1">
+                    <property name="name">
+                        <cstring>driverDescriptionEdit</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="0">
+                    <property name="name">
+                        <cstring>textLabel7</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Driver description:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="0">
+                    <property name="name">
+                        <cstring>textLabel9</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Setup library:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="0">
+                    <property name="name">
+                        <cstring>textLabel8</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Driver library:</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="2" column="1">
+                    <property name="name">
+                        <cstring>driverEdit</cstring>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="3" column="1">
+                    <property name="name">
+                        <cstring>driverSetupEdit</cstring>
+                    </property>
+                </widget>
+                <widget class="QToolButton" row="2" column="2">
+                    <property name="name">
+                        <cstring>driverButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>...</string>
+                    </property>
+                </widget>
+                <widget class="QToolButton" row="3" column="2">
+                    <property name="name">
+                        <cstring>driverSetupButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>...</string>
+                    </property>
+                </widget>
+                <spacer row="4" column="0" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>spacer2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>420</width>
+                            <height>91</height>
+                        </size>
+                    </property>
+                </spacer>
+            </grid>
+        </widget>
+        <widget class="QPushButton" row="2" column="1">
+            <property name="name">
+                <cstring>saveButton</cstring>
+            </property>
+            <property name="text">
+                <string>Save</string>
+            </property>
+            <property name="iconSet">
+                <iconset>image0</iconset>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="2">
+            <property name="name">
+                <cstring>cancelButton</cstring>
+            </property>
+            <property name="text">
+                <string>Ca&amp;ncel</string>
+            </property>
+            <property name="accel">
+                <string>Alt+N</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+            <property name="iconSet">
+                <iconset>image1</iconset>
+            </property>
+        </widget>
+        <spacer row="2" column="0">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>191</width>
+                    <height>21</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>label</cstring>
+            </property>
+            <property name="font">
+                <font>
+                    <pointsize>9</pointsize>
+                    <bold>1</bold>
+                </font>
+            </property>
+            <property name="text">
+                <string>View ODBC Driver Configuration</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<images>
+    <image name="image0">
+        <data format="PNG" length="499">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff61000001ba49444154388dc5d3bd6b54411405f0dfee3ed611560cb846910dac24689526e247636182a56069c4541ad0422d04259de01fa02268912285582988a448a1889504835f8568b19225891631c1080b3ed649629197cd9a368503c3e1ccdc33f770ef9ddceaeaaaadacfc96d4c8b9ab4b34ab8106225204246d3b648ab5f3ee109c97e82d38e995684654b3928957b2e024f3b8ee336f1faee25e6c3a10a34bf920fc09213c149d1033913684d42e891b1d958e97d5fdd55b5233a27e7c2cc4437167f970f9745c8903713e4e8ae65a0ed883a15009a3e581f299d2b652b9feb63ea16948de3745f21aa696d2a5a641157b3d12f521882e2a7be69407861d4c1ba9fa44fdb1d45989efeb0e738675aa9a70599f058cf92ab5e8b8238e6137c6f1d41d253795fc6a15b8b406f36adea8e9d38341dde856c90a7a5f34e9b660446279738df259fba6bcb76c61e365358ce2b9115cc732599bdb30f11bd16b1f2cead529600ee3529f5db1c3e83f5dd98489147c31eb93059d528cfb69da352563ade0f6cc6dbca02723795d52fddef961da39c113796ccf84eb850bd96015d7784135bb684acd3b6ac905452f5a990a36c6b89889930d9efbefbff12f769f907ee50edd620000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="718">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff610000029549444154388d559331681c571445cfaede9837cb1a26a0b1678324982aeb22c16be4427d2aa7521130c46ea4808b2c24e034212145483a352e5c98a0a488bb5865546c91eda222c65b24f6164a58830563f02a33c40bf3102f28c51f095cddcfe7ddcb7dffdfdbda58dfc0dc5051cc8d3dd17eed7613517083e61e512ab7475f893e35b7d3b3f9d6e0ea0004707828f463d571fee147592d10a3d4584037a63fefcd278beac67de131ce2902ad33077ba27d9471fecd4e46ffcab9e81bf8e784275f7f3b9f2caa1bbba28fcded7429bd94f250e84722e3fcb3bb196fa7e02df8a70033a8e601170be87449d67a1d7f32d94c4f6c3c118aa5df56f240bebd9d7139816c0ddec9e1a880972f60f11f5c1018bc07ff2e886a6775add7f167d3cdde898fdbb5dbcdfcdd418600af2a58c900e0eab5805ec3f5e6bc92c3e114fe9a71a5abcb89b02588522f2ae29745d8f5c71fe0f6165c8ce1fd0f200a5cca1a3ef9180e67d4e7bf4624e646fcba82e7b33078340bf6bff8328834e47aeb16f1d18cda211628dd40405414aa120ca0066248de026dc8001a13a719f5f31971938fb31cb4cd2dbcf2bc80aa82d50cbedb09d6cb1aca1262e0de0ef1f541132e9a70411b516a0051e826f06037105ed770e716dc19362231dcdb852409a644c1a15db83d9aa273ba0a12c3f7f703f9d3219406af0ab8fb7910f96937acd44dd8c7ca67c2a8b5b1bed1da765b1fa8ee5fcb7acbc4ca790f9a0ee04057615101ca2f2f66e5be333c701b2da597527e178ad5131f9bdbe6eae55e878e86e8769366350d791665efefc372e4363c701f211c2fe52b39eece1fa2456a3676b3cde55eda89f422480417226a89f076cce8e9b41c9df8f0c07da4a2c7ee7efa461b115adbceba0a5be6442a604d916a8799303a707e45383e6be3ff4ca538709c34be5a0000000049454e44ae426082</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>cancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>qt_driverDialog</receiver>
+        <slot>reject()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>driverDescriptionEdit</tabstop>
+    <tabstop>driverEdit</tabstop>
+    <tabstop>driverSetupEdit</tabstop>
+    <tabstop>saveButton</tabstop>
+    <tabstop>cancelButton</tabstop>
+</tabstops>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

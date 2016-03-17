@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:55">
+    <title>CREATE SCHEMA</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_RULE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_SEQUENCE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE SCHEMA
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new schema.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE SCHEMA <code><font face="Courier New, Courier, mono" size="2"><i>schema_name</i></font></code> [AUTHORIZATION <code><font face="Courier New, Courier, mono" size="2"><i>username</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>schema_element</i></font></code> [ ... ]]</font></p><a name="wp148012"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE SCHEMA AUTHORIZATION <code><font face="Courier New, Courier, mono" size="2"><i>rolename</i></font></code> [<code><font face="Courier New, Courier, mono" size="2"><i>schema_element</i></font></code> [ ... ]]</font></p><a name="wp147566"> </a>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp148203"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE SCHEMA</font></code> enters a new schema into the current database. The schema name must be distinct from the name of any existing schema in the current database. 
+</font></p>
+<a name="wp148205"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A schema is essentially a namespace: it contains named objects (tables, data types, functions, and operators) whose names may duplicate those of other objects existing in other schemas. Named objects are accessed either by qualifying their names with the schema name as a prefix, or by setting a search path that includes the desired schema(s). A <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code> command specifying an unqualified object name creates the object in the current schema (the one at the front of the search path, which can be determined with the function <code><font face="Courier New, Courier, mono" size="2">current_schema</font></code>). 
+</font></p>
+<a name="wp148207"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Optionally, <code><font face="Courier New, Courier, mono" size="2">CREATE SCHEMA</font></code> can include subcommands to create objects within the new schema. The subcommands are treated essentially the same as separate commands issued after creating the schema, except that if the <code><font face="Courier New, Courier, mono" size="2">AUTHORIZATION</font></code> clause is used, all the created objects will be owned by that role.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp148062"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>schema_name</i></b></font>
+</b></font></h6>
+<a name="wp148063"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a schema to be created. If this is omitted, the user name is used as the schema name. The name cannot begin with pg_, as such names are reserved for system catalog schemas. 
+</font></div>
+<a name="wp148065"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>rolename</i></b></font>
+</b></font></h6>
+<a name="wp148066"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the role who will own the schema. If omitted, defaults to the role executing the command. Only superusers may create schemas owned by roles other than themselves.
+</font></div>
+<a name="wp148068"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>schema_element</i></b></font>
+</b></font></h6>
+<a name="wp148069"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An SQL statement defining an object to be created within the schema. Currently, only <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE</font></code>, <code><font face="Courier New, Courier, mono" size="2">CREATE VIEW</font></code>, <code><font face="Courier New, Courier, mono" size="2">CREATE INDEX</font></code>, <code><font face="Courier New, Courier, mono" size="2">CREATE SEQUENCE</font></code>, <code><font face="Courier New, Courier, mono" size="2">CREATE TRIGGER</font></code> and <code><font face="Courier New, Courier, mono" size="2">GRANT</font></code> are accepted as clauses within <code><font face="Courier New, Courier, mono" size="2">CREATE SCHEMA</font></code>. Other kinds of objects may be created in separate commands after the schema is created.
+</font></div>
+<a name="wp147533"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp148146"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create a schema, the invoking user must have the <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code> privilege for the current database or be a superuser.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp148249"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a schema:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE SCHEMA myschema;</font><a name="wp148250"> </a>
+</pre>
+<a name="wp148251"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a schema for role joe (the schema will also be named joe):
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE SCHEMA AUTHORIZATION joe;</font><a name="wp148252"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp148164"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard allows a <code><font face="Courier New, Courier, mono" size="2">DEFAULT CHARACTER SET</font></code> clause in <code><font face="Courier New, Courier, mono" size="2">CREATE SCHEMA</font></code>, as well as more subcommand types than are presently accepted by Greenplum Database. 
+</font></p>
+<a name="wp148166"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard specifies that the subcommands in <code><font face="Courier New, Courier, mono" size="2">CREATE SCHEMA</font></code> may appear in any order. The present Greenplum Database implementation does not handle all cases of forward references in subcommands; it may sometimes be necessary to reorder the subcommands in order to avoid forward references. 
+</font></p>
+<a name="wp148168"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+According to the SQL standard, the owner of a schema always owns all objects within it. Greenplum Database allows schemas to contain objects owned by users other than the schema owner. This can happen only if the schema owner grants the <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code> privilege on the schema to someone else.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp148060"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_SCHEMA.html">ALTER SCHEMA</a>, <a href="DROP_SCHEMA.html">DROP SCHEMA</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_RULE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_SEQUENCE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

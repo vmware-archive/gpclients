@@ -1,0 +1,494 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>qt_addDriverDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>qt_addDriverDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>484</width>
+            <height>306</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Add ODBC Driver Wizard</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <spacer row="2" column="1">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>152</width>
+                    <height>26</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QCheckBox" row="2" column="0">
+            <property name="name">
+                <cstring>expertCheck</cstring>
+            </property>
+            <property name="text">
+                <string>E&amp;xpert</string>
+            </property>
+            <property name="accel">
+                <string>Alt+X</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="4">
+            <property name="name">
+                <cstring>cancelButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Cancel</string>
+            </property>
+            <property name="accel">
+                <string>Alt+C</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="0" rowspan="1" colspan="5">
+            <property name="name">
+                <cstring>wizardLabel</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="font">
+                <font>
+                    <family></family>
+                    <pointsize>9</pointsize>
+                    <bold>1</bold>
+                </font>
+            </property>
+            <property name="text">
+                <string>Add ODBC Driver</string>
+            </property>
+            <property name="alignment">
+                <set>AlignVCenter</set>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="2">
+            <property name="name">
+                <cstring>previousButton</cstring>
+            </property>
+            <property name="text">
+                <string>Previo&amp;us</string>
+            </property>
+            <property name="accel">
+                <string>Alt+U</string>
+            </property>
+        </widget>
+        <widget class="QWidgetStack" row="1" column="0" rowspan="1" colspan="5">
+            <property name="name">
+                <cstring>wizard</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>GroupBoxPanel</enum>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>selectDriverPage</cstring>
+                </property>
+                <attribute name="id">
+                    <number>0</number>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>textLabel4</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Select the ODBC driver to add, or select "Other" to add a driver that is not listed.</string>
+                        </property>
+                        <property name="alignment">
+                            <set>WordBreak|AlignVCenter</set>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>otherDriverPage</cstring>
+                </property>
+                <attribute name="id">
+                    <number>1</number>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
+                        <property name="name">
+                            <cstring>textLabel5</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Enter a name, description and ODBC driver file. Driver files are commonly stored in /usr/lib on UNIX systems. Select an ODBC setup library if one was supplied with the driver.</string>
+                        </property>
+                        <property name="alignment">
+                            <set>WordBreak|AlignVCenter</set>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="1" column="1">
+                        <property name="name">
+                            <cstring>driverNameEdit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>ODBC Driver name</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver Name&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+The name of the ODBC driver.</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="2" column="1">
+                        <property name="name">
+                            <cstring>driverDescriptionEdit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>ODBC Driver Description</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver Description&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+A description of the ODBC driver.</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>textLabel6</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Driver name:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="2" column="0">
+                        <property name="name">
+                            <cstring>textLabel7</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Driver description:</string>
+                        </property>
+                    </widget>
+                    <spacer row="7" column="1">
+                        <property name="name">
+                            <cstring>spacer9</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>100</width>
+                                <height>30</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QToolButton" row="4" column="2">
+                        <property name="name">
+                            <cstring>setupButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>...</string>
+                        </property>
+                    </widget>
+                    <widget class="QToolButton" row="3" column="2">
+                        <property name="name">
+                            <cstring>driverButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>...</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="3" column="1">
+                        <property name="name">
+                            <cstring>driverEdit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>ODBC Driver Library</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver Library&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This is the full path to the ODBC Driver Library. Libraries are named with a .so file extension and are typically stored in /usr/lib or /usr/local/lib. You must specify a ODBC driver library.</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="4" column="1">
+                        <property name="name">
+                            <cstring>driverSetupEdit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>ODBC Driver Setup Library</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver Setup Library&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This is the full path to an ODBC driver setup library for the ODBC driver. ODBC driver setup libraries are used to help configure ODBC data sources.&lt;br&gt;
+&lt;br&gt;
+If the ODBC driver does not have a setup library or one is not provided with unixODBC specifically for the library, you can use a standard one. There are two standard driver setup libraries; a file based setup library (libodbcdrvcfg2S.so) and a server based setup library (libodbcdrvcfg1S.so).</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="4" column="0">
+                        <property name="name">
+                            <cstring>textLabel9</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Setup library:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="3" column="0">
+                        <property name="name">
+                            <cstring>textLabel8</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Driver library:</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>expertPage</cstring>
+                </property>
+                <attribute name="id">
+                    <number>2</number>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLineEdit" row="1" column="1">
+                        <property name="name">
+                            <cstring>driver64Edit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>ODBC Driver Library (64 bit)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver Library (64 bit)&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This is the full path to the ODBC Driver Library. Libraries are named with a .so file extension and are typically stored in /usr/lib or /usr/local/lib. You must specify a ODBC driver library.</string>
+                        </property>
+                    </widget>
+                    <widget class="QToolButton" row="2" column="2">
+                        <property name="name">
+                            <cstring>setup64Button</cstring>
+                        </property>
+                        <property name="text">
+                            <string>...</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="2" column="1">
+                        <property name="name">
+                            <cstring>driverSetup64Edit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>ODBC Driver Setup Library (64 Bit)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver Setup Library (64 bit)&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This is the full path to an ODBC driver setup library for the ODBC driver. ODBC driver setup libraries are used to help configure ODBC data sources.&lt;br&gt;
+&lt;br&gt;
+If the ODBC driver does not have a setup library or one is not provided with unixODBC specifically for the library, you can use a standard one. There are two standard driver setup libraries; a file based setup library (libodbcdrvcfg2S.so) and a server based setup library (libodbcdrvcfg1S.so).</string>
+                        </property>
+                    </widget>
+                    <widget class="QToolButton" row="1" column="2">
+                        <property name="name">
+                            <cstring>driver64Button</cstring>
+                        </property>
+                        <property name="text">
+                            <string>...</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="2" column="0">
+                        <property name="name">
+                            <cstring>textLabel11</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Setup 6&amp;4 library:</string>
+                        </property>
+                        <property name="buddy" stdset="0">
+                            <cstring>driverSetup64Edit</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>textLabel10</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Driver &amp;64 library:</string>
+                        </property>
+                        <property name="buddy" stdset="0">
+                            <cstring>driver64Edit</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="4" column="0">
+                        <property name="name">
+                            <cstring>reuseLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>CP Reuse:</string>
+                        </property>
+                        <property name="buddy" stdset="0">
+                            <cstring>reuseEdit</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="3" column="0">
+                        <property name="name">
+                            <cstring>timeoutLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>CP Timeout:</string>
+                        </property>
+                        <property name="buddy" stdset="0">
+                            <cstring>timeoutEdit</cstring>
+                        </property>
+                    </widget>
+                    <spacer row="5" column="0" rowspan="1" colspan="2">
+                        <property name="name">
+                            <cstring>spacer6</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>325</width>
+                                <height>32</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
+                        <property name="name">
+                            <cstring>expertOptionsLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>These are optional expert configuration options.</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="4" column="1">
+                        <property name="name">
+                            <cstring>reuseEdit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Connection Pool Reuse</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Connection Pool Reuse&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+The maximum number of times a connection can be reused in a Connection Pool. Set to a lower number when dealing with drivers which have stability issues or memory leaks.</string>
+                        </property>
+                    </widget>
+                    <widget class="QLineEdit" row="3" column="1">
+                        <property name="name">
+                            <cstring>timeoutEdit</cstring>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Connection Pool Timeout</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Connection Pool Timeout&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Number of seconds before a connection timesout when in a Connection Pool. Leave this value blank to disable Connection Pooling.</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>completedPage</cstring>
+                </property>
+                <attribute name="id">
+                    <number>3</number>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>finishedLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>The ODBC driver has been successfully added.</string>
+                        </property>
+                        <property name="textFormat">
+                            <enum>AutoText</enum>
+                        </property>
+                        <property name="alignment">
+                            <set>WordBreak|AlignVCenter</set>
+                        </property>
+                    </widget>
+                    <spacer row="1" column="0">
+                        <property name="name">
+                            <cstring>spacer11</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>438</width>
+                                <height>110</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </grid>
+            </widget>
+        </widget>
+        <widget class="QPushButton" row="2" column="3">
+            <property name="name">
+                <cstring>nextButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Next</string>
+            </property>
+            <property name="accel">
+                <string>Alt+N</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>cancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>qt_addDriverDialog</receiver>
+        <slot>reject()</slot>
+    </connection>
+</connections>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

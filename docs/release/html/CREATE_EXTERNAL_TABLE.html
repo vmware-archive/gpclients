@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:49">
+    <title>CREATE EXTERNAL TABLE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_DOMAIN.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_FUNCTION.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE EXTERNAL TABLE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new external table or web table.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>column_name</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>data_type</i></font></code> [, ...])</font></p><a name="wp151223"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;LOCATION (&#39;file://<code><font face="Courier New, Courier, mono" size="2"><i>seghost</i></font></code>[:<code><font face="Courier New, Courier, mono" size="2"><i>port</i></font></code>]/<code><font face="Courier New, Courier, mono" size="2"><i>path</i></font></code>/<code><font face="Courier New, Courier, mono" size="2"><i>file</i></font></code>&#39; [, ...])</font><a name="wp151224"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| (&#39;gpfdist://<code><font face="Courier New, Courier, mono" size="2"><i>filehost</i></font></code>[:<code><font face="Courier New, Courier, mono" size="2"><i>port</i></font></code>]/<code><font face="Courier New, Courier, mono" size="2"><i>file_pattern</i></font></code>&#39; [, ...])</font><a name="wp151225"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;FORMAT &#39;TEXT | CSV&#39; </font><a name="wp151227"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[( [DELIMITER [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>delimiter</i></font></code>&#39;]</font><a name="wp151228"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[NULL [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>null string</i></font></code>&#39;]</font><a name="wp151229"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ESCAPE [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>escape</i></font></code>&#39; | &#39;OFF&#39;]</font><a name="wp151230"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; [HEADER]</font><a name="wp151231"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[QUOTE [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>quote</i></font></code>&#39;] </font><a name="wp151232"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[FORCE NOT NULL <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> [, ...] )]</font><a name="wp147492"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ ENCODING &#39;<code><font face="Courier New, Courier, mono" size="2"><i>encoding</i></font></code>&#39; ]</font><a name="wp152021"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ [LOG ERRORS INTO <code><font face="Courier New, Courier, mono" size="2"><i>error_table</i></font></code>] SEGMENT REJECT LIMIT <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> </font><a name="wp151837"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ROWS | PERCENT] ]</font><a name="wp151835"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE EXTERNAL WEB TABLE <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>column_name</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>data_type</i></font></code> [, ...])</font></p><a name="wp150401"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;LOCATION (&#39;http://<code><font face="Courier New, Courier, mono" size="2"><i>webhost</i></font></code>[:<code><font face="Courier New, Courier, mono" size="2"><i>port</i></font></code>]/<code><font face="Courier New, Courier, mono" size="2"><i>path</i></font></code>/<code><font face="Courier New, Courier, mono" size="2"><i>file</i></font></code>&#39; [, ...])</font><a name="wp151255"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;| EXECUTE &#39;<code><font face="Courier New, Courier, mono" size="2"><i>command</i></font></code>&#39; [ON ALL </font><a name="wp150428"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| MASTER</font><a name="wp153059"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| <code><font face="Courier New, Courier, mono" size="2"><i>number_of_segments</i></font></code> </font><a name="wp150406"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| HOST [&#39;<code><font face="Courier New, Courier, mono" size="2"><i>segment_hostname</i></font></code>&#39;] </font><a name="wp150407"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| SEGMENT <code><font face="Courier New, Courier, mono" size="2"><i>segment_id</i></font></code> ]</font><a name="wp150529"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;FORMAT &#39;TEXT | CSV&#39; </font><a name="wp150643"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[( [DELIMITER [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>delimiter</i></font></code>&#39;]</font><a name="wp150644"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[NULL [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>null string</i></font></code>&#39;]</font><a name="wp150645"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ESCAPE [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>escape</i></font></code>&#39; | &#39;OFF&#39;]</font><a name="wp150646"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; [HEADER]</font><a name="wp150647"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[QUOTE [AS] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>quote</i></font></code>&#39;] </font><a name="wp150648"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[FORCE NOT NULL <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> [, ...] )]</font><a name="wp150649"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ ENCODING &#39;<code><font face="Courier New, Courier, mono" size="2"><i>encoding</i></font></code>&#39; ]</font><a name="wp152055"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ [LOG ERRORS INTO <code><font face="Courier New, Courier, mono" size="2"><i>error_table</i></font></code>] SEGMENT REJECT LIMIT <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> </font><a name="wp151850"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ROWS | PERCENT] ]</font><a name="wp151848"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp151388"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE</font></code> or <code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL WEB TABLE</font></code> creates a new external table or web table in Greenplum Database. Once an external or web table is defined, its data can be queried directly (and in parallel) using SQL commands. You can, for example, select, join, or sort external or web table data. You can also create views for external or web tables. However external and web tables are read-only. DML operations (<code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>, or<code><font face="Courier New, Courier, mono" size="2"> TRUNCATE</font></code>) are not allowed, and you cannot create indexes on external or web tables.
+</font></p>
+<a name="wp151386"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An external or web table definition can be thought of as a view that allows running any SQL query against external data sources without requiring that data to first be loaded into the database. External and web tables provide an easy way to perform basic extraction, transformation, and loading (ETL) tasks that are common in data warehousing. External and web table files are read in parallel by the Greenplum Database segment instances, so they also provide a means for fast data loading.
+</font></p>
+<a name="wp151415"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The main difference between external tables and web tables are their data sources. External tables access static flat files, whereas web tables access dynamic data sources - either on a web server or by executing OS commands or scripts. When a query is planned using an external table, the external table is considered rescannable since the data is thought to be static for the course of the query. For web tables, the data is not rescannable because there is the possibility that the data could change during the course of the query&#39;s execution.
+</font></p>
+<a name="wp151411"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+About External Tables
+</b></font></h4>
+<a name="wp151423"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE</font></code> creates a regular external table definition in Greenplum Database. An external table allows you to access flat files as though they were a regular database table. External table data is considered static (meaning the data does not change midstream during the execution of a query). This allows the query planner to choose plans that allow for rescanning of the external table data.
+</font></p>
+<a name="wp151425"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You may specify multiple external data sources or URIs (uniform resource identifiers) with the <code><font face="Courier New, Courier, mono" size="2">LOCATION</font></code> clause - up to the number of primary segment instances in your Greenplum Database array. Each URI points to an external data file or data source. These URIs do not need to exist prior to defining an external table (<code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE</font></code> does not validate the URIs specified). However you will get an error if they cannot be found when querying the external table.
+</font></p>
+<a name="wp151319"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There are two protocols that you can use to access the external table data sources. You may use one of the following protocols per <code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE</font></code> statement (cannot mix protocols):
+</font></p>
+<ul>
+<a name="wp152299"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>gpfdist</b></font></code> - If using the <code><font face="Courier New, Courier, mono" size="2">gpfdist://</font></code> protocol, you must have the Greenplum file distribution program (<code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code>) running on the host where the external data files reside. This program points to a given directory on the file host and serves external data files to all Greenplum Database segments in parallel. If files are compressed using <code><font face="Courier New, Courier, mono" size="2">gzip</font></code> or <code><font face="Courier New, Courier, mono" size="2">bzip2</font></code> (have a <code><font face="Courier New, Courier, mono" size="2">.gz</font></code> or <code><font face="Courier New, Courier, mono" size="2">.bz2</font></code> file extension), <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> will uncompress the files automatically (provided that <code><font face="Courier New, Courier, mono" size="2">gunzip</font></code> or <code><font face="Courier New, Courier, mono" size="2">bunzip2</font></code> is in your path).</font></li>
+</ul>
+
+<a name="wp152311"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+All primary segments access the external file(s) in parallel regardless of how many URIs you specify when defining the external table. You can use multiple <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> data sources in a <code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE </font></code>statement to scale the scan performance of the external table.
+</font></p>
+<a name="wp151807"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When specifying which files to get using <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code>, you can use the wildcard character (<code><font face="Courier New, Courier, mono" size="2">*</font></code>) or other C-style pattern matching to denote multiple files. The files specified are assumed to be relative to the directory from which <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> is serving files (the directory specified when you started the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> program).
+</font></p>
+<a name="wp151345"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> is located in <code><font face="Courier New, Courier, mono" size="2">$GPHOME/bin</font></code> on your Greenplum Database master host. See the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> reference documentation in the Greenplum Datafor more information on using this file distribution program with external tables.
+</font></p>
+<ul>
+<a name="wp151349"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>file</b></font></code> - If using the <code><font face="Courier New, Courier, mono" size="2">file://</font></code> protocol the external data file(s) must reside on a segment host in a location accessible by the Greenplum super user (<code><font face="Courier New, Courier, mono" size="2">gpadmin</font></code>). The number of URIs specified corresponds to the number of segment instances that will work in parallel to access the external table. So for example, if you have a Greenplum Database system with 8 primary segments and you specify 2 external files, only 2 of the 8 segments will access the external table in parallel at query time. The number of external files per segment host cannot exceed the number of primary segment instances on that host. For example, if your array has 4 primary segment instances per segment host, you may place 4 external files on each segment host. Also, the host name used in the URI must match the segment host name as registered in the gp_configuration system catalog table.</font></li>
+</ul>
+
+<a name="wp151313"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">FORMAT</font></code> clause is used to describe how the external table files are formatted. The files can be in delimited text (<code><font face="Courier New, Courier, mono" size="2">TEXT</font></code>) or comma separated values (<code><font face="Courier New, Courier, mono" size="2">CSV</font></code>) format, similar to the formatting options available with the PostgreSQL <a href="COPY.html">COPY</a> command. If the data in the file does not use the default column delimiter, escape character, null string and so on, you must specify the additional formatting options so that the data in the external file is read correctly by Greenplum Database.
+</font></p>
+<a name="wp150463"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+About Web Tables
+</b></font></h4>
+<a name="wp151496"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL WEB TABLE</font></code> creates a web table definition in Greenplum Database. A web table is a type of external table that allows you to access dynamic data sources as though they were a regular database table. Web table data is considered dynamic (meaning the data could possibly change midstream during the execution of a query). Therefore, the query planner must choose plans that do not allow for rescanning of the web table data.
+</font></p>
+<a name="wp151503"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There are two forms of defining a web table. You may use one of the following forms per <code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL WEB TABLE</font></code> statement (cannot mix the two forms): 
+</font></p>
+<ul>
+<a name="wp151505"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Web URLs. Specify the <code><font face="Courier New, Courier, mono" size="2">LOCATION</font></code> of files on a web server using the <code><font face="Courier New, Courier, mono" size="2">http://</font></code> protocol. The web data file(s) must reside on a web server that is accessible by the Greenplum segment hosts. The number of URLs specified corresponds to the number of segment instances that will work in parallel to access the web table. So for example, if you have a Greenplum Database system with 8 primary segments and you specify 2 external files, only 2 of the 8 segments will access the web table in parallel at query runtime.</font></li>
+</ul>
+
+<ul>
+<a name="wp151506"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">OS Command. Specify a shell command or script to <code><font face="Courier New, Courier, mono" size="2">EXECUTE</font></code> on one or more segments, the output of which will comprise the web table&#39;s data at the time of access. A web table defined with an <code><font face="Courier New, Courier, mono" size="2">EXECUTE</font></code> clause will execute the given OS shell command or script on the specified segment host or hosts. By default, the command is executed by all active segment instances on all segment hosts. For example, if each segment host has four primary segment instances running, the command will be executed four times per segment host. You can optionally limit the number of segment instances that execute the web table command. </font></li>
+</ul>
+
+<a name="wp150654"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Web table data is comprised of the output of the command at the time the web table statement is executed. All segment instances included in the web table definition (as specified by the <code><font face="Courier New, Courier, mono" size="2">ON</font></code> clause) execute the command in parallel. 
+</font></p>
+<a name="wp151009"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Disabling EXECUTE Web Tables
+</b></font></div>
+<a name="wp151025"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Web tables that execute OS commands or scripts have a certain security risk associated with them. Some database administrators may decide that they do not want their Greenplum Database systems exposed to this functionality. If this is the case, you can disable the use of <code><font face="Courier New, Courier, mono" size="2">EXECUTE</font></code> in external web table definitions by setting the following server configuration parameters in your master <code><font face="Courier New, Courier, mono" size="2">postgresql.conf</font></code> file:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">gp_external_enable_exec = off</font><a name="wp151042"> </a>
+</pre>
+<a name="wp150548"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Web Table Environment Variables
+</b></font></div>
+<a name="wp152069"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If you use environment variables in external web table commands (such as <code><font face="Courier New, Courier, mono" size="2">$PATH</font></code>), keep in mind that the command is executed from within the database and not from a login shell. Therefore the <code><font face="Courier New, Courier, mono" size="2">.bashrc</font></code> or <code><font face="Courier New, Courier, mono" size="2">.profile</font></code> of the current user will not be sourced. However, you can set desired environment variables from within the <code><font face="Courier New, Courier, mono" size="2">EXECUTE</font></code> clause of your external web table definition, for example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE EXTERNAL WEB TABLE blah (blah text) EXECUTE &#39;export 
+BLAH=blah-blah-blah; echo $BLAH&#39; FORMAT &#39;TEXT&#39;;</font><a name="wp152098"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM blah;</font><a name="wp152109"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;blah&#160;&#160;&#160;
+-------------
+blah-blah-blah
+blah-blah-blah
+(2 rows)</font><a name="wp152113"> </a>
+</pre>
+<a name="wp150567"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The following additional Greenplum Database variables are also available for use in OS commands executed by an external web table. These variables are set as environment variables in the shell that executes the command(s). They can be used to identify a set of requests made by a web table statement across the Greenplum Database array of hosts and segment instances.</font></p>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp150600"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.1   External Web Table Variables
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp150604"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Variable
+</b></font></div>
+</th>
+    <th><a name="wp150606"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Description
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp152190"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_CID
+</font></div>
+</td>
+    <td><a name="wp152192"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Command count of the session executing the external web table statement.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152198"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_DATABASE
+</font></div>
+</td>
+    <td><a name="wp152200"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The database that the external web table definition resides in.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152202"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_DATE
+</font></div>
+</td>
+    <td><a name="wp152204"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The date the external web table command was executed.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152213"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_MASTER_HOST
+</font></div>
+</td>
+    <td><a name="wp152218"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The host name of the Greenplum master host from which the external web table statement was dispatched.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152206"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_MASTER_PORT
+</font></div>
+</td>
+    <td><a name="wp152211"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The port number of the Greenplum master instance from which the external web table statement was dispatched.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152220"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_SEG_DATADIR
+</font></div>
+</td>
+    <td><a name="wp152222"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The location of the data directory of the segment instance executing the external web table command.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152224"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_SEG_PG_CONF
+</font></div>
+</td>
+    <td><a name="wp152226"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The location of the postgresql.conf file of the segment instance executing the external web table command.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152228"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_SEG_PORT
+</font></div>
+</td>
+    <td><a name="wp152230"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The port number of the segment instance executing the external web table command.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152338"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_SEGMENT_COUNT
+</font></div>
+</td>
+    <td><a name="wp152340"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The total number of primary segment instances in the Greenplum Database system.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152232"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_SEGMENT_ID
+</font></div>
+</td>
+    <td><a name="wp152234"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The ID number of the segment instance executing the external web table command (same as dbid in gp_configuration).
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152236"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_SESSION_ID
+</font></div>
+</td>
+    <td><a name="wp152238"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The database session identifier number associated with the external web table statement.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152240"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_SN
+</font></div>
+</td>
+    <td><a name="wp152242"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Serial number of the external web table scan node in the query plan of the external table statement.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152248"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_TIME
+</font></div>
+</td>
+    <td><a name="wp152250"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The time the external web table command was executed.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152320"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_USER 
+</font></div>
+</td>
+    <td><a name="wp152322"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The database user executing the external web table statement.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp152244"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+$GP_XID
+</font></div>
+</td>
+    <td><a name="wp152246"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The transaction ID of the external web table statement.
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></p>
+<a name="wp149070"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+External Tables and Single Row Error Isolation
+</b></font></h4>
+<a name="wp151939"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The most common use of external tables is selecting data from them to load into regular database tables. This is typically done by issuing a <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS SELECT</font></code> or <code><font face="Courier New, Courier, mono" size="2">INSERT INTO SELECT</font></code> command, where the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement queries external table data. By default, if the external table data contains an error, the entire command fails and no data is loaded into the target database table. To isolate data errors in external table data while still loading correctly formatted rows, you can define an external table with a <code><font face="Courier New, Courier, mono" size="2">SEGMENT REJECT LIMIT</font></code> clause. The reject limit <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> can be specified as number of <code><font face="Courier New, Courier, mono" size="2">ROWS</font></code> (the default) or a <code><font face="Courier New, Courier, mono" size="2">PERCENT</font></code> of total rows (1-99).
+</font></p>
+<a name="wp151965"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When <code><font face="Courier New, Courier, mono" size="2">SEGMENT REJECT LIMIT</font></code> is used, then the external data will be scanned in single row error isolation mode. This can be helpful in isolating errors when loading data from and external table using <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS SELECT</font></code> or <code><font face="Courier New, Courier, mono" size="2">INSERT INTO SELECT</font></code>. In this release, single row error isolation mode only applies to external data rows with format errors - for example, extra or missing attributes, attributes of a wrong data type, or invalid client encoding sequences. Constraint errors such as violation of a <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code>, <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code>, or <code><font face="Courier New, Courier, mono" size="2">UNIQUE</font></code> constraint will still be handled in `all-or-nothing&#39; input mode. The user can specify the number or percentage of error rows acceptable (on a per-segment basis), after which the entire external table operation will be aborted and no rows will be processed or loaded. Note that the count or percent of error rows is per-segment, not per entire operation. If the per-segment reject limit is not reached, then all rows not containing an error will be processed. If the limit is not reached, all good rows will be processed and any error rows discarded. If you would like to keep error rows for further examination, you can optionally declare an error table using the <code><font face="Courier New, Courier, mono" size="2">LOG ERRORS INTO</font></code> clause. Any rows containing a format error would then be logged to the specified error table.
+</font></p>
+<a name="wp151927"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+External Tables and Query Planner Statistics
+</b></font></h4>
+<a name="wp151744"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Because the data sources for external and web tables are outside of the database, statistics needed by the query planner are not collected when you run the <code><font face="Courier New, Courier, mono" size="2">ANALYZE</font></code> command. You can set some rough statistics for an external or web table by manually editing the system catalog table pg_class and specifying the number of rows and database pages (calculated as <code><font face="Courier New, Courier, mono" size="2"><i>data_size</i></font></code> <code><font face="Courier New, Courier, mono" size="2">/</font></code> <code><font face="Courier New, Courier, mono" size="2">32K</font></code>). By default, pg_class.reltuples (number of rows) is set to 1000000 and pg_class.relpages (number of pages) is set to 1000 for all external tables and web tables when they are first defined. To change these defaults, you can update these values for your external table in pg_class (as the database superuser). For example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">UPDATE pg_class SET reltuples=500000, relpages=150 WHERE 
+relname=&#39;my_ext_table&#39;;</font><a name="wp151775"> </a>
+</pre>
+<a name="wp151740"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp146738"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+WEB
+</b></font></h6>
+<a name="wp151634"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Creates a web table definition in Greenplum Database. A web table is a type of external table that allows you to access dynamic data sources. There are two forms of web tables - those that access files via the <code><font face="Courier New, Courier, mono" size="2">http://</font></code> protocol or those that access data by executing OS commands. Web tables are not rescannable during query execution.
+</font></div>
+<a name="wp151633"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table_name</i></b></font>
+</b></font></h6>
+<a name="wp146739"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the new external or web table.
+</font></div>
+<a name="wp146740"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column name</i></b></font>
+</b></font></h6>
+<a name="wp146826"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a column to create in the external or web table. Unlike regular tables, external and web tables do not have column constraints or default values, so do not specify those.
+</font></div>
+<a name="wp146741"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>data_type</i></b></font>
+</b></font></h6>
+<a name="wp150176"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type of the column.
+</font></div>
+<a name="wp150177"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+LOCATION (&#39;<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>protocol</i></b></font>://<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>host</i></b></font>[:<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>port</i></b></font>]/<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>path</i></b></font>/<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>file</i></b></font>&#39; [, ...])
+</b></font></h6>
+<a name="wp150178"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies the URI of the external data source(s) to be used to populate the external table or web table. Regular external tables allow the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> or <code><font face="Courier New, Courier, mono" size="2">file</font></code> protocols. Web tables allow the <code><font face="Courier New, Courier, mono" size="2">http</font></code> protocol. If <code><font face="Courier New, Courier, mono" size="2">port</font></code> is omitted for <code><font face="Courier New, Courier, mono" size="2">http</font></code> and <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> protocols, port <code><font face="Courier New, Courier, mono" size="2">8080</font></code> is assumed. If using the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> protocol, the <code><font face="Courier New, Courier, mono" size="2">path</font></code> is relative to the directory from which <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> is serving files (the directory specified when you started the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> program). Also, <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> can use wildcards (or other C-style pattern matching) to denote multiple files in a directory. For example:
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">gpfdist://filehost:8081/*</font><a name="wp148525"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">gpfdist://masterhost/my_load_file</font><a name="wp150001"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">file://seghost1/dbfast1/external/myfile.txt</font><a name="wp148937"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">http://intranet.mycompany.com/finance/expenses.csv</font><a name="wp148938"> </a>
+</pre>
+<a name="wp148939"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+EXECUTE &#39;<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>command</i></b></font>&#39; [ON ...]
+</b></font></h6>
+<a name="wp150809"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Allowed for web tables only. Specifies the OS command to be executed by the segment instances. The command can be a single OS command or a script. The <code><font face="Courier New, Courier, mono" size="2">ON</font></code> clause is used to specify which segment instances will execute the given command.
+</font></div>
+<ul>
+<a name="wp150831"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ON ALL</b></font> is the default. The command will be executed by every active (primary) segment instance on all segment hosts in the Greenplum Database system. If the command executes a script, that script must reside in the same location on all of the segment hosts and be executable by the Greenplum super user (<code><font face="Courier New, Courier, mono" size="2">gpadmin</font></code>).</font></li>
+</ul>
+
+<ul>
+<a name="wp153076"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ON MASTER</b></font> runs the command on the master host only.</font></li>
+</ul>
+
+<ul>
+<a name="wp150832"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ON</b></font><code><font face="Courier New, Courier, mono" size="2"><b> </b></font></code><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>number</i></b></font> means the command will be executed by the specified number of segments. The particular segments are chosen randomly at runtime by the Greenplum Database system. If the command executes a script, that script must reside in the same location on all of the segment hosts and be executable by the Greenplum superuser (<code><font face="Courier New, Courier, mono" size="2">gpadmin</font></code>). </font></li>
+</ul>
+
+<ul>
+<a name="wp150833"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>HOST</b></font> means the command will be executed by one segment on each segment host (once per segment host), regardless of the number of active segment instances per host. </font></li>
+</ul>
+
+<ul>
+<a name="wp153082"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>HOST</b></font><code><font face="Courier New, Courier, mono" size="2"><b> </b></font></code><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>segment_hostname</i></b></font> means the command will be executed by all active (primary) segment instances on the specified segment host. </font></li>
+</ul>
+
+<ul>
+<a name="wp153092"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>SEGMENT</b></font><code><font face="Courier New, Courier, mono" size="2"><b> </b></font></code><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>segment_id</i></b></font> means the command will be executed only once by the specified segment. You can determine a segment instance&#39;s ID by looking at the content number in the system catalog table gp_configuration. The content ID of the Greenplum Database master is always <code><font face="Courier New, Courier, mono" size="2">-1</font></code>. </font></li>
+</ul>
+
+<a name="wp153096"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FORMAT &#39;TEXT | CSV&#39; (<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>options</i></b></font>)
+</b></font></h6>
+<a name="wp146775"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies the format of the external or web table data - either plain text (TEXT) or comma separated values (CSV) format.
+</font></div>
+<a name="wp146777"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DELIMITER
+</b></font></h6>
+<a name="wp146778"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies a single character that separates columns within each row (line) of data. The default is a tab character in <code><font face="Courier New, Courier, mono" size="2">TEXT</font></code> mode, a comma in <code><font face="Courier New, Courier, mono" size="2">CSV</font></code> mode.
+</font></div>
+<a name="wp146780"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+NULL
+</b></font></h6>
+<a name="wp146781"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies the string that represents a null value. The default is <code><font face="Courier New, Courier, mono" size="2">\N</font></code> (backslash-N) in <code><font face="Courier New, Courier, mono" size="2">TEXT</font></code> mode, and an empty value with no quotations in <code><font face="Courier New, Courier, mono" size="2">CSV</font></code> mode. You might prefer an empty string even in <code><font face="Courier New, Courier, mono" size="2">TEXT</font></code> mode for cases where you do not want to distinguish nulls from empty strings. When using external and web tables, any data item that matches this string will be considered a null value. 
+</font></div>
+<a name="wp146786"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ESCAPE
+</b></font></h6>
+<a name="wp148269"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies the single character that is used for C escape sequences (such as <code><font face="Courier New, Courier, mono" size="2">\n</font></code>,<code><font face="Courier New, Courier, mono" size="2">\t</font></code>,<code><font face="Courier New, Courier, mono" size="2">\100</font></code>, and so on) and for escaping data characters that might otherwise be taken as row or column delimiters. Make sure to choose an escape character that is not used anywhere in your actual column data. The default escape character is a <code><font face="Courier New, Courier, mono" size="2">\</font></code> (backslash), however it is possible to specify any other character to represent an escape. It is also possible to disable escaping by specifying the value <code><font face="Courier New, Courier, mono" size="2">&#39;OFF&#39;</font></code> as the escape value. This is very useful for data such as web log data that has many embedded backslashes that are not intended to be escapes.
+</font></div>
+<a name="wp146789"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+HEADER
+</b></font></h6>
+<a name="wp146790"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+For <code><font face="Courier New, Courier, mono" size="2">CSV</font></code> formatted data, specifies that the first line in the data file(s) is a header row (contains the names of the table columns) and should not be included as data for the table. If using multiple flat files, all files must have a header row.
+</font></div>
+<a name="wp148257"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+QUOTE
+</b></font></h6>
+<a name="wp148258"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies the quotation character for <code><font face="Courier New, Courier, mono" size="2">CSV</font></code> mode. The default is double-quote (<code><font face="Courier New, Courier, mono" size="2">&quot;</font></code>).
+</font></div>
+<a name="wp148259"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FORCE NOT NULL
+</b></font></h6>
+<a name="wp148403"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In <code><font face="Courier New, Courier, mono" size="2">CSV</font></code> mode, processes each specified column as though it were quoted and hence not a <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> value. For the default null string in <code><font face="Courier New, Courier, mono" size="2">CSV</font></code> mode (nothing between two delimiters), this causes missing values to be evaluated as zero-length strings.
+</font></div>
+<a name="wp152036"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ENCODING</b></font> &#39;<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>encoding</i></b></font>&#39;
+</b></font></h6>
+<a name="wp152037"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Character set encoding to use for the external table. Specify a string constant (such as <code><font face="Courier New, Courier, mono" size="2">&#39;SQL_ASCII&#39;</font></code>), an integer encoding number, or <code><font face="Courier New, Courier, mono" size="2">DEFAULT</font></code> to use the default client encoding. See <a href="../../Output/Admin/localization.html#wp143790">&quot;Character Set Support&quot; </a>.
+</font></div>
+<a name="wp151867"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+LOG ERRORS INTO <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>error_table</i></b></font>
+</b></font></h6>
+<a name="wp151868"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This is an optional clause that may precede a <code><font face="Courier New, Courier, mono" size="2">SEGMENT REJECT LIMIT</font></code> clause. It specifies an error table where rows with formatting errors will be logged when running in single row error isolation mode. You can then examine this error table to see error rows that were not loaded (if any). If the <code><font face="Courier New, Courier, mono" size="2"><i>error_table</i></font></code> specified already exists, it will be used. If it does not exist, it will be automatically generated.
+</font></div>
+<a name="wp151869"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+SEGMENT REJECT LIMIT <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>count</i></b></font> [ROWS | PERCENT]
+</b></font></h6>
+<a name="wp151870"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Runs a <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> from an external table operation in single row error isolation mode. If the input rows have format errors they will be discarded provided that the reject limit count is not reached on any Greenplum segment instance during the load operation. The reject limit count can be specified as number of rows (the default) or percentage of total rows (1-99). If <code><font face="Courier New, Courier, mono" size="2">PERCENT</font></code> is used, the percentage of rows per segment is calculated based on the parameter <code><font face="Courier New, Courier, mono" size="2">gp_reject_percent_threshold</font></code> (default is 300 rows). Constraint errors such as violation of a <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code>, <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code>, or <code><font face="Courier New, Courier, mono" size="2">UNIQUE</font></code> constraint will still be handled in `all-or-nothing&#39; mode, meaning a single constraint error will cause the entire external table operation to fail. If the limit is not reached, all good rows will be processed and any error rows discarded.
+</font></div>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp148283"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is a system view named <code><font face="Courier New, Courier, mono" size="2">pg_max_external_files</font></code> that you can use to determine how many external table files are permitted per external table. This view lists the available file slots per segment host (if using the <code><font face="Courier New, Courier, mono" size="2">file://</font></code> protocol). For example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM pg_max_external_files;</font><a name="wp149376"> </a>
+</pre>
+<a name="wp149371"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If using the <code><font face="Courier New, Courier, mono" size="2">gpfdist://</font></code> protocol, the following server configuration parameter can be used to set the maximum number of segment instances that will go to one <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> file distribution program to get external table data in parallel. The default is 64 segment instances.
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">gp_external_max_segs = &lt;integer&gt;</font><a name="wp151064"> </a>
+</pre>
+<a name="wp151055"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> program serves files via the HTTP protocol. Queries of external tables that use a <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> clause will break off the HTTP connection after retrieving the rows causing an HTTP socket error. If using <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> in queries of external tables that use the <code><font face="Courier New, Courier, mono" size="2">gpfdist://</font></code> or <code><font face="Courier New, Courier, mono" size="2">http://</font></code> protocols, it is safe to ignore these HTTP socket errors from the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> or web server - data is still returned to the database client as expected.
+</font></p>
+<a name="wp151115"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+During dump/restore operations, only external and web table definitions will be backed up and restored. The data sources will not be included.
+</font></p>
+<a name="wp149757"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can use <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS</font></code> or <code><font face="Courier New, Courier, mono" size="2">INSERT...SELECT</font></code> to load external and web table data into another (non-external) database table, and the data will be loaded in parallel according to the external or web table definition.
+</font></p>
+<a name="wp149971"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If an external table file or web table data source has an error, any operation that reads from that table will fail. Similar to <code><font face="Courier New, Courier, mono" size="2">COPY</font></code>, loading from external and web tables is an all or nothing operation.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp148288"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Start the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> file server program in the background on port 8081 serving files from directory /var/data/staging: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">gpfdist -p 8081 -d /var/data/staging -l /home/<code><font face="Courier New, Courier, mono" size="2">gpadmin</font></code>/log &amp;</font><a name="wp149350"> </a>
+</pre>
+<a name="wp149347"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create an external table named ext_customer using the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> protocol and any text formatted files (<code><font face="Courier New, Courier, mono" size="2">*.txt</font></code>) found in the <code><font face="Courier New, Courier, mono" size="2">gpfdist</font></code> directory. The files are formatted with a pipe (<code><font face="Courier New, Courier, mono" size="2">|</font></code>) as the column delimiter and an empty space as null. Also access the external table in single row error isolation mode:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE ext_customer 
+&#160;&#160;&#160;(id int, name text, sponsor text) 
+&#160;&#160;&#160;LOCATION ( &#39;gpfdist://filehost:8081/*.txt&#39; ) 
+&#160;&#160;&#160;FORMAT &#39;TEXT&#39; ( DELIMITER &#39;|&#39; NULL &#39; &#39;)
+&#160;&#160;&#160;LOG ERRORS INTO err_customer SEGMENT REJECT LIMIT 5;</font><a name="wp149155"> </a>
+</pre>
+<a name="wp150118"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create the same external table definition as above, but with CSV formatted files:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE ext_customer 
+&#160;&#160;&#160;(id int, name text, sponsor text) 
+&#160;&#160;&#160;LOCATION ( &#39;gpfdist://filehost:8081/*.csv&#39; ) 
+&#160;&#160;&#160;FORMAT &#39;CSV&#39; ( DELIMITER &#39;,&#39; );</font><a name="wp150119"> </a>
+</pre>
+<a name="wp149210"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create an external table named ext_expenses using the <code><font face="Courier New, Courier, mono" size="2">file</font></code> protocol and several CSV formatted files that have a header row:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE ext_expenses (name text, date date, 
+amount float4, category text, description text) 
+LOCATION ( 
+&#39;file://seghost1/dbfast/external/expenses1.csv&#39;,
+&#39;file://seghost1/dbfast/external/expenses2.csv&#39;,
+&#39;file://seghost2/dbfast/external/expenses3.csv&#39;,
+&#39;file://seghost2/dbfast/external/expenses4.csv&#39;,
+&#39;file://seghost3/dbfast/external/expenses5.csv&#39;,
+&#39;file://seghost3/dbfast/external/expenses6.csv&#39;, 
+)
+FORMAT &#39;CSV&#39; ( HEADER );</font><a name="wp149211"> </a>
+</pre>
+<a name="wp151080"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a web table that executes a script once per segment host:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE EXTERNAL WEB TABLE log_output (linenum int, message 
+text) &#160;EXECUTE &#39;/var/load_scripts/get_log_data.sh&#39; ON HOST 
+&#160;FORMAT &#39;TEXT&#39; (DELIMITER &#39;|&#39;);</font><a name="wp151081"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp148293"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE EXTERNAL TABLE</font></code> is a Greenplum Database extension. The SQL standard makes no provisions for external tables.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a>, <a href="CREATE_TABLE.html">CREATE TABLE</a>, <a href="COPY.html">COPY</a>, <a href="SELECT_INTO.html">SELECT INTO</a>, <a href="INSERT.html">INSERT</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_DOMAIN.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_FUNCTION.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

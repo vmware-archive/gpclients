@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:39">
+    <title>ALTER DOMAIN</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="ALTER_DATABASE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="ALTER_FUNCTION.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+ALTER DOMAIN
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Changes the definition of a domain.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> { SET DEFAULT <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> | DROP DEFAULT }</font></p><a name="wp136466"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> { SET | DROP } NOT NULL</font></p><a name="wp136468"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> ADD <code><font face="Courier New, Courier, mono" size="2"><i>domain_constraint</i></font></code></font></p><a name="wp136470"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> DROP CONSTRAINT <code><font face="Courier New, Courier, mono" size="2"><i>constraint_name</i></font></code> [RESTRICT | CASCADE]</font></p><a name="wp136472"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> OWNER TO <code><font face="Courier New, Courier, mono" size="2"><i>new_owner</i></font></code></font></p><a name="wp136474"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> SET SCHEMA <code><font face="Courier New, Courier, mono" size="2"><i>new_schema</i></font></code></font></p><a name="wp136476"> </a>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp136676"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">ALTER DOMAIN</font></code> changes the definition of an existing domain. There are several sub-forms: 
+</font></p>
+<ul>
+<a name="wp136679"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET/DROP DEFAULT</b></font></code> - These forms set or remove the default value for a domain. Note that defaults only apply to subsequent <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> commands. They do not affect rows already in a table using the domain. </font></li>
+</ul>
+
+<ul>
+<a name="wp136731"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET/DROP NOT NULL</b></font></code> - These forms change whether a domain is marked to allow <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> values or to reject <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> values. You may only <code><font face="Courier New, Courier, mono" size="2">SET NOT NULL</font></code> when the columns using the domain contain no null values.</font></li>
+</ul>
+
+<ul>
+<a name="wp136747"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>ADD domain_constraint</b></font></code> - This form adds a new constraint to a domain using the same syntax as <code><font face="Courier New, Courier, mono" size="2">CREATE DOMAIN</font></code>. This will only succeed if all columns using the domain satisfy the new constraint. </font></li>
+</ul>
+
+<ul>
+<a name="wp136757"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>DROP CONSTRAINT</b></font></code> - This form drops constraints on a domain.</font></li>
+</ul>
+
+<ul>
+<a name="wp136764"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>OWNER</b></font></code> - This form changes the owner of the domain to the specified user. </font></li>
+</ul>
+
+<ul>
+<a name="wp136771"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET SCHEMA</b></font></code> - This form changes the schema of the domain. Any constraints associated with the domain are moved into the new schema as well. </font></li>
+</ul>
+
+<a name="wp136697"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You must own the domain to use <code><font face="Courier New, Courier, mono" size="2">ALTER DOMAIN</font></code>. To change the schema of a domain, you must also have <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code> privilege on the new schema. To alter the owner, you must also be a direct or indirect member of the new owning role, and that role must have <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code> privilege on the domain&#39;s schema. (These restrictions enforce that altering the owner does not do anything you could not do by dropping and recreating the domain. However, a superuser can alter ownership of any domain anyway.)
+</font></p>
+<a name="wp134773"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp136565"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp136566"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of an existing domain to alter. 
+</font></div>
+<a name="wp136568"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>domain_constraint</i></b></font>
+</b></font></h6>
+<a name="wp136569"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+New domain constraint for the domain. 
+</font></div>
+<a name="wp136571"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>constraint_name</i></b></font>
+</b></font></h6>
+<a name="wp136572"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Name of an existing constraint to drop. 
+</font></div>
+<a name="wp136574"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CASCADE
+</b></font></h6>
+<a name="wp136575"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Automatically drop objects that depend on the constraint. 
+</font></div>
+<a name="wp136577"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+RESTRICT
+</b></font></h6>
+<a name="wp136578"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Refuse to drop the constraint if there are any dependent objects. This is the default behavior. 
+</font></div>
+<a name="wp136580"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_owner</i></b></font>
+</b></font></h6>
+<a name="wp136581"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The user name of the new owner of the domain. 
+</font></div>
+<a name="wp136583"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_schema</i></b></font>
+</b></font></h6>
+<a name="wp136584"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The new schema for the domain. 
+</font></div>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp136816"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To add a <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code> constraint to a domain: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN zipcode SET NOT NULL;</font><a name="wp136818"> </a>
+</pre>
+<a name="wp136819"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To remove a <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code> constraint from a domain: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN zipcode DROP NOT NULL;</font><a name="wp136821"> </a>
+</pre>
+<a name="wp136823"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To add a check constraint to a domain: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN zipcode ADD CONSTRAINT zipchk CHECK 
+(char_length(VALUE) = 5);</font><a name="wp136825"> </a>
+</pre>
+<a name="wp136827"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To remove a check constraint from a domain: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN zipcode DROP CONSTRAINT zipchk;</font><a name="wp136829"> </a>
+</pre>
+<a name="wp136831"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To move the domain into a different schema: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER DOMAIN zipcode SET SCHEMA customers;</font><a name="wp136327"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp136896"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">ALTER DOMAIN</font></code> conforms to the SQL standard, except for the <code><font face="Courier New, Courier, mono" size="2">OWNER</font></code> and <code><font face="Courier New, Courier, mono" size="2">SET SCHEMA</font></code> variants, which are Greenplum Database extensions. 
+</font></p>
+<a name="wp136314"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp136319"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_DOMAIN.html">CREATE DOMAIN</a>, <a href="DROP_DOMAIN.html">DROP DOMAIN</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="ALTER_DATABASE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="ALTER_FUNCTION.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:07">
+    <title>LOCK</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="LOAD.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="MOVE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+LOCK
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp157412"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Locks a table.
+</font></div>
+<a name="wp155546"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">LOCK [TABLE] name [, ...] [IN <code><font face="Courier New, Courier, mono" size="2"><i>lockmode</i></font></code> MODE] [NOWAIT]</font></p><a name="wp157523"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where lockmode is one of:</font></p><a name="wp157525"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ACCESS SHARE | ROW SHARE | ROW EXCLUSIVE | SHARE UPDATE 
+EXCLUSIVE | SHARE | SHARE ROW EXCLUSIVE | EXCLUSIVE | ACCESS 
+EXCLUSIVE</font><a name="wp157527"> </a>
+</pre>
+<a name="wp155548"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp157576"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> obtains a table-level lock, waiting if necessary for any conflicting locks to be released. If <code><font face="Courier New, Courier, mono" size="2">NOWAIT</font></code> is specified, <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> does not wait to acquire the desired lock: if it cannot be acquired immediately, the command is aborted and an error is emitted. Once obtained, the lock is held for the remainder of the current transaction. There is no <code><font face="Courier New, Courier, mono" size="2">UNLOCK TABLE</font></code> command; locks are always released at transaction end.
+</font></p>
+<a name="wp157578"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When acquiring locks automatically for commands that reference tables, Greenplum Database always uses the least restrictive lock mode possible. <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> provides for cases when you might need more restrictive locking. For example, suppose an application runs a transaction at the Read Committed isolation level and needs to ensure that data in a table remains stable for the duration of the transaction. To achieve this you could obtain <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> lock mode over the table before querying. This will prevent concurrent data changes and ensure subsequent reads of the table see a stable view of committed data, because <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> lock mode conflicts with the <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code> lock acquired by writers, and your <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE </font></code><code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code><code><font face="Courier New, Courier, mono" size="2"> IN SHARE MODE</font></code> statement will wait until any concurrent holders of <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code> mode locks commit or roll back. Thus, once you obtain the lock, there are no uncommitted writes outstanding; furthermore none can begin until you release the lock.
+</font></p>
+<a name="wp157580"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To achieve a similar effect when running a transaction at the Serializable isolation level, you have to execute the <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> statement before executing any <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> or data modification statement. A serializable transaction&#39;s view of data will be frozen when its first <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> or data modification statement begins. A <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> later in the transaction will still prevent concurrent writes - but it won&#39;t ensure that what the transaction reads corresponds to the latest committed values.
+</font></p>
+<a name="wp157582"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If a transaction of this sort is going to change the data in the table, then it should use <code><font face="Courier New, Courier, mono" size="2">SHARE ROW EXCLUSIVE</font></code> lock mode instead of <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> mode. This ensures that only one transaction of this type runs at a time. Without this, a deadlock is possible: two transactions might both acquire <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> mode, and then be unable to also acquire <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code> mode to actually perform their updates. Note that a transaction&#39;s own locks never conflict, so a transaction can acquire <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code> mode when it holds <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> mode - but not if anyone else holds <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> mode. To avoid deadlocks, make sure all transactions acquire locks on the same objects in the same order, and if multiple lock modes are involved for a single object, then transactions should always acquire the most restrictive mode first.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp157686"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp157687"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of an existing table to lock. 
+</font></div>
+<a name="wp157689"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If multiple tables are given, tables are locked one-by-one in the order specified in the <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> command.
+</font></div>
+<a name="wp157691"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>lockmode</i></b></font>
+</b></font></h6>
+<a name="wp157692"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The lock mode specifies which locks this lock conflicts with. If no lock mode is specified, then <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code>, the most restrictive mode, is used. Lock modes are as follows:
+</font></div>
+<ul>
+<a name="wp157736"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ACCESS SHARE</b></font> - Conflicts with the <code><font face="Courier New, Courier, mono" size="2"><b>ACCESS EXCLUSIVE</b></font></code> lock mode only. The commands <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> and <code><font face="Courier New, Courier, mono" size="2">ANALYZE</font></code> automatically acquire a lock of this mode on referenced tables. In general, any query that only reads a table and does not modify it will acquire this lock mode.</font></li>
+</ul>
+
+<ul>
+<a name="wp157739"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ROW SHARE</b></font> - Conflicts with the <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code> and <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code> lock modes. The <code><font face="Courier New, Courier, mono" size="2">SELECT FOR UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">SELECT FOR SHARE</font></code> commands automatically acquire a lock of this mode on the target table(s) (in addition to <code><font face="Courier New, Courier, mono" size="2">ACCESS SHARE</font></code> locks on any other tables that are referenced but not selected <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE/FOR SHARE</font></code>). </font></li>
+</ul>
+
+<ul>
+<a name="wp157742"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ROW EXCLUSIVE</b></font> - Conflicts with the <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code> lock modes. The commands <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> and <code><font face="Courier New, Courier, mono" size="2">COPY</font></code> automatically acquire this lock mode on the target table (in addition to <code><font face="Courier New, Courier, mono" size="2">ACCESS SHARE</font></code> locks on any other referenced tables). </font></li>
+</ul>
+
+<ul>
+<a name="wp157745"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>SHARE UPDATE EXCLUSIVE</b></font> - Conflicts with the <code><font face="Courier New, Courier, mono" size="2">SHARE UPDATE</font></code> <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code> lock modes. This mode protects a table against concurrent schema changes and <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> runs. Acquired automatically by <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> (without <code><font face="Courier New, Courier, mono" size="2">FULL</font></code>). </font></li>
+</ul>
+
+<ul>
+<a name="wp157748"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>SHARE</b></font> - Conflicts with the <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE UPDATE EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE ROW EXCLUSIVE, EXCLUSIVE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code> lock modes. This mode protects a table against concurrent data changes. Acquired automatically by <code><font face="Courier New, Courier, mono" size="2">CREATE INDEX</font></code>. </font></li>
+</ul>
+
+<ul>
+<a name="wp157751"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>SHARE ROW EXCLUSIVE</b></font> - Conflicts with the <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE UPDATE EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code> lock modes. This lock mode is not automatically acquired by any Greenplum Database command. </font></li>
+</ul>
+
+<ul>
+<a name="wp157754"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>EXCLUSIVE</b></font> - Conflicts with the <code><font face="Courier New, Courier, mono" size="2">ROW SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE UPDATE EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code> lock modes. This mode allows only concurrent <code><font face="Courier New, Courier, mono" size="2">ACCESS SHARE</font></code> locks, i.e., only reads from the table can proceed in parallel with a transaction holding this lock mode. This lock mode is automatically acquired for <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code> in Greenplum Database (which is more restrictive locking than in regular PostgreSQL). </font></li>
+</ul>
+
+<ul>
+<a name="wp157757"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>ACCESS EXCLUSIVE</b></font> - Conflicts with locks of all modes (<code><font face="Courier New, Courier, mono" size="2">ACCESS SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">ROW SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE UPDATE EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code>, <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code>). This mode guarantees that the holder is the only transaction accessing the table in any way. Acquired automatically by the <code><font face="Courier New, Courier, mono" size="2">ALTER TABLE</font></code>, <code><font face="Courier New, Courier, mono" size="2">DROP TABLE</font></code>, <code><font face="Courier New, Courier, mono" size="2">REINDEX</font></code>, <code><font face="Courier New, Courier, mono" size="2">CLUSTER</font></code>, and <code><font face="Courier New, Courier, mono" size="2">VACUUM FULL</font></code> commands. This is also the default lock mode for <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> statements that do not specify a mode explicitly.</font></li>
+</ul>
+
+<a name="wp157696"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+NOWAIT
+</b></font></h6>
+<a name="wp157697"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies that <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> should not wait for any conflicting locks to be released: if the specified lock(s) cannot be acquired immediately without waiting, the transaction is aborted.
+</font></div>
+<a name="wp156650"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp158160"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">LOCK TABLE ... IN ACCESS SHARE MODE</font></code> requires <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> privileges on the target table. All other forms of <code><font face="Courier New, Courier, mono" size="2">LOCK</font></code> require <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> and/or <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code> privileges.
+</font></p>
+<a name="wp158162"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> is useful only inside a transaction block (<code><font face="Courier New, Courier, mono" size="2">BEGIN/COMMIT</font></code> pair), since the lock is dropped as soon as the transaction ends. A <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> command appearing outside any transaction block forms a self-contained transaction, so the lock will be dropped as soon as it is obtained.
+</font></p>
+<a name="wp158164"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> only deals with table-level locks, and so the mode names involving <code><font face="Courier New, Courier, mono" size="2">ROW</font></code> are all misnomers. These mode names should generally be read as indicating the intention of the user to acquire row-level locks within the locked table. Also, <code><font face="Courier New, Courier, mono" size="2">ROW EXCLUSIVE</font></code> mode is a sharable table lock. Keep in mind that all the lock modes have identical semantics so far as <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> is concerned, differing only in the rules about which modes conflict with which. For information on how to acquire an actual row-level lock, see the <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE/FOR SHARE</font></code> clause in the <a href="SELECT.html">SELECT</a> reference documentation.
+</font></p>
+<a name="wp158157"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp158110"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Obtain a <code><font face="Courier New, Courier, mono" size="2">SHARE</font></code> lock on a primary key table when going to perform inserts into a foreign key table:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">BEGIN WORK;</font><a name="wp158112"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">LOCK TABLE films IN SHARE MODE;</font><a name="wp158113"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT id FROM films </font><a name="wp158114"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    WHERE name = &#39;Star Wars: Episode I - The Phantom Menace&#39;;</font><a name="wp158115"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">-- Do ROLLBACK if record was not returned</font><a name="wp158116"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films_user_comments VALUES </font><a name="wp158117"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    (_id_, &#39;GREAT! I was waiting for it for so long!&#39;);</font><a name="wp158118"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">COMMIT WORK;</font><a name="wp158119"> </a>
+</pre>
+<a name="wp158120"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Take a <code><font face="Courier New, Courier, mono" size="2">SHARE ROW EXCLUSIVE</font></code> lock on a primary key table when going to perform a delete operation:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">BEGIN WORK;</font><a name="wp158122"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">LOCK TABLE films IN SHARE ROW EXCLUSIVE MODE;</font><a name="wp158123"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">DELETE FROM films_user_comments WHERE id IN</font><a name="wp158124"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    (SELECT id FROM films WHERE rating &lt; 5);</font><a name="wp158125"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">DELETE FROM films WHERE rating &lt; 5;</font><a name="wp158126"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">COMMIT WORK;</font><a name="wp157251"> </a>
+</pre>
+<a name="wp154035"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp158073"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is no <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> in the SQL standard, which instead uses <code><font face="Courier New, Courier, mono" size="2">SET TRANSACTION</font></code> to specify concurrency levels on transactions. Greenplum Database supports that too. 
+</font></p>
+<a name="wp158075"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Except for <code><font face="Courier New, Courier, mono" size="2">ACCESS SHARE</font></code>, <code><font face="Courier New, Courier, mono" size="2">ACCESS EXCLUSIVE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">SHARE UPDATE EXCLUSIVE</font></code> lock modes, the Greenplum Database lock modes and the <code><font face="Courier New, Courier, mono" size="2">LOCK TABLE</font></code> syntax are compatible with those present in Oracle.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp156110"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="BEGIN.html">BEGIN</a>, <a href="SET_TRANSACTION.html">SET TRANSACTION</a>, <a href="SELECT.html">SELECT</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="LOAD.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="MOVE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

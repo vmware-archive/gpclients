@@ -1,0 +1,528 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:55">
+    <title>CREATE TABLE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_SEQUENCE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TABLE_AS.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE TABLE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new table.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE [[GLOBAL | LOCAL] {TEMPORARY | TEMP}] TABLE <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> ( </font></p><a name="wp149764"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ { <code><font face="Courier New, Courier, mono" size="2"><i>column_name</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>data_type</i></font></code> [DEFAULT <code><font face="Courier New, Courier, mono" size="2"><i>default_expr</i></font></code>] </font><a name="wp149780"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[<code><font face="Courier New, Courier, mono" size="2"><i>column_constraint</i></font></code> [ ... ]]</font><a name="wp149781"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| <code><font face="Courier New, Courier, mono" size="2"><i>table_constraint</i></font></code></font><a name="wp149925"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| LIKE <code><font face="Courier New, Courier, mono" size="2"><i>parent_table</i></font></code> [{INCLUDING | EXCLUDING} </font><a name="wp149926"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{DEFAULTS | CONSTRAINTS}] ...}</font><a name="wp149929"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, ... ] ] )</font><a name="wp149799"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[ INHERITS ( <code><font face="Courier New, Courier, mono" size="2"><i>parent_table</i></font></code> [, ... ] ) ]</font><a name="wp149770"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[ WITH ( <code><font face="Courier New, Courier, mono" size="2"><i>storage_parameter</i></font></code>=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> [, ... ] ) 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| WITH OIDS | WITHOUT OIDS ]</font><a name="wp152282"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[ ON COMMIT {PRESERVE ROWS | DELETE ROWS | DROP} ]</font><a name="wp149772"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[ TABLESPACE tablespace ]</font><a name="wp149773"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[ DISTRIBUTED BY (<code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code>, [ ... ] ) | DISTRIBUTED RANDOMLY ]</font><a name="wp149917"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[ PARTITION BY <code><font face="Courier New, Courier, mono" size="2"><i>partition_type</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code>)</font><a name="wp149817"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ SUBPARTITION BY <code><font face="Courier New, Courier, mono" size="2"><i>partition_type</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code>) ] [...]</font><a name="wp152785"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ SUBPARTITION TEMPLATE ( <code><font face="Courier New, Courier, mono" size="2"><i>template_specification </i></font></code>) ]</font><a name="wp154183"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;( <code><font face="Courier New, Courier, mono" size="2"><i>partition_specification</i></font></code> [( <code><font face="Courier New, Courier, mono" size="2"><i>subpartition_specification</i></font></code> )] </font><a name="wp154184"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[, ...] )</font><a name="wp154719"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where storage_parameter is:</font></p><a name="wp153410"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;APPENDONLY={TRUE|FALSE}</font><a name="wp152631"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[COMPRESSLEVEL={0-9}]</font><a name="wp154577"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[COMPRESSTYPE={ZLIB|QUICKLZ}</font><a name="wp154720"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[FILLFACTOR={10-100}]</font><a name="wp154579"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where column_constraint is:</font></p><a name="wp149677"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[CONSTRAINT <code><font face="Courier New, Courier, mono" size="2"><i>constraint_name</i></font></code>]</font><a name="wp149679"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;NOT NULL | NULL </font><a name="wp149866"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;| UNIQUE [USING INDEX TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>tablespace</i></font></code>]</font><a name="wp149867"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[WITH ( FILLFACTOR = <code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> )]</font><a name="wp149942"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;| PRIMARY KEY [USING INDEX TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>tablespace</i></font></code>] </font><a name="wp149868"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[WITH ( FILLFACTOR = <code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> )]</font><a name="wp149849"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;| CHECK ( <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> )</font><a name="wp149956"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">and table_constraint is:</font></p><a name="wp149689"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[CONSTRAINT <code><font face="Courier New, Courier, mono" size="2"><i>constraint_name</i></font></code>]</font><a name="wp149691"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;UNIQUE ( <code><font face="Courier New, Courier, mono" size="2"><i>column_name</i></font></code> [, ... ] )</font><a name="wp149692"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[USING INDEX TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>tablespace</i></font></code>] </font><a name="wp149987"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[WITH ( FILLFACTOR=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> )] </font><a name="wp149988"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;| PRIMARY KEY ( <code><font face="Courier New, Courier, mono" size="2"><i>column_name</i></font></code> [, ... ] ) </font><a name="wp149693"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[USING INDEX TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>tablespace</i></font></code>] </font><a name="wp149989"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[WITH ( FILLFACTOR=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> )] </font><a name="wp149990"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;| CHECK ( <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> )</font><a name="wp149694"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where partition_type is:</font></p><a name="wp152545"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;LIST</font><a name="wp152858"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| RANGE</font><a name="wp152859"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where partition_specification is:</font></p><a name="wp152756"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>partition_element</i></font></code> [, ...]</font><a name="wp153785"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">and partition_element is:</font></p><a name="wp153786"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;DEFAULT PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code></font><a name="wp153787"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] VALUES (<code><font face="Courier New, Courier, mono" size="2"><i>list_value</i></font></code> [,...] )</font></p><a name="wp153788"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] </font></p><a name="wp153789"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;START ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>start_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font><a name="wp153790"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE] ]</font><a name="wp153791"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ EVERY ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>number | </i></font></code>INTERVAL] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>interval_value</i></font></code>&#39;) ]</font><a name="wp153792"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] </font></p><a name="wp153793"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font><a name="wp153794"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ EVERY ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>number | </i></font></code>INTERVAL] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>interval_value</i></font></code>&#39;) ]</font><a name="wp153795"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">[ WITH ( <code><font face="Courier New, Courier, mono" size="2"><i>partition_storage_parameter</i></font></code>=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> [, ... ] ) ]</font></p><a name="wp153796"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[ TABLESPACE tablespace ]</font><a name="wp153762"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where subpartition_specification or template_specification is:</font></p><a name="wp153758"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>subpartition_element</i></font></code> [, ...]</font><a name="wp153674"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">and subpartition_element is:</font></p><a name="wp153675"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;DEFAULT SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code></font><a name="wp153300"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] VALUES (<code><font face="Courier New, Courier, mono" size="2"><i>list_value</i></font></code> [,...] )</font></p><a name="wp152702"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] </font></p><a name="wp153305"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;START ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>start_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font><a name="wp153370"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE] ]</font><a name="wp152892"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ EVERY ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>number | </i></font></code>INTERVAL] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>interval_value</i></font></code>&#39;) ]</font><a name="wp152925"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] </font></p><a name="wp153334"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font><a name="wp153374"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ EVERY ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>number | </i></font></code>INTERVAL] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>interval_value</i></font></code>&#39;) ]</font><a name="wp153330"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">[ WITH ( <code><font face="Courier New, Courier, mono" size="2"><i>partition_storage_parameter</i></font></code>=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> [, ... ] ) ]</font></p><a name="wp153100"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[ TABLESPACE tablespace ]</font><a name="wp153736"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp149995"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE TABLE</font></code> will create a new, initially empty table in the current database. The table will be owned by the user issuing the command. 
+</font></p>
+<a name="wp149997"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If a schema name is given then the table is created in the specified schema. Otherwise it is created in the current schema. Temporary tables exist in a special schema, so a schema name may not be given when creating a temporary table. The name of the table must be distinct from the name of any other table, external table, sequence, index, or view in the same schema.
+</font></p>
+<a name="wp150001"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional constraint clauses specify conditions that new or updated rows must satisfy for an insert or update operation to succeed. A constraint is an SQL object that helps define the set of valid values in the table in various ways. 
+</font></p>
+<a name="wp150003"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There are two ways to define constraints: table constraints and column constraints. A column constraint is defined as part of a column definition. A table constraint definition is not tied to a particular column, and it can encompass more than one column. Every column constraint can also be written as a table constraint; a column constraint is only a notational convenience for use when the constraint only affects one column.
+</font></p>
+<a name="wp150148"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When creating a table, there is an additional clause to declare the Greenplum Database distribution policy. If a <code><font face="Courier New, Courier, mono" size="2">DISTRIBUTED BY</font></code> or <code><font face="Courier New, Courier, mono" size="2">DISTRIBUTED RANDOMLY</font></code> clause is not supplied, then Greenplum assigns a hash distribution policy to the table using either the <code><font face="Courier New, Courier, mono" size="2">PRIMARY KEY</font></code> (if the table has one) or the first column of the table as the distribution key. Columns of geometric or user-defined data types are not eligible as Greenplum distribution key columns. If a table does not have a column of an eligible data type, the rows are distributed based on a round-robin or random distribution. To ensure an even distribution of data in your Greenplum Database system, you want to choose a distribution key that is unique for each record, or if that is not possible, then choose <code><font face="Courier New, Courier, mono" size="2">DISTRIBUTED RANDOMLY</font></code>.
+</font></p>
+<a name="wp154660"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">PARTITION BY</font></code> clause allows you to divide the table into multiple sub-tables (or child tables) that inherit from the parent table. Table partitioning creates a persistent relationship between the child table partitions and the parent table, so that all of the schema information from the parent table propagates to the child table partitions. Each child table partition is created with a distinct <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraint, which limits the data the table can contain based on some defining criteria. The <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraints are also used by the query planner to determine which table partitions to scan in order to satisfy a given query predicate.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp150504"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+GLOBAL | LOCAL
+</b></font></h6>
+<a name="wp150710"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+These keywords are present for SQL standard compatibility, but have no effect in Greenplum Database. 
+</font></div>
+<a name="wp150709"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+TEMPORARY | TEMP
+</b></font></h6>
+<a name="wp150505"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If specified, the table is created as a temporary table. Temporary tables are automatically dropped at the end of a session, or optionally at the end of the current transaction (see <code><font face="Courier New, Courier, mono" size="2">ON COMMIT</font></code>). Existing permanent tables with the same name are not visible to the current session while the temporary table exists, unless they are referenced with schema-qualified names. Any indexes created on a temporary table are automatically temporary as well.
+</font></div>
+<a name="wp150509"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table_name</i></b></font>
+</b></font></h6>
+<a name="wp150510"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the table to be created. 
+</font></div>
+<a name="wp150512"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column_name</i></b></font>
+</b></font></h6>
+<a name="wp150513"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a column to be created in the new table. 
+</font></div>
+<a name="wp150515"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>data_type</i></b></font>
+</b></font></h6>
+<a name="wp150516"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type of the column. This may include array specifiers.
+</font></div>
+<a name="wp150518"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DEFAULT <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>default_expr</i></b></font>
+</b></font></h6>
+<a name="wp150519"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">DEFAULT</font></code> clause assigns a default data value for the column whose column definition it appears within. The value is any variable-free expression (subqueries and cross-references to other columns in the current table are not allowed). The data type of the default expression must match the data type of the column. The default expression will be used in any insert operation that does not specify a value for the column. If there is no default for a column, then the default is null. 
+</font></div>
+<a name="wp150523"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+INHERITS ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>parent_table</i></b></font> [, ... ] )
+</b></font></h6>
+<a name="wp150524"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">INHERITS</font></code> clause specifies a list of tables from which the new table automatically inherits all columns. Use of <code><font face="Courier New, Courier, mono" size="2">INHERITS</font></code> creates a persistent relationship between the new child table and its parent table(s). Schema modifications to the parent(s) normally propagate to children as well, and by default the data of the child table is included in scans of the parent(s). 
+</font></div>
+<a name="wp150528"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the same column name exists in more than one parent table, an error is reported unless the data types of the columns match in each of the parent tables. If there is no conflict, then the duplicate columns are merged to form a single column in the new table. If the column name list of the new table contains a column name that is also inherited, the data type must likewise match the inherited column(s), and the column definitions are merged into one. However, inherited and new column declarations of the same name need not specify identical constraints: all constraints provided from any declaration are merged together and all are applied to the new table. If the new table explicitly specifies a default value for the column, this default overrides any defaults from inherited declarations of the column. Otherwise, any parents that specify default values for the column must all specify the same default, or an error will be reported. 
+</font></div>
+<a name="wp150530"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+LIKE <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>parent_table</i></b></font> [{INCLUDING | EXCLUDING} {DEFAULTS | CONSTRAINTS}]
+</b></font></h6>
+<a name="wp150531"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">LIKE</font></code> clause specifies a table from which the new table automatically copies all column names, their data types, and their not-null constraints. Unlike <code><font face="Courier New, Courier, mono" size="2">INHERITS</font></code>, the new table and original table are completely decoupled after creation is complete.
+</font></div>
+<a name="wp150535"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Default expressions for the copied column definitions will only be copied if <code><font face="Courier New, Courier, mono" size="2">INCLUDING DEFAULTS</font></code> is specified. The default behavior is to exclude default expressions, resulting in the copied columns in the new table having null defaults. 
+</font></div>
+<a name="wp150537"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Not-null constraints are always copied to the new table. <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraints will only be copied if <code><font face="Courier New, Courier, mono" size="2">INCLUDING CONSTRAINTS</font></code> is specified; other types of constraints will never be copied. Also, no distinction is made between column constraints and table constraints - when constraints are requested, all check constraints are copied. 
+</font></div>
+<a name="wp150539"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Note also that unlike <code><font face="Courier New, Courier, mono" size="2">INHERITS</font></code>, copied columns and constraints are not merged with similarly named columns and constraints. If the same name is specified explicitly or in another <code><font face="Courier New, Courier, mono" size="2">LIKE</font></code> clause an error is signalled. 
+</font></div>
+<a name="wp150541"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CONSTRAINT <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>constraint_name</i></b></font>
+</b></font></h6>
+<a name="wp150542"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An optional name for a column or table constraint. If the constraint is violated, the constraint name is present in error messages, so constraint names like column must be positive can be used to communicate helpful constraint information to client applications. (Double-quotes are needed to specify constraint names that contain spaces.) If a constraint name is not specified, the system generates a name. 
+</font></div>
+<a name="wp150544"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+NULL | NOT NULL 
+</b></font></h6>
+<a name="wp150545"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies if the column is or is not allowed to contain null values. <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> is the default.
+</font></div>
+<a name="wp150552"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+UNIQUE ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column constraint</i></b></font> ) <br>UNIQUE ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column_name</i></b></font> [, ... ] ) ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table constraint </i></b></font>)
+</b></font></h6>
+<a name="wp150554"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">UNIQUE</font></code> constraint specifies that a group of one or more columns of a table may contain only unique values. The behavior of the unique table constraint is the same as that for column constraints, with the additional capability to span multiple columns. For the purpose of a unique constraint, null values are not considered equal. The column(s) that are unique must also contain all of the Greenplum distribution key column(s).
+</font></div>
+<a name="wp150560"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+PRIMARY KEY ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column constraint</i></b></font> ) <br>PRIMARY KEY ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column_name</i></b></font> [, ... ] ) ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table constraint </i></b></font>)
+</b></font></h6>
+<a name="wp150562"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The primary key constraint specifies that a column or columns of a table may contain only unique (non-duplicate), nonnull values. Technically, <code><font face="Courier New, Courier, mono" size="2">PRIMARY KEY</font></code> is merely a combination of <code><font face="Courier New, Courier, mono" size="2">UNIQUE</font></code> and <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code>, but identifying a set of columns as primary key also provides metadata about the design of the schema, as a primary key implies that other tables may rely on this set of columns as a unique identifier for rows. A table is allowed only one primary key constraint and the column(s) that make up the key must also contain all of the Greenplum distribution key column(s).
+</font></div>
+<a name="wp150568"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CHECK ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>expression</i></b></font> )
+</b></font></h6>
+<a name="wp150569"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> clause specifies an expression producing a Boolean result which new or updated rows must satisfy for an insert or update operation to succeed. Expressions evaluating to <code><font face="Courier New, Courier, mono" size="2">TRUE</font></code> or <code><font face="Courier New, Courier, mono" size="2">UNKNOWN</font></code> succeed. Should any row of an insert or update operation produce a <code><font face="Courier New, Courier, mono" size="2">FALSE</font></code> result an error exception is raised and the insert or update does not alter the database. A check constraint specified as a column constraint should reference that column&#39;s value only, while an expression appearing in a table constraint may reference multiple columns. <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> expressions cannot contain subqueries nor refer to variables other than columns of the current row.
+</font></div>
+<a name="wp150609"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+WITH ( <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>storage_option</i></b></font>=<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>value</i></b></font> )
+</b></font></h6>
+<a name="wp150908"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">WITH</font></code> clause can be used to set storage options for the table or its indexes. Note that you can also set storage parameters on a particular partition or subpartition by declaring the <code><font face="Courier New, Courier, mono" size="2">WITH</font></code> clause in the partition specification. The following storage options are available:
+</font></div>
+<a name="wp152475"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>APPENDONLY</b></font> - Set to <code><font face="Courier New, Courier, mono" size="2">TRUE</font></code> to create the table as an append-only table. If <code><font face="Courier New, Courier, mono" size="2">FALSE</font></code> or not declared, the table will be created as a regular heap-storage table.
+</font></div>
+<a name="wp154721"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>COMPRESSTYPE</b></font> - Set to <code><font face="Courier New, Courier, mono" size="2">ZLIB</font></code> or <code><font face="Courier New, Courier, mono" size="2">QUICKLZ</font></code> to specify the type of compression used. ZLIB, or gzip compression, provides a higher compression ratio while QuickLZ compression uses less CPU power. See <a href="../../Output/Admin/ddl.html#wp150279">Choosing the Compression Type and Level</a> for more information about CPU usage and performance for the two available compression types.
+</font></div>
+<a name="wp154738"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>COMPRESSLEVEL</b></font> - Set to a value between 1 (least compressed) to 9 (most compressed) to enable in-database compression of append-only tables. QuickLZ compression only provides settings of 1 or 3, while gzip provides the full range of values. If not declared, the default is 0 (no compression).
+</font></div>
+<a name="wp152360"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>FILLFACTOR</b></font> - See <a href="CREATE_INDEX.html">CREATE INDEX</a> for more information about this index storage parameter. 
+</font></div>
+<a name="wp152373"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>OIDS</b></font> - <code><font face="Courier New, Courier, mono" size="2">WITH</font></code> means that rows of the new table should have object identifiers assigned to them, or <code><font face="Courier New, Courier, mono" size="2">WITHOUT</font></code> (the default) means that the rows should not have object identifiers. If the new table inherits from any tables that have OIDs, then <code><font face="Courier New, Courier, mono" size="2">OIDS=TRUE</font></code> is forced even if the command says <code><font face="Courier New, Courier, mono" size="2">OIDS=FALSE</font></code>. It is generally considered better to not use OIDs for table rows, since it will reduce OID consumption and thereby postpone the wraparound of the 32-bit OID counter. Once the counter wraps around, OIDs can no longer be assumed to be unique, which makes them considerably less useful. In addition, excluding OIDs from a table reduces the space required to store the table on disk by 4 bytes per row, slightly improving performance.
+</font></div>
+<a name="wp150620"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ON COMMIT
+</b></font></h6>
+<a name="wp150621"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The behavior of temporary tables at the end of a transaction block can be controlled using <code><font face="Courier New, Courier, mono" size="2">ON COMMIT</font></code>. The three options are: 
+</font></div>
+<a name="wp150625"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>PRESERVE ROWS</b></font>
+</b></font></div>
+<a name="wp150626"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+No special action is taken at the ends of transactions for temporary tables. This is the default behavior. 
+</font></div>
+<a name="wp150628"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>DELETE ROWS</b></font>
+</b></font></div>
+<a name="wp150629"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+All rows in the temporary table will be deleted at the end of each transaction block. Essentially, an automatic <code><font face="Courier New, Courier, mono" size="2">TRUNCATE</font></code> is done at each commit. 
+</font></div>
+<a name="wp150631"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>DROP</b></font>
+</b></font></div>
+<a name="wp150632"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The temporary table will be dropped at the end of the current transaction block. 
+</font></div>
+<a name="wp150635"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+TABLESPACE <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>tablespace</i></b></font>
+</b></font></h6>
+<a name="wp150636"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Currently not supported in Greenplum Database. The tablespace is the name of the tablespace in which the new table is to be created. If not specified, the database&#39;s default tablespace is used.
+</font></div>
+<a name="wp150638"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+USING INDEX TABLESPACE <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>tablespace</i></b></font>
+</b></font></h6>
+<a name="wp150639"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This clause allows selection of the tablespace in which the index associated with a <code><font face="Courier New, Courier, mono" size="2">UNIQUE</font></code> or <code><font face="Courier New, Courier, mono" size="2">PRIMARY KEY</font></code> constraint will be created. If not specified, the database&#39;s default tablespace is used. 
+</font></div>
+<a name="wp151643"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DISTRIBUTED BY (<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column</i></b></font>, [ ... ] )<br>DISTRIBUTED RANDOMLY
+</b></font></h6>
+<a name="wp151655"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Used to declare the Greenplum Database distribution policy for the table. <code><font face="Courier New, Courier, mono" size="2">DISTIBUTED BY</font></code> uses hash distribution with one or more columns declared as the distribution key. The distribution key should be the primary key of the table or a unique column (or set of columns). If that is not possible, then you may choose <code><font face="Courier New, Courier, mono" size="2">DISTRIBUUTED RANDOMLY</font></code>, which will send the data round-robin to the segment instances. If not supplied, then hash distribution is chosen using the <code><font face="Courier New, Courier, mono" size="2">PRIMARY KEY</font></code> (if the table has one) or the first eligible column of the table as the distribution key.
+</font></div>
+<a name="wp153064"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+PARTITION BY
+</b></font></h6>
+<a name="wp153878"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Declares one or more columns by which to partition the table.
+</font></div>
+<a name="wp153192"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>partition_type</i></b></font>
+</i></b></font></div>
+<a name="wp153874"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Declares partition type: <code><font face="Courier New, Courier, mono" size="2">LIST</font></code> (list of values) or <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> (a numeric or date range). 
+</font></div>
+<a name="wp153193"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>partition_specification</i></b></font>
+</i></b></font></div>
+<a name="wp153915"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Declares the individual partitions to create. Each partition can be defined individually or, for range partitions, you can use the <code><font face="Courier New, Courier, mono" size="2">EVERY</font></code> clause (with a <code><font face="Courier New, Courier, mono" size="2">START</font></code> and optional <code><font face="Courier New, Courier, mono" size="2">END</font></code> clause) to define an increment pattern to use to create the individual partitions.
+</font></div>
+<a name="wp153207"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>DEFAULT PARTITION </b></font><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font> - Declares a default partition. When data does not match to an existing partition, it is inserted into the default partition. Partition designs that do not have a default partition will reject incoming rows that do not match to an existing partition.
+</font></div>
+<a name="wp153447"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>PARTITION </b></font><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font> - Declares a name to use for the partition. Partitions are created using the following naming convention: <code><font face="Courier New, Courier, mono" size="2"><i>parentname</i></font></code><code><font face="Courier New, Courier, mono" size="2">_</font></code><code><font face="Courier New, Courier, mono" size="2"><i>level#</i></font></code><code><font face="Courier New, Courier, mono" size="2">_prt_</font></code><code><font face="Courier New, Courier, mono" size="2"><i>givenname</i></font></code>.
+</font></div>
+<a name="wp153214"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>VALUES</b></font> - For list partitions, defines the value(s) that the partition will contain.
+</font></div>
+<a name="wp153208"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>START</b></font> - For range partitions, defines the starting range value for the partition. By default, start values are <code><font face="Courier New, Courier, mono" size="2">INCLUSIVE</font></code>. For example, if you declared a start date of `<code><font face="Courier New, Courier, mono" size="2">2008-01-01</font></code>&#39;, then the partition would contain all dates greater than or equal to `<code><font face="Courier New, Courier, mono" size="2">2008-01-01</font></code>&#39;. Typically the data type of the <code><font face="Courier New, Courier, mono" size="2">START</font></code> expression is the same type as the partition key column. If that is not the case, then you must explicitly cast to the intended data type. 
+</font></div>
+<a name="wp153209"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>END</b></font> - For range partitions, defines the ending range value for the partition. By default, end values are <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>. For example, if you declared an end date of `<code><font face="Courier New, Courier, mono" size="2">2008-02-01</font></code>&#39;, then the partition would contain all dates less than but not equal to `<code><font face="Courier New, Courier, mono" size="2">2008-02-01</font></code>&#39;. Typically the data type of the <code><font face="Courier New, Courier, mono" size="2">END</font></code> expression is the same type as the partition key column. If that is not the case, then you must explicitly cast to the intended data type.
+</font></div>
+<a name="wp154675"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>EVERY</b></font> - For range partitions, defines how to increment the values from <code><font face="Courier New, Courier, mono" size="2">START</font></code> to <code><font face="Courier New, Courier, mono" size="2">END</font></code> to create individual partitions. Typically the data type of the <code><font face="Courier New, Courier, mono" size="2">EVERY</font></code> expression is the same type as the partition key column. If that is not the case, then you must explicitly cast to the intended data type.
+</font></div>
+<a name="wp153215"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>WITH</b></font> - Sets the table storage options for a partition. For example, you may want older partitions to be append-only tables and newer partitions to be regular heap tables.
+</font></div>
+<a name="wp153828"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>TABLESPACE</b></font> - Currently not supported in Greenplum Database. The name of the tablespace in which the partition is to be created. 
+</font></div>
+<a name="wp153194"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+SUBPARTITION BY
+</b></font></h6>
+<a name="wp153894"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Declares one or more columns by which to subpartition the first-level partitions of the table. The format of the subpartition specification is similar to that of a partition specification described above. 
+</font></div>
+<a name="wp153827"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+SUBPARTITION TEMPLATE
+</b></font></h6>
+<a name="wp153264"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Instead of declaring each subpartition definition individually for each partition, you can optionally declare a subpartition template to be used to create the subpartitions. This subpartition specification would then apply to all parent partitions.
+</font></div>
+<a name="wp147533"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp150039"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Using OIDs in new applications is not recommended: where possible, using a <code><font face="Courier New, Courier, mono" size="2">SERIAL</font></code> or other sequence generator as the table&#39;s primary key is preferred. However, if your application does make use of OIDs to identify specific rows of a table, it is recommended to create a unique constraint on the OID column of that table, to ensure that OIDs in the table will indeed uniquely identify rows even after counter wrap-around. Avoid assuming that OIDs are unique across tables; if you need a database-wide unique identifier, use the combination of table OID and row OID for the purpose.
+</font></p>
+<a name="wp153610"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database has some special conditions for primary key and unique constraints with regards to columns that are the distribution key in a Greenplum table. For a unique constraint to be enforced in Greenplum Database, the table must be hash-distributed (not <code><font face="Courier New, Courier, mono" size="2">DISTRIBUTED RANDOMLY</font></code>), and all of the distribution key columns must be present among the unique constraint columns. A primary key constraint is simply a combination of a unique constraint and a not-null constraint.
+</font></p>
+<a name="wp150043"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database automatically creates an index for each unique constraint or primary key constraint to enforce uniqueness. Thus, it is not necessary to create an index explicitly for primary key columns.
+</font></p>
+<a name="wp153581"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Foreign key constraints are not supported in Greenplum Database. 
+</font></p>
+<a name="wp153592"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+For inherited tables, unique constraints, primary key constraints, indexes and table privileges are not inherited in the current implementation.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp153460"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a table named rank in the schema named baby and distribute the data using the columns rank, gender, and year:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE baby.rank (id int, rank int, year smallint, 
+gender char(1), count int ) DISTRIBUTED BY (rank, gender, 
+year);</font><a name="wp150167"> </a>
+</pre>
+<a name="wp153496"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+List partition the rank table by gender:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE baby.rank (id int, rank int, year smallint, 
+gender char(1), count int ) 
+DISTRIBUTED BY (id)
+PARTITION BY LIST (gender)
+( PARTITION girls VALUES (&#39;F&#39;), 
+&#160;&#160;PARTITION boys VALUES (&#39;M&#39;) );</font><a name="wp153464"> </a>
+</pre>
+<a name="wp153949"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Date range partition the sales table by date:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE sales (id int, qty int, date date, amt int) 
+DISTRIBUTED BY (id)
+PARTITION BY RANGE (date)
+( START (date &#39;2007-01-01&#39;) INCLUSIVE</font><a name="wp153985"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;END (date &#39;2008-01-01&#39;) EXCLUSIVE</font><a name="wp153986"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;EVERY (INTERVAL &#39;1 month&#39;);</font><a name="wp153947"> </a>
+</pre>
+<a name="wp153463"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create table films and table distributors (the primary key will be used as the Greenplum distribution key by default): 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE films (
+code        char(5) CONSTRAINT firstkey PRIMARY KEY,
+title       varchar(40) NOT NULL,
+did         integer NOT NULL,
+date_prod   date,
+kind        varchar(10),
+len         interval hour to minute
+);</font><a name="wp150192"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"></font><a name="wp150200"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE distributors (
+did    integer PRIMARY KEY DEFAULT nextval(&#39;serial&#39;),
+name   varchar(40) NOT NULL CHECK (name &lt;&gt; &#39;&#39;)
+);</font><a name="wp150263"> </a>
+</pre>
+<a name="wp153501"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a gzip-compressed, append-only table:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE sales (txn_id int, qty int, date date) 
+WITH (appendonly=true, compresstype=zlib, compresslevel=5) 
+DISTRIBUTED BY (txn_id);</font><a name="wp153506"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp150265"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE TABLE</font></code> command conforms to the SQL standard, with the following exceptions:
+</font></p>
+<ul>
+<a name="wp150267"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Temporary Tables - In the SQL standard, temporary tables are defined just once and automatically exist (starting with empty contents) in every session that needs them. Greenplum Database instead requires each session to issue its own <code><font face="Courier New, Courier, mono" size="2">CREATE TEMPORARY TABLE</font></code> command for each temporary table to be used. This allows different sessions to use the same temporary table name for different purposes, whereas the standard&#39;s approach constrains all instances of a given temporary table name to have the same table structure. </font></li>
+</ul>
+
+<a name="wp150356"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The standard&#39;s distinction between global and local temporary tables is not in Greenplum Database. Greenplum Database will accept the <code><font face="Courier New, Courier, mono" size="2">GLOBAL</font></code> and <code><font face="Courier New, Courier, mono" size="2">LOCAL</font></code> keywords in a temporary table declaration, but they have no effect. 
+</font></p>
+<a name="wp150274"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the <code><font face="Courier New, Courier, mono" size="2">ON COMMIT</font></code> clause is omitted, the SQL standard specifies that the default behavior as <code><font face="Courier New, Courier, mono" size="2">ON COMMIT DELETE ROWS</font></code>. However, the default behavior in Greenplum Database is <code><font face="Courier New, Courier, mono" size="2">ON COMMIT PRESERVE ROWS</font></code>. The <code><font face="Courier New, Courier, mono" size="2">ON COMMIT DROP</font></code> option does not exist in the SQL standard. 
+</font></p>
+<ul>
+<a name="wp150376"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Column Check Constraints - The SQL standard says that <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> column constraints may only refer to the column they apply to; only <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> table constraints may refer to multiple columns. Greenplum Database does not enforce this restriction; it treats column and table check constraints alike. </font></li>
+</ul>
+
+<ul>
+<a name="wp150386"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">NULL Constraint - The <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> constraint is a Greenplum Database extension to the SQL standard that is included for compatibility with some other database systems (and for symmetry with the <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code> constraint). Since it is the default for any column, its presence is not required.</font></li>
+</ul>
+
+<ul>
+<a name="wp150401"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Inheritance - Multiple inheritance via the <code><font face="Courier New, Courier, mono" size="2">INHERITS</font></code> clause is a Greenplum Database language extension. SQL:1999 and later define single inheritance using a different syntax and different semantics. SQL:1999-style inheritance is not yet supported by Greenplum Database. </font></li>
+</ul>
+
+<ul>
+<a name="wp153512"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Partitioning - Table partitioning via the <code><font face="Courier New, Courier, mono" size="2">PARTITION BY </font></code>clause is a Greenplum Database language extension. </font></li>
+</ul>
+
+<ul>
+<a name="wp150414"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Zero-column tables - Greenplum Database allows a table of no columns to be created (for example, <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE foo();</font></code>). This is an extension from the SQL standard, which does not allow zero-column tables. Zero-column tables are not in themselves very useful, but disallowing them creates odd special cases for <code><font face="Courier New, Courier, mono" size="2">ALTER TABLE DROP COLUMN</font></code>, so Greenplum decided to ignore this spec restriction. </font></li>
+</ul>
+
+<ul>
+<a name="wp150435"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">WITH clause - The <code><font face="Courier New, Courier, mono" size="2">WITH</font></code> clause is a Greenplum Database extension; neither storage parameters nor OIDs are in the standard. </font></li>
+</ul>
+
+<ul>
+<a name="wp150445"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Tablespaces - The Greenplum Database concept of tablespaces is not part of the SQL standard. The clauses <code><font face="Courier New, Courier, mono" size="2">TABLESPACE</font></code> and <code><font face="Courier New, Courier, mono" size="2">USING INDEX TABLESPACE</font></code> are extensions. </font></li>
+</ul>
+
+<ul>
+<a name="wp150459"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Data Distribution - The Greenplum Database concept of a parallel or distributed database is not part of the SQL standard. The <code><font face="Courier New, Courier, mono" size="2">DISTRIBUTED</font></code> clauses are extensions.</font></li>
+</ul>
+
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp149643"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_TABLE.html">ALTER TABLE</a>, <a href="DROP_TABLE.html">DROP TABLE</a>, <a href="CREATE_EXTERNAL_TABLE.html">CREATE EXTERNAL TABLE</a>, <a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_SEQUENCE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TABLE_AS.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:51">
+    <title>CREATE INDEX</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_GROUP.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_LANGUAGE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE INDEX
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new index.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE [UNIQUE] INDEX [CONCURRENTLY] <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> ON <code><font face="Courier New, Courier, mono" size="2"><i>table</i></font></code> </font></p><a name="wp142963"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[USING <code><font face="Courier New, Courier, mono" size="2"><i>method</i></font></code>]</font><a name="wp143743"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;( {<code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> | (<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code>)} [<code><font face="Courier New, Courier, mono" size="2"><i>opclass</i></font></code>] [, ...] )</font><a name="wp143744"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ WITH ( FILLFACTOR = <code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> ) ]</font><a name="wp143745"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>tablespace</i></font></code>]</font><a name="wp143746"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[WHERE <code><font face="Courier New, Courier, mono" size="2"><i>predicate</i></font></code>]</font><a name="wp143747"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp143011"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE INDEX</font></code> constructs an index on the specified table. Indexes are primarily used to enhance database performance (though inappropriate use can result in slower performance). 
+</font></p>
+<a name="wp143013"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The key field(s) for the index are specified as column names, or alternatively as expressions written in parentheses. Multiple fields can be specified if the index method supports multicolumn indexes.
+</font></p>
+<a name="wp143015"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An index field can be an expression computed from the values of one or more columns of the table row. This feature can be used to obtain fast access to data based on some transformation of the basic data. For example, an index computed on <code><font face="Courier New, Courier, mono" size="2">upper(col)</font></code> would allow the clause <code><font face="Courier New, Courier, mono" size="2">WHERE upper(col) = &#39;JIM&#39;</font></code> to use an index. 
+</font></p>
+<a name="wp143017"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database provides the index methods B-tree, bitmap, hash, GiST, and GIN. Users can also define their own index methods, but that is fairly complicated. 
+</font></p>
+<a name="wp143064"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When the <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause is present, a partial index is created. A partial index is an index that contains entries for only a portion of a table, usually a portion that is more useful for indexing than the rest of the table. For example, if you have a table that contains both billed and unbilled orders where the unbilled orders take up a small fraction of the total table and yet is most often selected, you can improve performance by creating an index on just that portion.
+</font></p>
+<a name="wp143247"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The expression used in the <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause may refer only to columns of the underlying table, but it can use all columns, not just the ones being indexed. Subqueries and aggregate expressions are also forbidden in <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code>. The same restrictions apply to index fields that are expressions.
+</font></p>
+<a name="wp143255"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+All functions and operators used in an index definition must be immutable. Their results must depend only on their arguments and never on any outside influence (such as the contents of another table or a parameter value). This restriction ensures that the behavior of the index is well-defined. To use a user-defined function in an index expression or <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause, remember to mark the function <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code> when you create it.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp143095"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+UNIQUE
+</b></font></h6>
+<a name="wp143133"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Checks for duplicate values in the table when the index is created and each time data is added. Duplicate entries will generate an error. Unique indexes only apply to B-tree indexes. In Greenplum Database, unique indexes are only allowed on the table&#39;s distribution key columns.
+</font></div>
+<a name="wp143956"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CONCURRENTLY
+</b></font></h6>
+<a name="wp143957"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A concurrent index build creates the index without taking any locks that prevent concurrent inserts, updates, or deletes on the table. A standard index build locks out writes (but not reads) on the table until it is done. When this option is used, Greenplum Database must perform two scans of the table, and in addition it must wait for all existing transactions to terminate. Therefore this method requires more total work than a standard index build and takes significantly longer to complete. However, since it allows normal operations to continue while the index is built, this method is useful for adding new indexes in a production environment. Of course, the extra CPU and I/O load imposed by the index creation may slow other operations. Bitmap indexes cannot be built concurrently.
+</font></div>
+<a name="wp143101"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp143102"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the index to be created. The index is always created in the same schema as its parent table.
+</font></div>
+<a name="wp143104"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table</i></b></font>
+</b></font></h6>
+<a name="wp143105"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the table to be indexed. 
+</font></div>
+<a name="wp143107"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>method</i></b></font>
+</b></font></h6>
+<a name="wp143108"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the index method to be used. Choices are <code><font face="Courier New, Courier, mono" size="2">btree</font></code>, <code><font face="Courier New, Courier, mono" size="2">bitmap</font></code>, <code><font face="Courier New, Courier, mono" size="2">hash</font></code>, <code><font face="Courier New, Courier, mono" size="2">gist</font></code>, and <code><font face="Courier New, Courier, mono" size="2">gin</font></code>. The default method is <code><font face="Courier New, Courier, mono" size="2">btree</font></code>. 
+</font></div>
+<a name="wp143110"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column</i></b></font>
+</b></font></h6>
+<a name="wp143111"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a column of the table on which to create the index. Only the B-tree, bitmap, and GiST index methods support multicolumn indexes.
+</font></div>
+<a name="wp143113"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>expression</i></b></font>
+</b></font></h6>
+<a name="wp143114"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An expression based on one or more columns of the table. The expression usually must be written with surrounding parentheses, as shown in the syntax. However, the parentheses may be omitted if the expression has the form of a function call.
+</font></div>
+<a name="wp143116"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>opclass</i></b></font>
+</b></font></h6>
+<a name="wp143117"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of an operator class. The operator class identifies the operators to be used by the index for that column. For example, a B-tree index on four-byte integers would use the <code><font face="Courier New, Courier, mono" size="2">int4_ops</font></code> class (this operator class includes comparison functions for four-byte integers). In practice the default operator class for the column&#39;s data type is usually sufficient. The main point of having operator classes is that for some data types, there could be more than one meaningful ordering. For example, a complex-number data type could be sorted by either absolute value or by real part. We could do this by defining two operator classes for the data type and then selecting the proper class when making an index.
+</font></div>
+<a name="wp143119"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FILLFACTOR
+</b></font></h6>
+<a name="wp143295"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The fillfactor for an index is a percentage that determines how full the index method will try to pack index pages. For B-trees, leaf pages are filled to this percentage during initial index build, and also when extending the index at the right (largest key values). If pages subsequently become completely full, they will be split, leading to gradual degradation in the index&#39;s efficiency. 
+</font></div>
+<a name="wp143120"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+B-trees use a default fillfactor of 90, but any value from 10 to 100 can be selected. If the table is static then fillfactor 100 is best to minimize the index&#39;s physical size, but for heavily updated tables a smaller fillfactor is better to minimize the need for page splits. The other index methods use fillfactor in different but roughly analogous ways; the default fillfactor varies between methods. 
+</font></div>
+<a name="wp143122"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>tablespace</i></b></font>
+</b></font></h6>
+<a name="wp143123"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The tablespace in which to create the index. If not specified, the default tablespace is used. 
+</font></div>
+<a name="wp143125"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>predicate</i></b></font>
+</b></font></h6>
+<a name="wp143126"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The constraint expression for a partial index.
+</font></div>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp143425"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">UNIQUE</font></code> indexes are allowed only if the initial columns of the index are identical to the Greenplum distribution key for the table.
+</font></p>
+<a name="wp143470"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Indexes are not used for <code><font face="Courier New, Courier, mono" size="2">IS NULL</font></code> clauses by default. The best way to use indexes in such cases is to create a partial index using an <code><font face="Courier New, Courier, mono" size="2">IS NULL</font></code> predicate. 
+</font></p>
+<a name="wp143427"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Prior releases of Greenplum Database also had an R-tree index method. This method has been removed because it had no significant advantages over the GiST method. If <code><font face="Courier New, Courier, mono" size="2">USING rtree</font></code> is specified, <code><font face="Courier New, Courier, mono" size="2">CREATE INDEX</font></code> will interpret it as <code><font face="Courier New, Courier, mono" size="2">USING gist</font></code>. 
+</font></p>
+<a name="wp142177"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp143489"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create a B-tree index on the column title in the table films:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE UNIQUE INDEX title_idx ON films (title);</font><a name="wp143491"> </a>
+</pre>
+<a name="wp143492"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create a bitmap index on the column gender in the table employee:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE INDEX gender_bmp_idx ON employee USING bitmap 
+(gender);</font><a name="wp143552"> </a>
+</pre>
+<a name="wp143551"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create an index on the expression lower(title), allowing efficient case-insensitive searches:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE INDEX lower_title_idx ON films ((lower(title)));</font><a name="wp143494"> </a>
+</pre>
+<a name="wp143544"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create an index with non-default fill factor:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE UNIQUE INDEX title_idx ON films (title) WITH 
+(fillfactor = 70);</font><a name="wp143545"> </a>
+</pre>
+<a name="wp143498"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create an index on the column code in the table films and have the index reside in the tablespace indexspace:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE INDEX code_idx ON films(code) TABLESPACE indexspace;</font><a name="wp143500"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp143598"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE INDEX</font></code> is a Greenplum Database language extension. There are no provisions for indexes in the SQL standard. Greenplum Database does not support the concurrent creation of indexes as does PostgreSQL (<code><font face="Courier New, Courier, mono" size="2">CONCURRENTLY</font></code> keyword not supported).
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_INDEX.html">ALTER INDEX</a>, <a href="DROP_INDEX.html">DROP INDEX</a>, <a href="CREATE_TABLE.html">CREATE TABLE</a>, <a href="CREATE_OPERATOR_CLASS.html">CREATE OPERATOR CLASS</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_GROUP.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_LANGUAGE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

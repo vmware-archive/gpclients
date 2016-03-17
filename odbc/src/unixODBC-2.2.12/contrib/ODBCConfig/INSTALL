@@ -1,0 +1,10 @@
+INSTALL PROCEDURES
+~~~~~~~~~~~~~~~~~~
+
+To install....
+
+   1. Run "qmake"
+   2. Run "make"
+
+The app is called ODBCConfig
+   

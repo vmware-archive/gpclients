@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:50">
+    <title>CREATE FUNCTION</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_EXTERNAL_TABLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_GROUP.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE FUNCTION
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new function.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE [OR REPLACE] FUNCTION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> </font></p><a name="wp141969"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;( [ [<code><font face="Courier New, Courier, mono" size="2"><i>argmode</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>argname</i></font></code>] <code><font face="Courier New, Courier, mono" size="2"><i>argtype</i></font></code> [, ...] ] )</font><a name="wp143645"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;[RETURNS <code><font face="Courier New, Courier, mono" size="2"><i>rettype</i></font></code>]</font><a name="wp143646"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;{ LANGUAGE <code><font face="Courier New, Courier, mono" size="2"><i>langname</i></font></code></font><a name="wp143647"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;| IMMUTABLE | STABLE | VOLATILE</font><a name="wp143648"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;| CALLED ON NULL INPUT | RETURNS NULL ON NULL INPUT | STRICT</font><a name="wp143649"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;| [EXTERNAL] SECURITY INVOKER | [EXTERNAL] SECURITY DEFINER
+&#160;&#160;&#160;&#160;| AS &#39;<code><font face="Courier New, Courier, mono" size="2"><i>definition</i></font></code>&#39;</font><a name="wp143666"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;| AS &#39;<code><font face="Courier New, Courier, mono" size="2"><i>obj_file</i></font></code>&#39;, &#39;<code><font face="Courier New, Courier, mono" size="2"><i>link_symbol</i></font></code>&#39; } ...</font><a name="wp143650"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp142065"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE FUNCTION</font></code> defines a new function. <code><font face="Courier New, Courier, mono" size="2">CREATE OR REPLACE FUNCTION</font></code> will either create a new function, or replace an existing definition. 
+</font></p>
+<a name="wp142067"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the new function must not match any existing function with the same argument types in the same schema. However, functions of different argument types may share a name (overloading). 
+</font></p>
+<a name="wp142069"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To update the definition of an existing function, use <code><font face="Courier New, Courier, mono" size="2">CREATE OR REPLACE FUNCTION</font></code>. It is not possible to change the name or argument types of a function this way (this would actually create a new, distinct function). Also, <code><font face="Courier New, Courier, mono" size="2">CREATE OR REPLACE FUNCTION</font></code> will not let you change the return type of an existing function. To do that, you must drop and recreate the function. If you drop and then recreate a function, you will have to drop existing objects (rules, views, triggers, and so on) that refer to the old function. Use <code><font face="Courier New, Courier, mono" size="2">CREATE OR REPLACE FUNCTION</font></code> to change a function definition without breaking objects that refer to the function.
+</font></p>
+<a name="wp143356"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+For more information about creating functions, see the <a href="http://www.postgresql.org/docs/8.2/static/xfunc.html">User Defined Functions</a> section of the PostgreSQL documentation.
+</font></p>
+<a name="wp142170"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Limited Use of VOLATILE and STABLE Functions
+</b></font></h4>
+<a name="wp142144"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To prevent data from becoming out-of-sync across the segments in Greenplum Database, any function classified as <code><font face="Courier New, Courier, mono" size="2">STABLE</font></code> or <code><font face="Courier New, Courier, mono" size="2">VOLATILE</font></code> cannot be executed at the segment level if it contains SQL or modifies the database in any way. For example, functions such as <code><font face="Courier New, Courier, mono" size="2">random()</font></code> or <code><font face="Courier New, Courier, mono" size="2">timeofday()</font></code> are not allowed to execute on distributed data in Greenplum Database because they could potentially cause inconsistent data between the segment instances.
+</font></p>
+<a name="wp142148"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Also, <code><font face="Courier New, Courier, mono" size="2">STABLE</font></code> and <code><font face="Courier New, Courier, mono" size="2">VOLATILE</font></code> functions cannot be used in <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> or <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code> statements at all if mirrors are enabled. For example, the following statement would not be allowed if you had mirror segments because <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code> statements are run on the primary segments and the mirror segments independently. The following statement would cause a mirror and its primary to be out of sync:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">UPDATE mytable SET id = nextval(myseq);</font><a name="wp142149"> </a>
+</pre>
+<a name="wp142150"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To ensure data consistency, <code><font face="Courier New, Courier, mono" size="2">VOLATILE</font></code> and <code><font face="Courier New, Courier, mono" size="2">STABLE</font></code> functions can safely be used in statements that are evaluated on and execute from the master. For example, the following statements are always executed on the master (statements without a <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause):
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT setval(&#39;myseq&#39;, 201);</font><a name="wp142151"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT foo();</font><a name="wp142152"> </a>
+</pre>
+<a name="wp142153"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The following statement executes on the segments (has a <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause), however it would be allowed provided that the function used in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause simply returns a set of rows:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM foo();</font><a name="wp142154"> </a>
+</pre>
+<a name="wp142139"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+One exception to this rule are functions that return a table reference (<code><font face="Courier New, Courier, mono" size="2">rangeFuncs</font></code>) or functions that use the <code><font face="Courier New, Courier, mono" size="2">refCursor</font></code> data type. These types of functions cannot be used at all in Greenplum Database. However, they are not very commonly used anyways.
+</font></p>
+<a name="wp138453"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp142355"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp142356"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the function to create.
+</font></div>
+<a name="wp142358"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argmode</i></b></font>
+</b></font></h6>
+<a name="wp142359"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The mode of an argument: either <code><font face="Courier New, Courier, mono" size="2">IN</font></code>, <code><font face="Courier New, Courier, mono" size="2">OUT</font></code>, or <code><font face="Courier New, Courier, mono" size="2">INOUT</font></code>. If omitted, the default is <code><font face="Courier New, Courier, mono" size="2">IN</font></code>. 
+</font></div>
+<a name="wp142361"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argname</i></b></font>
+</b></font></h6>
+<a name="wp142362"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of an argument. Some languages (currently only PL/pgSQL) let you use the name in the function body. For other languages the name of an input argument is just extra documentation. But the name of an output argument is significant, since it defines the column name in the result row type. (If you omit the name for an output argument, the system will choose a default column name.) 
+</font></div>
+<a name="wp142364"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argtype</i></b></font>
+</b></font></h6>
+<a name="wp142365"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type(s) of the function&#39;s arguments (optionally schema-qualified), if any. The argument types may be base, composite, or domain types, or may reference the type of a table column. 
+</font></div>
+<a name="wp142367"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Depending on the implementation language it may also be allowed to specify pseudotypes such as <code><font face="Courier New, Courier, mono" size="2">cstring</font></code>. Pseudotypes indicate that the actual argument type is either incompletely specified, or outside the set of ordinary SQL data types. 
+</font></div>
+<a name="wp142369"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The type of a column is referenced by writing <code><font face="Courier New, Courier, mono" size="2"><i>tablename</i></font></code><code><font face="Courier New, Courier, mono" size="2">.</font></code><code><font face="Courier New, Courier, mono" size="2"><i>columnname</i></font></code><code><font face="Courier New, Courier, mono" size="2">%TYPE</font></code>. Using this feature can sometimes help make a function independent of changes to the definition of a table. 
+</font></div>
+<a name="wp142371"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>rettype</i></b></font>
+</b></font></h6>
+<a name="wp142372"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The return data type (optionally schema-qualified). The return type may be a base, composite, or domain type, or may reference the type of a table column. Depending on the implementation language it may also be allowed to specify pseudotypes such as <code><font face="Courier New, Courier, mono" size="2">cstring</font></code>. If the function is not supposed to return a value, specify <code><font face="Courier New, Courier, mono" size="2">void</font></code> as the return type. 
+</font></div>
+<a name="wp142374"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When there are <code><font face="Courier New, Courier, mono" size="2">OUT</font></code> or <code><font face="Courier New, Courier, mono" size="2">INOUT</font></code> parameters, the <code><font face="Courier New, Courier, mono" size="2">RETURNS</font></code> clause may be omitted. If present, it must agree with the result type implied by the output parameters: <code><font face="Courier New, Courier, mono" size="2">RECORD</font></code> if there are multiple output parameters, or the same type as the single output parameter. 
+</font></div>
+<a name="wp142376"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">SETOF</font></code> modifier indicates that the function will return a set of items, rather than a single item. 
+</font></div>
+<a name="wp142378"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The type of a column is referenced by writing <code><font face="Courier New, Courier, mono" size="2"><i>tablename</i></font></code><code><font face="Courier New, Courier, mono" size="2">.</font></code><code><font face="Courier New, Courier, mono" size="2"><i>columnname</i></font></code><code><font face="Courier New, Courier, mono" size="2">%TYPE</font></code>. 
+</font></div>
+<a name="wp142380"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>langname</i></b></font>
+</b></font></h6>
+<a name="wp142381"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the language that the function is implemented in. May be <code><font face="Courier New, Courier, mono" size="2">SQL</font></code>, <code><font face="Courier New, Courier, mono" size="2">C</font></code>, <code><font face="Courier New, Courier, mono" size="2">internal</font></code>, or the name of a user-defined procedural language. For backward compatibility, the name may be enclosed by single quotes. 
+</font></div>
+<a name="wp142383"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+IMMUTABLE<br>STABLE<br>VOLATILE
+</b></font></h6>
+<a name="wp142386"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+These attributes inform the query optimizer about the behavior of the function. At most one choice may be specified. If none of these appear, <code><font face="Courier New, Courier, mono" size="2">VOLATILE</font></code> is the default assumption. Since Greenplum Database currently has limited use of <code><font face="Courier New, Courier, mono" size="2">VOLATILE</font></code> functions, if a function is truly <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>, you must declare it as so to be able to use it without restrictions.
+</font></div>
+<a name="wp142388"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code> indicates that the function cannot modify the database and always returns the same result when given the same argument values. It does not do database lookups or otherwise use information not directly present in its argument list. If this option is given, any call of the function with all-constant arguments can be immediately replaced with the function value.
+</font></div>
+<a name="wp142390"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">STABLE</font></code> indicates that the function cannot modify the database, and that within a single table scan it will consistently return the same result for the same argument values, but that its result could change across SQL statements. This is the appropriate selection for functions whose results depend on database lookups, parameter values (such as the current time zone), and so on. Also note that the current_timestamp family of functions qualify as stable, since their values do not change within a transaction.
+</font></div>
+<a name="wp142392"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VOLATILE</font></code> indicates that the function value can change even within a single table scan, so no optimizations can be made. Relatively few database functions are volatile in this sense; some examples are <code><font face="Courier New, Courier, mono" size="2">random()</font></code>, <code><font face="Courier New, Courier, mono" size="2">currval()</font></code>, <code><font face="Courier New, Courier, mono" size="2">timeofday()</font></code>. But note that any function that has side-effects must be classified volatile, even if its result is quite predictable, to prevent calls from being optimized away; an example is <code><font face="Courier New, Courier, mono" size="2">setval()</font></code>.
+</font></div>
+<a name="wp142396"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CALLED ON NULL INPUT<br>RETURNS NULL ON NULL INPUT<br>STRICT
+</b></font></h6>
+<a name="wp142399"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CALLED ON NULL INPUT</font></code> (the default) indicates that the function will be called normally when some of its arguments are null. It is then the function author&#39;s responsibility to check for null values if necessary and respond appropriately. <code><font face="Courier New, Courier, mono" size="2">RETURNS NULL ON NULL INPUT</font></code> or <code><font face="Courier New, Courier, mono" size="2">STRICT</font></code> indicates that the function always returns null whenever any of its arguments are null. If this parameter is specified, the function is not executed when there are null arguments; instead a null result is assumed automatically.
+</font></div>
+<a name="wp142403"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+[EXTERNAL] SECURITY INVOKER<br>[EXTERNAL] SECURITY DEFINER
+</b></font></h6>
+<a name="wp142405"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">SECURITY INVOKER</font></code> (the default) indicates that the function is to be executed with the privileges of the user that calls it. <code><font face="Courier New, Courier, mono" size="2">SECURITY DEFINER</font></code> specifies that the function is to be executed with the privileges of the user that created it. The key word <code><font face="Courier New, Courier, mono" size="2">EXTERNAL</font></code> is allowed for SQL conformance, but it is optional since, unlike in SQL, this feature applies to all functions not just external ones.
+</font></div>
+<a name="wp142409"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>definition</i></b></font>
+</b></font></h6>
+<a name="wp142410"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A string constant defining the function; the meaning depends on the language. It may be an internal function name, the path to an object file, an SQL command, or text in a procedural language.
+</font></div>
+<a name="wp142412"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>obj_file</i></b></font>, <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>link_symbol</i></b></font>
+</b></font></h6>
+<a name="wp143369"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This form of the <code><font face="Courier New, Courier, mono" size="2">AS</font></code> clause is used for dynamically loadable C language functions when the function name in the C language source code is not the same as the name of the SQL function. The string <code><font face="Courier New, Courier, mono" size="2"><i>obj_file</i></font></code> is the name of the file containing the dynamically loadable object, and <code><font face="Courier New, Courier, mono" size="2"><i>link_symbol</i></font></code> is the name of the function in the C language source code. If the link symbol is omitted, it is assumed to be the same as the name of the SQL function being defined. It is recommended to locate shared libraries either relative to <code><font face="Courier New, Courier, mono" size="2">$libdir</font></code> (which is located at <code><font face="Courier New, Courier, mono" size="2">$GPHOME/lib</font></code>) or through the dynamic library path (set by the <code><font face="Courier New, Courier, mono" size="2">dynamic_library_path</font></code> server configuration parameter). This simplifies version upgrades if the new installation is at a different location.
+</font></div>
+<a name="wp143370"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp142182"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Any compiled code (shared library files) for custom functions must be placed in the same location on every host in your Greenplum Database array (master and all segments). This location must also be in the <code><font face="Courier New, Courier, mono" size="2">LD_LIBRARY_PATH</font></code> so that the server can locate the files. It is recommended to locate shared libraries either relative to <code><font face="Courier New, Courier, mono" size="2">$libdir</font></code> (which is located at <code><font face="Courier New, Courier, mono" size="2">$GPHOME/lib</font></code>) or through the dynamic library path (set by the <code><font face="Courier New, Courier, mono" size="2">dynamic_library_path</font></code> server configuration parameter on all master segment instances in the Greenplum array.
+</font></p>
+<a name="wp142758"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The full SQL type syntax is allowed for input arguments and return value. However, some details of the type specification (such as the precision field for type numeric) are the responsibility of the underlying function implementation and are not recognized or enforced by the <code><font face="Courier New, Courier, mono" size="2">CREATE FUNCTION</font></code> command. 
+</font></p>
+<a name="wp142184"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database allows function overloading. The same name can be used for several different functions so long as they have distinct argument types. However, the C names of all functions must be different, so you must give overloaded C functions different C names (for example, use the argument types as part of the C names). 
+</font></p>
+<a name="wp142186"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Two functions are considered the same if they have the same names and input argument types, ignoring any OUT parameters. Thus for example these declarations conflict:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION foo(int) ...</font><a name="wp142188"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION foo(int, out text) ...</font><a name="wp142189"> </a>
+</pre>
+<a name="wp142190"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When repeated <code><font face="Courier New, Courier, mono" size="2">CREATE FUNCTION</font></code> calls refer to the same object file, the file is only loaded once. To unload and reload the file, use the <code><font face="Courier New, Courier, mono" size="2">LOAD</font></code> command. 
+</font></p>
+<a name="wp142314"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To be able to define a function, the user must have the <code><font face="Courier New, Courier, mono" size="2">USAGE</font></code> privilege on the language.
+</font></p>
+<a name="wp142265"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+It is often helpful to use dollar quoting to write the function definition string, rather than the normal single quote syntax. Without dollar quoting, any single quotes or backslashes in the function definition must be escaped by doubling them. A dollar-quoted string constant consists of a dollar sign (<code><font face="Courier New, Courier, mono" size="2">$</font></code>), an optional tag of zero or more characters, another dollar sign, an arbitrary sequence of characters that makes up the string content, a dollar sign, the same tag that began this dollar quote, and a dollar sign. Inside the dollar-quoted string, single quotes, backslashes, or any character can be used without escaping. The string content is always written literally. For example, here are two different ways to specify the string &quot;Dianne&#39;s horse&quot; using dollar quoting:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">$$Dianne&#39;s horse$$</font><a name="wp142267"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">$SomeTag$Dianne&#39;s horse$SomeTag$</font><a name="wp142268"> </a>
+</pre>
+<a name="wp142177"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp142783"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A very simple addition function:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION add(integer, integer) RETURNS integer</font><a name="wp142785"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    AS &#39;select $1 + $2;&#39;</font><a name="wp142786"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    LANGUAGE SQL</font><a name="wp142787"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    IMMUTABLE</font><a name="wp142788"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    RETURNS NULL ON NULL INPUT;</font><a name="wp142789"> </a>
+</pre>
+<a name="wp142790"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Increment an integer, making use of an argument name, in PL/pgSQL:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE OR REPLACE FUNCTION increment(i integer) RETURNS 
+integer AS $$</font><a name="wp142792"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        BEGIN</font><a name="wp142793"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">                RETURN i + 1;</font><a name="wp142794"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        END;</font><a name="wp142795"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">$$ LANGUAGE plpgsql;</font><a name="wp142796"> </a>
+</pre>
+<a name="wp142797"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Return a record containing multiple output parameters:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION dup(in int, out f1 int, out f2 text)</font><a name="wp142799"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    AS $$ SELECT $1, CAST($1 AS text) || &#39; is text&#39; $$</font><a name="wp142800"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    LANGUAGE SQL;</font><a name="wp142801"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM dup(42);</font><a name="wp142803"> </a>
+</pre>
+<a name="wp142856"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can do the same thing more verbosely with an explicitly named composite type:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TYPE dup_result AS (f1 int, f2 text);</font><a name="wp142805"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION dup(int) RETURNS dup_result</font><a name="wp142807"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    AS $$ SELECT $1, CAST($1 AS text) || &#39; is text&#39; $$</font><a name="wp142808"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    LANGUAGE SQL;</font><a name="wp142809"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM dup(42);</font><a name="wp141943"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp142327"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE FUNCTION</font></code> is defined in SQL:1999 and later. The Greenplum Database version is similar but not fully compatible. The attributes are not portable, neither are the different available languages. 
+</font></p>
+<a name="wp142329"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+For compatibility with some other database systems, <code><font face="Courier New, Courier, mono" size="2"><i>argmode</i></font></code> can be written either before or after <code><font face="Courier New, Courier, mono" size="2"><i>argname</i></font></code>. But only the first way is standard-compliant. 
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_FUNCTION.html">ALTER FUNCTION</a>, <a href="DROP_FUNCTION.html">DROP FUNCTION</a>, <a href="LOAD.html">LOAD</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_EXTERNAL_TABLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_GROUP.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

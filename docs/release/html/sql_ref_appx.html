@@ -1,0 +1,517 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:37">
+    <title>SQL Command Reference</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<img src="images/prevx.gif" border="0" alt="Previous"><a href="ABORT.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp135496"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+A. SQL Command Reference
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp135515"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This appendix provides references for the SQL commands available in Greenplum Database:
+</font></p>
+<ul>
+<a name="wp139887"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ABORT.html">ABORT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139888"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_AGGREGATE.html">ALTER AGGREGATE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139889"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_CONVERSION.html">ALTER CONVERSION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139890"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_DATABASE.html">ALTER DATABASE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139891"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_DOMAIN.html">ALTER DOMAIN</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139892"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_FUNCTION.html">ALTER FUNCTION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140113"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_GROUP.html">ALTER GROUP</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140114"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_INDEX.html">ALTER INDEX</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140118"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_LANGUAGE.html">ALTER LANGUAGE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139896"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_OPERATOR.html">ALTER OPERATOR</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139897"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_OPERATOR_CLASS.html">ALTER OPERATOR CLASS</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140561"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_RESOURCE_QUEUE.html">ALTER RESOURCE QUEUE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139898"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_ROLE.html">ALTER ROLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140296"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_SCHEMA.html">ALTER SCHEMA</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140300"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_SEQUENCE.html">ALTER SEQUENCE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140304"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_TABLE.html">ALTER TABLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140311"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_TABLESPACE.html">ALTER TABLESPACE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140315"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_TRIGGER.html">ALTER TRIGGER</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140319"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_TYPE.html">ALTER TYPE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140323"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ALTER_USER.html">ALTER USER</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140332"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ANALYZE.html">ANALYZE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140336"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="BEGIN.html">BEGIN</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140340"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CHECKPOINT.html">CHECKPOINT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140344"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CLOSE.html">CLOSE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139910"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CLUSTER.html">CLUSTER</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140353"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="COMMENT.html">COMMENT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140357"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="COMMIT.html">COMMIT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139914"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="COPY.html">COPY</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139915"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_AGGREGATE.html">CREATE AGGREGATE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139916"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_CAST.html">CREATE CAST</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139918"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_CONVERSION.html">CREATE CONVERSION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139919"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_DATABASE.html">CREATE DATABASE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139920"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_DOMAIN.html">CREATE DOMAIN</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140583"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_EXTERNAL_TABLE.html">CREATE EXTERNAL TABLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139921"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_FUNCTION.html">CREATE FUNCTION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140442"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_GROUP.html">CREATE GROUP</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140446"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_INDEX.html">CREATE INDEX</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139924"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_LANGUAGE.html">CREATE LANGUAGE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140461"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_OPERATOR.html">CREATE OPERATOR</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139926"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_OPERATOR_CLASS.html">CREATE OPERATOR CLASS</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140571"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_RESOURCE_QUEUE.html">CREATE RESOURCE QUEUE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140480"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_ROLE.html">CREATE ROLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140484"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_RULE.html">CREATE RULE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140488"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_SCHEMA.html">CREATE SCHEMA</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140492"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_SEQUENCE.html">CREATE SEQUENCE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140496"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_TABLE.html">CREATE TABLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140500"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139933"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_TABLESPACE.html">CREATE TABLESPACE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140517"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_TRIGGER.html">CREATE TRIGGER</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140521"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_TYPE.html">CREATE TYPE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140525"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_USER.html">CREATE USER</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139937"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="CREATE_VIEW.html">CREATE VIEW</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140544"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DEALLOCATE.html">DEALLOCATE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140548"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DECLARE.html">DECLARE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139940"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DELETE.html">DELETE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140599"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_AGGREGATE.html">DROP AGGREGATE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140603"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_CAST.html">DROP CAST</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140607"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_CONVERSION.html">DROP CONVERSION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140611"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_DATABASE.html">DROP DATABASE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139945"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_DOMAIN.html">DROP DOMAIN</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140689"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_EXTERNAL_TABLE.html">DROP EXTERNAL TABLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140624"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_FUNCTION.html">DROP FUNCTION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139947"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_GROUP.html">DROP GROUP</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139948"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_INDEX.html">DROP INDEX</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140646"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_LANGUAGE.html">DROP LANGUAGE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140650"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_OPERATOR.html">DROP OPERATOR</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140654"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_OPERATOR_CLASS.html">DROP OPERATOR CLASS</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140658"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_OWNED.html">DROP OWNED</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140712"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_RESOURCE_QUEUE.html">DROP RESOURCE QUEUE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139953"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_ROLE.html">DROP ROLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140669"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_RULE.html">DROP RULE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140673"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_SCHEMA.html">DROP SCHEMA</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140677"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_SEQUENCE.html">DROP SEQUENCE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139957"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_TABLE.html">DROP TABLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140726"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_TABLESPACE.html">DROP TABLESPACE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140730"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_TRIGGER.html">DROP TRIGGER</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140734"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_TYPE.html">DROP TYPE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140738"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_USER.html">DROP USER</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139962"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="DROP_VIEW.html">DROP VIEW</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140760"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="END.html">END</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140764"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="EXECUTE.html">EXECUTE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140768"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="EXPLAIN.html">EXPLAIN</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140772"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="FETCH.html">FETCH</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140776"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="GRANT.html">GRANT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140780"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="INSERT.html">INSERT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139970"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="LOAD.html">LOAD</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140802"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="LOCK.html">LOCK</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140806"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="MOVE.html">MOVE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140810"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="PREPARE.html">PREPARE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139976"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="REASSIGN_OWNED.html">REASSIGN OWNED</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140827"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="REINDEX.html">REINDEX</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140831"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="RELEASE_SAVEPOINT.html">RELEASE SAVEPOINT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139979"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="RESET.html">RESET</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140844"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="REVOKE.html">REVOKE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140848"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ROLLBACK.html">ROLLBACK</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140852"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="ROLLBACK_TO_SAVEPOINT.html">ROLLBACK TO SAVEPOINT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140856"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SAVEPOINT.html">SAVEPOINT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp140860"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SELECT.html">SELECT</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139986"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SELECT_INTO.html">SELECT INTO</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139987"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SET.html">SET</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139989"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SET_ROLE.html">SET ROLE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139990"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SET_SESSION_AUTHORIZATION.html">SET SESSION AUTHORIZATION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139991"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SET_TRANSACTION.html">SET TRANSACTION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139992"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="SHOW.html">SHOW</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139993"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="START_TRANSACTION.html">START TRANSACTION</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139994"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="TRUNCATE.html">TRUNCATE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139996"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="UPDATE.html">UPDATE</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139997"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="VACUUM.html">VACUUM</a></font></li>
+</ul>
+
+<ul>
+<a name="wp139998"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a href="VALUES.html">VALUES</a></font></li>
+</ul>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<img src="images/prevx.gif" border="0" alt="Previous"><a href="ABORT.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

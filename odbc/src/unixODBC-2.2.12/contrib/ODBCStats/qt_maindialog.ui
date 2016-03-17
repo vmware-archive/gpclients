@@ -1,0 +1,439 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>qt_mainDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>qt_mainDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>627</width>
+            <height>337</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>ODBC Statistics</string>
+    </property>
+    <property name="icon">
+        <pixmap>image0</pixmap>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QPushButton" row="1" column="3">
+            <property name="name">
+                <cstring>aboutButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;About</string>
+            </property>
+            <property name="accel">
+                <string>Alt+A</string>
+            </property>
+            <property name="iconSet">
+                <iconset>image1</iconset>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>About ODBC statistics</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="1" column="4">
+            <property name="name">
+                <cstring>closeButton</cstring>
+            </property>
+            <property name="text">
+                <string>C&amp;lose</string>
+            </property>
+            <property name="accel">
+                <string>Alt+L</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+            <property name="iconSet">
+                <iconset>image2</iconset>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Close ODBC statistics</string>
+            </property>
+        </widget>
+        <widget class="QTabWidget" row="0" column="0" rowspan="1" colspan="5">
+            <property name="name">
+                <cstring>statisticsTabs</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>summaryTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>S&amp;ummary</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>environmentLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Environments:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>connectionsLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Connections:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="2" column="0">
+                        <property name="name">
+                            <cstring>statementLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Statements:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="3" column="0">
+                        <property name="name">
+                            <cstring>descriptorsLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Descriptors:</string>
+                        </property>
+                    </widget>
+                    <widget class="QProgressBar" row="0" column="1">
+                        <property name="name">
+                            <cstring>envProgress</cstring>
+                        </property>
+                        <property name="progress">
+                            <number>0</number>
+                        </property>
+                        <property name="percentageVisible">
+                            <bool>false</bool>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Current ODBC environments</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Current ODBC Environments&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This represents the current total number of ODBC environments.</string>
+                        </property>
+                    </widget>
+                    <widget class="QProgressBar" row="1" column="1">
+                        <property name="name">
+                            <cstring>conProgress</cstring>
+                        </property>
+                        <property name="progress">
+                            <number>0</number>
+                        </property>
+                        <property name="percentageVisible">
+                            <bool>false</bool>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Current ODBC connections</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Current ODBC Connections&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This represents the current total number of ODBC connections. An ODBC connection represents a single connection from an ODBC application. An application can maintain multiple connections to ODBC.</string>
+                        </property>
+                    </widget>
+                    <widget class="QProgressBar" row="2" column="1">
+                        <property name="name">
+                            <cstring>staProgress</cstring>
+                        </property>
+                        <property name="progress">
+                            <number>0</number>
+                        </property>
+                        <property name="percentageVisible">
+                            <bool>false</bool>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Current ODBC statements</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Current ODBC Statements&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This represents the current total number of ODBC statements. An ODBC statement is more than just a SQL statement (such as SELECT * FROM...), it contains all the information associated with the query, such as results and parameters.</string>
+                        </property>
+                    </widget>
+                    <widget class="QProgressBar" row="3" column="1">
+                        <property name="name">
+                            <cstring>desProgress</cstring>
+                        </property>
+                        <property name="progress">
+                            <number>0</number>
+                        </property>
+                        <property name="percentageVisible">
+                            <bool>false</bool>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Current ODBC Descriptors</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Current ODBC Descriptors&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This represents the current total number of ODBC descriptors. ODBC descriptors hold column and dynamic information.</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="3" column="2">
+                        <property name="name">
+                            <cstring>desLabel</cstring>
+                        </property>
+                        <property name="minimumSize">
+                            <size>
+                                <width>40</width>
+                                <height>0</height>
+                            </size>
+                        </property>
+                        <property name="text">
+                            <string>0</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="2" column="2">
+                        <property name="name">
+                            <cstring>staLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>0</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="1" column="2">
+                        <property name="name">
+                            <cstring>conLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>0</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="0" column="2">
+                        <property name="name">
+                            <cstring>envLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>0</string>
+                        </property>
+                    </widget>
+                    <spacer row="4" column="0" rowspan="1" colspan="3">
+                        <property name="name">
+                            <cstring>spacer2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>450</width>
+                                <height>71</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>detailsTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Details</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QTable" row="0" column="0">
+                        <column>
+                            <property name="text">
+                                <string>User</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Program</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>PID</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Environments</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Connections</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Statements</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Descriptors</string>
+                            </property>
+                        </column>
+                        <row>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>2</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>3</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>4</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>5</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>6</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>7</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>8</string>
+                            </property>
+                        </row>
+                        <row>
+                            <property name="text">
+                                <string>9</string>
+                            </property>
+                        </row>
+                        <property name="name">
+                            <cstring>detailsTable</cstring>
+                        </property>
+                        <property name="numRows">
+                            <number>10</number>
+                        </property>
+                        <property name="numCols">
+                            <number>7</number>
+                        </property>
+                        <property name="readOnly">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+        <spacer row="1" column="2">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>170</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QSpinBox" row="1" column="1">
+            <property name="name">
+                <cstring>timerSpin</cstring>
+            </property>
+            <property name="maxValue">
+                <number>900</number>
+            </property>
+            <property name="minValue">
+                <number>5</number>
+            </property>
+            <property name="value">
+                <number>7</number>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Statistics refresh interval (in tenths of a second)</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;Refresh Interval&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+The refresh interval is the amount of time that passes before the statistics are updated.&lt;br&gt;
+&lt;br&gt;
+The time is specified in 1/10 of a second. So, 1 second = 10 (tenths).</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>refreshLabel</cstring>
+            </property>
+            <property name="text">
+                <string>Refresh Interval:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>timerSpin</cstring>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Statistics refresh interval (in tenths of a second)</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;Refresh Interval&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+The refresh interval is the amount of time that passes before the statistics are updated.&lt;br&gt;
+&lt;br&gt;
+The time is specified in 1/10 of a second. So, 1 second = 10 (tenths).</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<images>
+    <image name="image0">
+        <data format="PNG" length="5047">89504e470d0a1a0a0000000d494844520000003000000035080600000007cf68340000137e494441546881b59a7f6c1ce779e73f2467ed77e45979c6d875776c6d8e6fce143c8c2984aced56bcbaa9d5386de806462904415da46dc46bd236bd266e5d1428d45457a9287a700b04855a5c011ad7025681a6e1a16e2db7d681c25908f5075b6e02ba1a2364efdd8684676a0e38ef8913cd1b692cf68f77b924253971eed2fde7d967073beff37e9f5fdff79919d8dedee6bbfdcc9c981992be7c5469352c7dd9505a35a42f43a5d503d297dfa70ad5949e0c54a13ce9c9eda448b6423fdc545afdabf464aab47a4bfaf25f955699f465a6b48a675f9cbdf25d1b020cbcd70dcc9c988970f83015cf0847fc100e848d7040786228f2a241edeb81f1f6384618a24311a94991be44658a96d742658ac00958ea2e11e4011dddd92e8bf21dadf576aef30153996bc0df53f1b738fcafd93f9d7debff6b03677ef5cc01a5d5b4f4e5c754a13e227d790f3e03d34f4c3ba30f8d8280a49b80032a53f8c2ef1ba91245580f51b935beabbb0c7bc376534d495ee5c886441881db702945896c48e6ff619e54a5d5c21b0b03d2976fab4cfdb5f4e5df28adfe6ef6c5d99bef6903332766eec7e173547c6ea235516b8db7ee3afe23c7494c82a8049d6e07bff2515a117a216a431112a22a8544a22a458b166995d2725a74ab2ec3ceb0950cd3a5bb7b9d16aa5276e10a223f82364c3e3249a213f4ba66eec2dc8dd2949bc6982fe0f067b37f3afbad77ddc0cc89994f4b5f7e9106cec99f3fe9002459c2527789d00b49b284c0098837625a4e8b388b919e44150ae94bd22265d81fb688fbc3a4454acb6f9116293290a82d850c24c95642580f49b6126420edfd448b6ed6c5777c129d107a2146189efde8b398cc307761ae5a585dd0d293cf9cfcc3930bfb3630f3e919978abf12421cfbec7ff9ac188d46595a5c4218419cc50479405cc4b4aa168a5da4712c72d291f6774792925ac4b1c8a758a45352a4b0ff938e242121744212127b3f7a9bcb13822a401945ae734c65986c4d123d158186337f72e63a70e6ec1f9f3d0d30d873dfb98987263e7cf6f7cf0ae949e65f9d87022ec797218725bd6413116511c7224e854dd49e9ed2f3003d0f90d20a5aa48ef5405225c8a6355e06929cdcfe5eb37a52d8ebb99b332ec79152323932c952b6c4fcff9c67e1cd05cefeeed9bb023f38f9c26fbef0198081139f3af19f85105f7ce1f75f38907653ae74afc006c43ab6c8eec436bb722766fb083ad2c6b4b0b1dd47dee9217f2be2ce1ec40b1b2e499110fa21894e2c2885ea8767e885c46b312213244ec2f39f7c9ee77feff9b245ebfb07a52f67a63e3a7580026bfc167475d7225aa57d64fb487b12b0c82755d2bfdef27bc6ef20eff78c0f7ac607611ff9bdc64b5f92989e2c1264e3f6dff32267bc3d0e872014212fbdfa12d34f4d8b94f4270795561f7cfac34f73f9cdcbb85b2e716a135469b52bb152d2430689d2360776aea745afea145d8b7c4f575bca22bf653da0b67affcf15a11fdafbee29047d4fdce2195528a26684ae34a4e01ff20784103f31287d59a380a811ed22ba837c95ee8bf1db72a0e789949496d7eae7c00ef269b5c703f5d0de7f6fccef0d975b8cbfcd333d391c0e5b4f36245478834aab81244ba0015118ed47ded983fc1e0f00fb7edff1c030b684b668a1725b6d546efb44b295eceadeae91b7197fa71cf0773d11afc54c3d394567b543e884f70d4a5f0ece5d9c230c43a2431193d1643fe6bf530e7cbbeab32fd6df25f6f71abf3707287a9eedd1115108a42fe9c41d8e8d1d63f4e151d4b22221f186e4983c35fde43473afce31393589d7f068dfdb264e631a5503754dd1a68d323dc4aff7e4350583a08da63dd866ddac333c384cd7743934788875b38e1c9428a3680fb659336bc8411b16e1bd216b57d7900725eaaaa27db0bd4f0ffc60b7096ea6547945e7ed0ecf7eec599a879b5cfaeb4b2ca7cb54d7ab6f0d4a4f6284e1687494d917670944801c97cc7c7c86288a989013b68e7f871c782f1ee857a3e2f6d896fe1ee40b9b53f14a4c99978811c1cc8919dccae5fc5f9c67295d62e6276700189263f2d4f1a78e935dcb38f2e0113800eea04b79b3e481e80184278864c4dad61aef77de4fd774ad470ab50fe1f7e281f6a0f564fbde366bd7d6687bed5d0f6cae31200688ff25a6aeeb6cbcb3c1e3e38f13fd40c4fbee7f1faffcdd2bbcfca59709c7427eee677e8ed7ffe1756a6fd56e0c9c7eeef4f6cc2767109e4069c5c46313900302d0400330401dd8b2dfd5aa222912e2b51859b789d90a5aa4790ff95cddc67dfa7afd0e7243118d44e0c1c4c313e0da5e7925be82490d7317e6983a3ac5e40f4e820ff99b39499170eed573c5c0899f3fb1fdc2afbfd04f28e10bdcc025cf730211f48955a21328202912263e380135bb4892248422b494dae9516a11a0524bb1136d13333569bf54478dde79a125c94d4ed00c28b74a30d079a343ae723aeb1d223f4248c1d31f7b9a3ccfa1b0d45d7a9285d5053a8b9d6f0e9c7eeef4cda94f4e0d484f8281602cb01e08b0d2030a2bf3d59c7835eeb3475333442ddb5c644b222a41d00aa0bac5733b1ecda0744a54a6084588ce3438b0102f208c40579af1b1714443301a8dc20da0663d113a21a63036520a051ace5f3a9f3b4adb4eb9e3813ccf09bc6057163da973824600191c1b3e669110b26fcc4267c1b2c84ad1aa5abbfcbfeaf639d1b0334ceaa444222276e3be27a69e98020f826640be91133841dfe8bdfd60af3c77e91cd2917ae0f473a7abf127c687261f99242912461f19b5b1ef73bb4c213739461bf0b0e1e587f6ba471f040a10bed857d7f1ad275ddfddd57bf72db31204fdf3c55ea4efa427ab0997e3cbe455fec6a0d26a205d4e997f63be8f341eef2a55a1ac71a647bc4c8268887e6c272641f86297456631c631c4698cc1b0b4be445ee52c7577a5c1ec3b1ced35f6567de1cd052e5ebe882f7d006fe0f473a7b7695896e74b9fe33f72dcc6aebf1bfb7d99425ee5ef8accbfa71e8a90f397ce238c201c0bc9558eca941e548562eae8142a53a49d94a5558b8c4a953db8eb6457ee84c97b40ea7ba5c7598c5ed69cfd8bb344ed88e8890861ecd93c241c189afed0f4a9c73ff038b22d59d95c210a238af582baa8b396ad118a904a57040703caab2575a78e290c4dafb90fa9efa59eac2714bae0c2572e603283f37d0e3ffbcccf621c43f67f325eefbcce673ef11916bebef0ad2139264f7de4473f42763d63ac3d86110667d0a1b3dea14e9de56f2ce33a2ef1db31c61816df5ca479d02e36e28fa00ab56ff1ff17bd468d852b0b987f36bcf6d5d7a85fafe3840ec77fec38eda8cd91878ef0dac26bbcfaeaab70003efff9cfb3f8d545922cb93e70fab9d3db539f9cb24864067fd8274e634227646975c936b3dee1225631149093dbe1d51da60db269133b6a4436973cfaa5364e624237ecf791545bcea3d11c1b3f662b96a45fffd982643d61f64bb344ad88a927a770475caec4576c1fb87c7e6b7f27f6241a6d0ff05a1110f417bf925e81042ebe79111c108e400a4bd08410b88ecbb0b075be7f16ee9da1231191b8bd0e5ca544ad889c9cd1c6a865a78dd076e420402905199c5f3c8f5ff8988661e66333945e895bb82cad2f213d49a7db215fcebfb99f0b158a8943139445b9cb857c6cdd17d059edd8769e2804963bede5f1a949899a114979bb27dc86dbd78d36b6d46a0bced2fa12e410a73113728296d762f4d1515bf96a80babdfae545cec5cec5ff3b70e253276e9ef9f533038949763de0efba7787daee2c16afc7849ef548e8d8c95c809de3b4aadd89dbbeb950af33efcc87869d615261e744792d676278021a20a5a4cc4b5ce1a25275fbf06c8f9cbb34876ffc6fd84efce4f8d0e4c393b683b6c4edf5bf278d36fd837ce88516c95beb76af03875ed8f7e0ce2cd47a022814f8a3bbf7cf2c57cad31c04fbef7787be10a731f1620c1e578664244fe13060b60ded072c4f0f0e0636076e914dafc98a5e411e94ac5d5b23f443d6cc1a23fe086bc51ae17df6a415fa21c9b58476abc00cfe25ef7fdf656a5ca41676e166078210aa04ee0d296b50bb17d44d100d17754d137a6dd6f4ca1dab579cc6cc5f98a779a849c33406074e3f777a5b7ed0a2239a82631f3c66bfdfa923f6c2e8db77d080a07a098615541da81f853200f728dc30509be8b5f9607742dbab3a6509c605bd01a5803485c829416b8427987f631ebda2f1477cf48a068fab83aa508c8f8ca32b4da7d361feabf3243a21ce6cac2bad6c29dc9946bf5b07d53113fe1c014f43eb1c1429d4a7a19c0077aa677c043794e5d937ecf38cbc677c72035c174c09ad26e802840ff3c625162167ffe61cac817c4ca297ed265a4e6b7b68fa43d3a7e4072423e1088eeb20be29b8fcf5cb846ec8ca5b2b3ce03d40723561a4314275b5223810dcd64193749e23eb7f0ed7ba303c0937c7a0790cb60cdce342f932dc5d41390f771b282fc0dda0f223700fac6c41d3059d83a8c35a0ed287ba01ff002c6e823b52b13cb04af58f1923ff698489e1093adfe85c1f9263f2d4334f3d437a2de5f0fd8729860aa207235e5f7e9ddadb3596df5aa66eea2c27cb5059ca7bd83fcc9a59a3e935d1dd390e774ec2b515684ad001341cd8bc00a2039b17c1cbe05a0cf764b0a5e01e4db9b1c5c65d4f136f42f32e587e1bb80b3a29d41c58494178a0ae2a122fe6e56c9ef8be00d1f6f8e5479f61f18d458416d787a63f347d6a229ae8275ed48a18b83e806c4bf490a6211a2caf2fe31a97c5d545dc6b2ef17a8cfb2d17b53cc7e36f7d112a032353501830297c6d1eee1e839beb70b00157351c70a0a8e0de00b6126aa2cdeb6f3d4df300a80c9a1eac6c42f300acbc0d9e032f7e7d9658241457538e348e10a73185e3f2f26a874ff8132ca7cb3786e4983c35f5e4940d8b83b6f934ef6b92998cd143a3989a61ac3d86ae690e1f38cc72b64c2dabb1dc7d9d5fb8fae7600af047a058874d05c51adc742053900e90dc70a8df6fe06a05072ad8b49bc9b37748f869ba9b25a1a8b1b259d2103556b392eafa0ab3fabf93de57b0be99b23e18906c2a82fbc658796b05e5d4c9b562dcb4ae0f4d7f68fab79b23cd0179d0c6f44e291c698cc055ec66aa8c89f74de0ba2e237204738fe1a7458a9b2d424358e40735980a0e0ab866e0a045bcbe5dc07a13ee0f7b9e00362bdcbb222ea4cfd01035ba1a1aa2c64a06857f8939fd1a4d2f24db2ce0401b932578773559c956700f4a74b6c6b2681215faeaa0d2ea6640b0a79aec4e8d69b0efe4e5377c349a89872710ab5fb687f75443a12133bb7a05a43d3d319024705181919096e094e499423810a72539d0d1f3cc899738b73e8f1110670a2342f254510a88b304e384a854616e80de505c747c06a52fff79be33bfef608feecdfff5fe89d90e97f175895ba5600c086159a7e076bdd8d10d50c2c525c88e411a1008502904022eebb3cca1485245cb91e4199442926709c693e80c8c08d11b0988105301f59005e29b4332920f6e641b8f55a2720e0787d9a836a8fb75d674afd3eab55ddd0b515715e1cd826af512352fa4c4a576b069a56852deac53bbab4e5959c975179c3ae575971a75783b854c90bcd3e6652fe4fce639321152ea35dc03b0b1595823337b12341b05e6664851245437a12a0a180ce15a8219a4e6485f9e565a7d3c7923199e2fe6878e8e1d4555aacf1aa52ffbacd368d36b5e0b8c1e8a011f37f461abc40d24940a37b0ddc8f5a56d66fd6984ec712041b9728ca54b671047bf8cf0e648120575835e335007b3c6aedccbc9b49d76980284272a5398ab3b4f29ff231597851075392cc5e4f824796559625ee5fdb9fd4e67965e48f0a5f7db56e987e008db5d9b62df086557f612dd0b79e5e269e88c920690ff14a485226fccd249cf633c43922498ca602ad37f0afa6de495fe73e233bf7ac6575afd0fe9cb8f6847bbe30f8d8380a81dd979d1a151cb2afd5eb5ea9e84f845183f6191f686c174c11fee21dfda953a85ead7f8f28549424015200fc1f971087d4834c89662be38891082b4482945894a14c635a41be91dd931057f74a727f53f81c3ef523112f881109e18884484f6349117f54f58d43a4caefc323422889e046df60fc17ac8973a40af9c616915420792ca4ae541fc14a073423f20d139f801c6bc40e2c77d82b823d32c2517394992909a1463cc3b383cf2edde95784215ea73d2971f4e8ae46ed990dbda68d7f77cb4d144ad8863c52ca17711c26978680ab4025ff665b97a8c3491280dd283b200d707a5a1d5828b125a3d5dee480f52b3b42d5a31aa8807fa61dbab8a08f883c53fc078e60fb79fddfeb5f7f4b6ca677fe5b3a3c08f4a473e93924ee2b04dc5a0745ae24971965191c2d8b3f0f034e82e8871963a11a1092ce240c27ea90498c740e91ce907567a01aac869790169915772384997f4f907a5270754a1701d97e72f3d8fc1cc53f1e3dbbfb47de33dbf6eb3f339fb3b678754a1be5ffaf2c9a4480e4b3f7cf05973f631d78fefa3fd2c3cf41265971e05b7c81a6df37d076153000d6e2ef80c4acfe644e84152d8eb7d5d836ca19579a5d635dd7b4e5e3e8916fa350a8e6f7f7abb80efe27da1eff8f9827be2853f2a7f119f47a73e0eee474136ac513bc6ed1815faa00c37c430b5a428093d175594c83bc8a5f5921717ddeb73c5e457f02e7f858affbafd4bdbd5ceb2dfbb0d00675c5aa1c36f251527640331fe7118fd456cd9bba59ed3e01d2a86f0a1d43637f6ca58c3b94538df855c97af08cffd0df505fee9d635bfa71be86fa44e8b8a13a1c327128723e38f581a34f110e48760621cf206ef046d86ae24e03a7065bdc4c5e5a5e584cbab3eb9491341ebaf0ce96cf2dfe4d7de6dad7f970decfdccd6f90f49c50f870e8f26151f081d6452d1083cbe79e653e5fdc273af53949b78744dc18af0dcaf5194ff1b8fafaa2fb8dfd1b87f03a83ba770a5dca6030000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="790">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff61000002dd49444154388d659241681c6514c77fbb7e2ddfea04be818dcc48907c52d06f739a0585c44b134bd1d28b412ff6241144d043a03de5d043ec55a8b4070f3db4540f12446aeb45ba2dd2aca7640fd299a8cb7e21d49da58664a8637768867e1e36a95a1f3c1e0fdeefcf9ff75e85a762b5d57fffe20fedd99923cd77e2415c6b288dcd2d4a845f8641f6ed07a7de58799a01a0dfdf09de3bb37a6bf98b55e71e3877b7b7e3dcce3f75edd71db774beefe617af5ef91feceebbf1a5736bebd7db6e1f76ce3ddccf47fbfd03e7dc9673377f746e7ef1eacf07ec3300bf71fc46f3d5f1e9d75ef4696fa6bc20c6c083da73c063c8ef43672b85c36364654a49f4bc9e32473b77beb95cbd7ead372f551899baa6b5013e21ad2e1419b007c30c5add219290d606c8324487357c6fe6e8caf76b61e5c4e2cae7f3af9cf8c48a04290c60d1689272d417658211068b855263b73bd87b21837c1d55c8d395a5f3775d5a1618a549323075f0c77d168e010530060b9fb591686e6dac83a761dba2eb1aa5ec2fa2b5d1c15773d8ed849ad00c320b5d0d142cbca519ee41a71b52908068401e836c1067314dd578b9aaeb86342bc88426cd12a4d0a43914a506a076080a013230202c266882805ad00061a96622ed165252640985302499050176371edd690fa4941499056148b2048464985b94d05bd5e9babe0616134448016ac220654a14364602874009cbf464849212391181b034024328b9519d8b38ab55485a589427f10b4be819d2dc3e71e07b864191e07b12995b946790247f7dfa913e577d7d662a8fea9c9999d4f832259a6862266a9c7e53c39f230717def6990e0c4a5ae6028d9619261f9eac1caefc5e3978c9e54bab5fdbdcbceb7b191a8d2de3d1d6cb184d8398989a6c900eda9087b35f2dbf741be08900c085cbfd9352f0dd6e2dc404b0998151906cc3a4073f2529a1d89dfdf8c3a9db07cc7f04007abdde91f49e5a6825c9f1c833cd4d2cc322bc138ea7374f1d6b5eac3c5bf9e3dff37f039c2549b83b83564b0000000049454e44ae426082</data>
+    </image>
+    <image name="image2">
+        <data format="PNG" length="875">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff610000033249444154388d4d93ef6b1b7500c63fe9ddd5ef7549779735b3074dcd090dbdb415565c6495ad3271ca18080ef10f18321d7b27a2e0de2928fe7c6305918122ab0ced101d453a88d0d11652e884d45c995913d76aceb52c477b6bbe6dbe145f74529f970f3c2f9e5fb197062fe0ab1ae81950353c3d632f48bf1fc5199049f040f9f7d1c575749672b88db2aa820e2849cceb3fcd1e9a80f94253362fb919f769cf73b1ad23808f13394cf805aa4bfe0c3aefa18b5f50128098377801540d97ccc5aa5efbe09d57df38e01d3dc9f031f6d182660063df5e66fc7bff41239c7d3ba77b9f97958f964ac601e3f990f09b8fcebd2bbc675d9ee84d50be5d25ae6c4acb55ac5d9b6a58e7c5d113e856ab7d7e61f1b96ab452d4dbc41d2ddf75bab3aeea5f9d3f7b3ed3fb944d9f95c53c0c716c0abfcdd2db9e66fa76c868de811d701fcd12ee48cd5fbcf5384afdd05656fe8063392358126bcd41f40026d005b96e8f426996b3cf387b5c0a26e70ab8b21b336e8f4818d09ca4fbbad3933a7ef2c869e6fe9ec76ea5707a121826d84993e1812c1cdc8be2e34faf509af883c9da4d5c95666d6be51f2d9e745f4e259d27656c1b67c3e2a7c529f4d538e99c8571c080471e8a3fbcc2b5ab93042a40b4eb042a40cae8f7b69ceed18c24420a0ac11c76dd6672b180a9ccfd1636c194161289273c00041e5281d6b2e223a61e3b5edf58436e4848c1e5f72f41eae13a369b180983a1e134b5658b5b955fd13b74d6c30a5286539a93749b92d8b9a18e21b63b25135f7f0287f63d5766eb0c0f66310e1a9c3a91a5b10aa5e5124e6451df0aded2e2496743294665874c3bf608e21064fb1cc6be98e0c6cfd32c544aacdc4b7034ef628430766d9c703dc40f4ab3c067da48f2d4f69a0afe3276dd571256a889ad38859939e45d888c88fc6379fce5795428f8f2c7abd86b36c55ab1a576e46b40596b750a4c5ddcd994ab8d308a46e56ea33d677804629d447c084940fe709ee2dd22c19f550ae5e907320adf04be03d09cae3e9a40aeadaf588f5616eaf742b7ba51e94d6f75d388ade208871ba529a86c33bd747346edc88bc0b8d03dd4ee3ab14ce618e882ffde251536d00f9c114224511229e57da9b82e749680c6ff6ec6bfb1605f35bc0c7e0d0000000049454e44ae426082</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>closeButton</sender>
+        <signal>clicked()</signal>
+        <receiver>qt_mainDialog</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -1,0 +1,117 @@
+Changelog
+~~~~~~~~~
+
+Version: 0.8
+Author : Fizz
+Date   : 08/12/2005
+Changes: Feature : Added Test DSN functionality.
+         Feature : Configure / View data sources which
+                   have no driver setup library.
+         Feature : Manual added.
+         Improved: Added unixODBC contributors to about
+                   dialog.
+         Improved: Allows configuration of additional
+                   data source properties.
+         Improved: Allows configuration of additional
+                   driver properties.
+         Improved: Better default for file DSN path.
+         Improved: Debug options "Whats this" and
+                   "Tool tips" text.
+
+Version: 0.7
+Author : Fizz
+Date   : 01/12/2005
+Changes: Feature : Added 64 bit support.
+         Improved: Added additional driver properties.
+
+Version: 0.6
+Author : Fizz
+Date   : 27/11/2005
+Changes: Feature : Added debug functionality.
+         Improved: File DSN for users.
+         Fixed   : Issue with system DSN introduced after
+                   file dsn changes were made.
+
+Version: 0.5 (pre-submission version)
+Author : Fizz
+Date   : 26/11/2005
+Changes: Feature : Auto-Detection of ODBC Drivers
+                       Firebird (Easysoft Driver)
+                       Informix
+                       SQLite
+         Improved: Search a list of common library locations
+                   for the driver and setup libraries.
+         Improved: Added dialog auto-resize to fit contents.
+         Improved: Useful help in error message boxes.
+         Improved: About dialog and included license.
+         Improved: Added license details to all C++ files.
+         Improved: Added license file to the source folder.
+         Fixed   : A problem removing file DSN introduced
+                   with some of the file DSN changes.
+
+Version: 0.4
+Author : Fizz
+Date   : 24/11/2005
+Changes: Add features, improved stuff...
+         Feature : Added File DSN support.
+         Feature : Added "Whats this" text.
+         Feature : Added "Tool tip" text.
+         Feature : Auto detects ODBC drivers that are already
+                   installed.
+         Feature : ODBC Drivers Auto Setup.
+         Improved: Added program and app icons (thanks to KDE).
+         Improved: Improved the "add ODBC driver" result text.
+         Improved: Remove expert check when not required.
+         Fixed   : Blank DSN field saving.
+         Fixed   : Driver setup for faulty setup library.
+
+Version: 0.3
+Author : Fizz
+Date   : 12/10/2005
+Changes: Add features, improved stuff...
+         Feature : Advanced data source configuration.
+         Improved: Data source configuration labels.
+         Improved: Changed name from ODBCDataSources to
+                   ODBCConfig for planned replacement of
+                   the unixODBC tool.
+         Improved: File browse widget added to data sources
+                   configuration.
+         Improved: Added remaining error message boxes.
+
+Version: 0.2
+Author : Fizz
+Date   : 02/10/2005
+Changes: Add features, improved stuff, fixed stuff...
+         Feature : Double-click on list items to view/configure.
+         Feature : Option to remove related DSN when removing
+                   the driver (Functionality submitted to the
+                   unixODBC project).
+         Feature : Auto-Detection of ODBC Drivers
+                       Mimer SQL
+                       MySQL (MyODBC 2.5 Driver)
+                       Oracle
+                       IBM DB2
+                       Interbase (Easysoft Driver)
+                       Mini SQL
+         Feature : Setup libraries for server and file data
+                   sources.
+         Improved: DSN and driver view/config dialogs.
+         Improved: Dialog title text.
+         Fixed   : Widget tab order and default buttons.
+
+Version: 0.1
+Author : Fizz
+Date   : 01/10/2005
+Changes: Initial Release, features include...
+         Feature : Add/Remove ODBC Drivers.
+         Feature : Auto-Detection of ODBC Drivers
+                       PostgreSQL
+                       MS-SQL & Sybase (FreeTDS Driver)
+                       MySQL (MyODBC 3.51 Driver)
+                       Text
+                       Internet News
+         Feature : Easy ODBC Driver Setup.
+         Feature : Configure/View ODBC Drivers.
+         Feature : Add/Remove User and System Data Sources.
+         Feature : Configure/View User and System Data Sources.
+

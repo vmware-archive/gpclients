@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:04">
+    <title>DROP TABLE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="DROP_SEQUENCE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="DROP_TABLESPACE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+DROP TABLE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Removes a table.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">DROP TABLE [IF EXISTS] <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> [, ...] [CASCADE | RESTRICT]</font></p><a name="wp153812"> </a>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp154851"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">DROP TABLE</font></code> removes tables from the database. Only its owner may drop a table. To empty a table of rows without removing the table definition, use <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code> or <code><font face="Courier New, Courier, mono" size="2">TRUNCATE</font></code>. 
+</font></p>
+<a name="wp154853"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">DROP TABLE</font></code> always removes any indexes, rules, triggers, and constraints that exist for the target table. However, to drop a table that is referenced by a view, <code><font face="Courier New, Courier, mono" size="2">CASCADE</font></code> must be specified. <code><font face="Courier New, Courier, mono" size="2">CASCADE</font></code> will remove a dependent view entirely.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp154540"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+IF EXISTS
+</b></font></h6>
+<a name="wp153601"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Do not throw an error if the table does not exist. A notice is issued in this case.
+</font></div>
+<a name="wp154538"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp153602"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the table to remove.
+</font></div>
+<a name="wp154600"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CASCADE
+</b></font></h6>
+<a name="wp154796"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Automatically drop objects that depend on the table (such as views).
+</font></div>
+<a name="wp154603"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+RESTRICT
+</b></font></h6>
+<a name="wp154604"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Refuse to drop the table if any objects depend on it. This is the default. 
+</font></div>
+<a name="wp154444"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp154738"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Remove the table mytable: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">DROP TABLE mytable;</font><a name="wp154345"> </a>
+</pre>
+<a name="wp154035"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp154624"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">DROP TABLE</font></code> is fully conforming with the SQL standard, except that the standard only allows one table to be dropped per command. Also, the <code><font face="Courier New, Courier, mono" size="2">IF EXISTS</font></code> option is a Greenplum Database extension.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp152557"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_TABLE.html">CREATE TABLE</a>, <a href="ALTER_TABLE.html">ALTER TABLE</a>, <a href="TRUNCATE.html">TRUNCATE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="DROP_SEQUENCE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="DROP_TABLESPACE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

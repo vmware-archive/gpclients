@@ -1,0 +1,692 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:52">
+    <title>CREATE OPERATOR CLASS</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_OPERATOR.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_RESOURCE_QUEUE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE OPERATOR CLASS
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new operator class.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE OPERATOR CLASS <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> [DEFAULT] FOR TYPE <code><font face="Courier New, Courier, mono" size="2"><i>data_type</i></font></code> </font></p><a name="wp145187"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;USING <code><font face="Courier New, Courier, mono" size="2"><i>index_method</i></font></code> AS </font><a name="wp147247"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;{ </font><a name="wp147260"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;OPERATOR <code><font face="Courier New, Courier, mono" size="2"><i>strategy_number</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>op_name</i></font></code> [(<code><font face="Courier New, Courier, mono" size="2"><i>op_type</i></font></code>, <code><font face="Courier New, Courier, mono" size="2"><i>op_type</i></font></code>)] [RECHECK]</font><a name="wp147249"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| FUNCTION <code><font face="Courier New, Courier, mono" size="2"><i>support_number</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>funcname</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>argument_type</i></font></code> [, ...] )</font><a name="wp147250"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| STORAGE <code><font face="Courier New, Courier, mono" size="2"><i>storage_type</i></font></code></font><a name="wp147251"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;} [, ... ]</font><a name="wp147252"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp145213"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE OPERATOR CLASS</font></code> creates a new operator class. An operator class defines how a particular data type can be used with an index. The operator class specifies that certain operators will fill particular roles or strategies for this data type and this index method. The operator class also specifies the support procedures to be used by the index method when the operator class is selected for an index column. All the operators and functions used by an operator class must be defined before the operator class is created. Any functions used to implement the operator class must be defined as <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>.
+</font></p>
+<a name="wp145219"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE OPERATOR CLASS</font></code> does not presently check whether the operator class definition includes all the operators and functions required by the index method, nor whether the operators and functions form a self-consistent set. It is the user&#39;s responsibility to define a valid operator class. 
+</font></p>
+<a name="wp145251"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You must be a superuser to create an operator class.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp144240"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp144241"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The (optionally schema-qualified) name of the operator class to be defined. Two operator classes in the same schema can have the same name only if they are for different index methods. 
+</font></div>
+<a name="wp145267"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DEFAULT
+</b></font></h6>
+<a name="wp145268"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Makes the operator class the default operator class for its data type. At most one operator class can be the default for a specific data type and index method.
+</font></div>
+<a name="wp145270"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>data_type</i></b></font>
+</b></font></h6>
+<a name="wp145271"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The column data type that this operator class is for. 
+</font></div>
+<a name="wp145273"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>index_method</i></b></font>
+</b></font></h6>
+<a name="wp145274"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the index method this operator class is for. Choices are <code><font face="Courier New, Courier, mono" size="2">btree</font></code>, <code><font face="Courier New, Courier, mono" size="2">bitmap</font></code>, <code><font face="Courier New, Courier, mono" size="2">hash</font></code>, <code><font face="Courier New, Courier, mono" size="2">gist</font></code>, and <code><font face="Courier New, Courier, mono" size="2">gin</font></code>. 
+</font></div>
+<a name="wp145276"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>strategy_number</i></b></font>
+</b></font></h6>
+<a name="wp145470"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The operators associated with an operator class are identified by strategy numbers, which serve to identify the semantics of each operator within the context of its operator class. For example, B-trees impose a strict ordering on keys, lesser to greater, and so operators like less than and greater than or equal to are interesting with respect to a B-tree. These strategies can be thought of as generalized operators. Each operator class specifies which actual operator corresponds to each strategy for a particular data type and interpretation of the index semantics. The corresponding strategy numbers for each index method are as follows:</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp145493"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.1   B-tree and Bitmap Strategies
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp145497"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Operation
+</b></font></div>
+</th>
+    <th><a name="wp145499"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Strategy Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp145521"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+less than
+</font></div>
+</td>
+    <td><a name="wp145503"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145505"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+less than or equal
+</font></div>
+</td>
+    <td><a name="wp145507"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+2
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145509"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+equal
+</font></div>
+</td>
+    <td><a name="wp145511"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145517"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+greater than or equal
+</font></div>
+</td>
+    <td><a name="wp145519"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+4
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145513"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+greater than
+</font></div>
+</td>
+    <td><a name="wp145515"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+5
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp145589"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.2   Hash Strategies
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp145593"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Operation
+</b></font></div>
+</th>
+    <th><a name="wp145595"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Strategy Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp145597"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+equal
+</font></div>
+</td>
+    <td><a name="wp145599"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp145670"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.3   GiST Two-Dimensional Strategies (R-Tree)
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp145674"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Operation
+</b></font></div>
+</th>
+    <th><a name="wp145676"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Strategy Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp145740"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+strictly left of
+</font></div>
+</td>
+    <td><a name="wp145680"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145682"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+does not extend to right of
+</font></div>
+</td>
+    <td><a name="wp145684"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+2
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145686"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+overlaps
+</font></div>
+</td>
+    <td><a name="wp145688"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145690"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+does not extend to left of
+</font></div>
+</td>
+    <td><a name="wp145692"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+4
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145694"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+strictly right of
+</font></div>
+</td>
+    <td><a name="wp145696"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145736"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+same
+</font></div>
+</td>
+    <td><a name="wp145738"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+6
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145732"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+contains
+</font></div>
+</td>
+    <td><a name="wp145734"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+7
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145728"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+contained by
+</font></div>
+</td>
+    <td><a name="wp145730"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+8
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145724"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+does not extend above
+</font></div>
+</td>
+    <td><a name="wp145726"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+9
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145720"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+strictly below
+</font></div>
+</td>
+    <td><a name="wp145722"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+10
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145716"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+strictly above
+</font></div>
+</td>
+    <td><a name="wp145718"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+11
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145712"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+does not extend below
+</font></div>
+</td>
+    <td><a name="wp145714"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+12
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp145838"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.4   GIN Array Strategies
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp145842"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Operation
+</b></font></div>
+</th>
+    <th><a name="wp145844"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Strategy Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp145856"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+overlap
+</font></div>
+</td>
+    <td><a name="wp145848"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145850"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+contains
+</font></div>
+</td>
+    <td><a name="wp145852"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+2
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145872"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+is contained by
+</font></div>
+</td>
+    <td><a name="wp145874"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp145868"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+equal
+</font></div>
+</td>
+    <td><a name="wp145870"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+4
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+<a name="wp145279"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>operator_name</i></b></font>
+</b></font></h6>
+<a name="wp145280"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of an operator associated with the operator class. 
+</font></div>
+<a name="wp145282"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>op_type</i></b></font>
+</b></font></h6>
+<a name="wp145283"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The operand data type(s) of an operator, or <code><font face="Courier New, Courier, mono" size="2">NONE</font></code> to signify a left-unary or right-unary operator. The operand data types may be omitted in the normal case where they are the same as the operator class data type. 
+</font></div>
+<a name="wp145285"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+RECHECK
+</b></font></h6>
+<a name="wp145286"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If present, the index is &quot;lossy&quot; for this operator, and so the rows retrieved using the index must be rechecked to verify that they actually satisfy the qualification clause involving this operator. 
+</font></div>
+<a name="wp145288"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>support_number</i></b></font>
+</b></font></h6>
+<a name="wp146098"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Index methods require additional support routines in order to work. These operations are administrative routines used internally by the index methods. As with strategies, the operator class identifies which specific functions should play each of these roles for a given data type and semantic interpretation. The index method defines the set of functions it needs, and the operator class identifies the correct functions to use by assigning them to the support function numbers as follows:</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp145976"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.5   B-tree and Bitmap Support Functions
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp145980"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Function
+</b></font></div>
+</th>
+    <th><a name="wp145982"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Support Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp145984"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Compare two keys and return an integer less than zero, zero, or greater than zero, indicating whether the first key is less than, equal to, or greater than the second.
+</font></div>
+</td>
+    <td><a name="wp145986"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp146005"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.6   Hash Support Functions
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp146009"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Function
+</b></font></div>
+</th>
+    <th><a name="wp146011"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Support Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp146013"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Compute the hash value for a key.
+</font></div>
+</td>
+    <td><a name="wp146015"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp146018"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.7   GiST Support Functions
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp146022"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Function
+</b></font></div>
+</th>
+    <th><a name="wp146024"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Support Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp146155"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+consistent - determine whether key satisfies the query qualifier.
+</font></div>
+</td>
+    <td><a name="wp146028"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146030"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+union - compute union of a set of keys.
+</font></div>
+</td>
+    <td><a name="wp146032"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+2
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146034"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+compress - compute a compressed representation of a key or value to be indexed.
+</font></div>
+</td>
+    <td><a name="wp146036"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146038"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+decompress - compute a decompressed representation of a compressed key.
+</font></div>
+</td>
+    <td><a name="wp146040"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+4
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146042"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+penalty - compute penalty for inserting new key into subtree with given subtree&#39;s key.
+</font></div>
+</td>
+    <td><a name="wp146044"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146046"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+picksplit - determine which entries of a page are to be moved to the new page and compute the union keys for resulting pages.
+</font></div>
+</td>
+    <td><a name="wp146048"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+6
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146050"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+equal - compare two keys and return true if they are equal.
+</font></div>
+</td>
+    <td><a name="wp146052"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+7
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+<div align="left">
+<table border="1" cellpadding="3" cellspacing="0" width="90%" bgcolor="White" bordercolor="Black">
+  <caption><a name="wp146075"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Table A.8   GIN Support Functions
+</font></div>
+</caption>
+  <tr bgcolor="#E5B53A" align="left">    <th><a name="wp146079"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Function
+</b></font></div>
+</th>
+    <th><a name="wp146081"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Support Number
+</b></font></div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp146225"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+compare - compare two keys and return an integer less than zero, zero, or greater than zero, indicating whether the first key is less than, equal to, or greater than the second.
+</font></div>
+</td>
+    <td><a name="wp146085"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146087"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+extractValue - extract keys from a value to be indexed.
+</font></div>
+</td>
+    <td><a name="wp146089"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+2
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146091"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+extractQuery - extract keys from a query condition.
+</font></div>
+</td>
+    <td><a name="wp146093"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp146095"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+consistent - determine whether value matches query condition.
+</font></div>
+</td>
+    <td><a name="wp146097"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+4
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+<a name="wp145291"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>funcname</i></b></font>
+</b></font></h6>
+<a name="wp145292"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of a function that is an index method support procedure for the operator class. 
+</font></div>
+<a name="wp145294"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argument_types</i></b></font>
+</b></font></h6>
+<a name="wp145295"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The parameter data type(s) of the function. 
+</font></div>
+<a name="wp145297"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>storage_type</i></b></font>
+</b></font></h6>
+<a name="wp145298"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type actually stored in the index. Normally this is the same as the column data type, but GIN and GiST index methods allow it to be different. The <code><font face="Courier New, Courier, mono" size="2">STORAGE</font></code> clause must be omitted unless the index method allows a different type to be used. 
+</font></div>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp146273"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Because the index machinery does not check access permissions on functions before using them, including a function or operator in an operator class is the same as granting public execute permission on it. This is usually not an issue for the sorts of functions that are useful in an operator class. 
+</font></p>
+<a name="wp146275"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The operators should not be defined by SQL functions. A SQL function is likely to be inlined into the calling query, which will prevent the optimizer from recognizing that the query matches an index.
+</font></p>
+<a name="wp146296"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Any functions used to implement the operator class must be defined as <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp146302"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The following example command defines a GiST index operator class for the data type _int4 (array of int4): 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE OPERATOR CLASS gist__int_ops</font><a name="wp146304"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    DEFAULT FOR TYPE _int4 USING gist AS</font><a name="wp146305"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        OPERATOR 3 &amp;&amp;,</font><a name="wp146306"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        OPERATOR 6 = RECHECK,</font><a name="wp146307"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        OPERATOR 7 @&gt;,</font><a name="wp146308"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        OPERATOR 8 &lt;@,</font><a name="wp146309"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        OPERATOR 20 @@ (_int4, query_int),</font><a name="wp146310"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        FUNCTION 1 g_int_consistent (internal, _int4, int4),</font><a name="wp146311"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        FUNCTION 2 g_int_union (bytea, internal),</font><a name="wp146312"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        FUNCTION 3 g_int_compress (internal),</font><a name="wp146313"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        FUNCTION 4 g_int_decompress (internal),</font><a name="wp146314"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        FUNCTION 5 g_int_penalty (internal, internal, internal),</font><a name="wp146315"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        FUNCTION 6 g_int_picksplit (internal, internal),</font><a name="wp146316"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">        FUNCTION 7 g_int_same (_int4, _int4, internal);</font><a name="wp145372"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp145381"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE OPERATOR CLASS</font></code> is a Greenplum Database extension. There is no <code><font face="Courier New, Courier, mono" size="2">CREATE OPERATOR CLASS</font></code> statement in the SQL standard.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_OPERATOR_CLASS.html">ALTER OPERATOR CLASS</a>, <a href="DROP_OPERATOR_CLASS.html">DROP OPERATOR CLASS</a>, <a href="CREATE_FUNCTION.html">CREATE FUNCTION</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_OPERATOR.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_RESOURCE_QUEUE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

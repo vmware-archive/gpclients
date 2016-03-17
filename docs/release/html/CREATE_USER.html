@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:59">
+    <title>CREATE USER</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_TYPE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_VIEW.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE USER
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new database role with the <code><font face="Courier New, Courier, mono" size="2">LOGIN</font></code> privilege by default.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE USER <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> [ [WITH] <code><font face="Courier New, Courier, mono" size="2"><i>option</i></font></code> [ ... ] ]</font></p><a name="wp143036"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where option can be:</font></p><a name="wp143038"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">      SUPERUSER | NOSUPERUSER</font><a name="wp143040"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | CREATEDB | NOCREATEDB</font><a name="wp143041"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | CREATEROLE | NOCREATEROLE</font><a name="wp143042"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | CREATEUSER | NOCREATEUSER</font><a name="wp143043"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | INHERIT | NOINHERIT</font><a name="wp143044"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | LOGIN | NOLOGIN</font><a name="wp143045"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | [ ENCRYPTED | UNENCRYPTED ] PASSWORD &#39;<code><font face="Courier New, Courier, mono" size="2"><i>password</i></font></code>&#39;</font><a name="wp143046"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | VALID UNTIL &#39;<code><font face="Courier New, Courier, mono" size="2"><i>timestamp</i></font></code>&#39; </font><a name="wp143047"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | IN ROLE <code><font face="Courier New, Courier, mono" size="2"><i>rolename</i></font></code> [, ...]</font><a name="wp143048"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | IN GROUP <code><font face="Courier New, Courier, mono" size="2"><i>rolename</i></font></code> [, ...]</font><a name="wp143049"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | ROLE <code><font face="Courier New, Courier, mono" size="2"><i>rolename</i></font></code> [, ...]</font><a name="wp143050"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | ADMIN <code><font face="Courier New, Courier, mono" size="2"><i>rolename</i></font></code> [, ...]</font><a name="wp143051"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | USER <code><font face="Courier New, Courier, mono" size="2"><i>rolename</i></font></code> [, ...]</font><a name="wp143052"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    | SYSID <code><font face="Courier New, Courier, mono" size="2"><i>uid</i></font></code> </font><a name="wp143034"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp142065"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+As of Greenplum Database release 2.2, <code><font face="Courier New, Courier, mono" size="2">CREATE USER</font></code> has been replaced by <a href="CREATE_ROLE.html">CREATE ROLE</a>, although it is still accepted for backwards compatibility.
+</font></p>
+<a name="wp143235"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The only difference between <code><font face="Courier New, Courier, mono" size="2">CREATE ROLE</font></code> and <code><font face="Courier New, Courier, mono" size="2">CREATE USER</font></code> is that <code><font face="Courier New, Courier, mono" size="2">LOGIN</font></code> is assumed by default with <code><font face="Courier New, Courier, mono" size="2">CREATE USER</font></code>, whereas <code><font face="Courier New, Courier, mono" size="2">NOLOGIN</font></code> is assumed by default with <code><font face="Courier New, Courier, mono" size="2">CREATE ROLE</font></code>. 
+</font></p>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp142966"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is no <code><font face="Courier New, Courier, mono" size="2">CREATE USER</font></code> statement in the SQL standard. 
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_ROLE.html">CREATE ROLE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_TYPE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_VIEW.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

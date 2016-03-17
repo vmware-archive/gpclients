@@ -1,0 +1,621 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:42">
+    <title>ALTER TABLE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="ALTER_SEQUENCE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="ALTER_TABLESPACE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+ALTER TABLE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Changes the definition of a table.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE [ONLY] <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> RENAME [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> TO <code><font face="Courier New, Courier, mono" size="2"><i>new_column</i></font></code></font></p><a name="wp136492"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> RENAME TO <code><font face="Courier New, Courier, mono" size="2"><i>new_name</i></font></code></font></p><a name="wp136494"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> SET SCHEMA <code><font face="Courier New, Courier, mono" size="2"><i>new_schema</i></font></code></font></p><a name="wp136496"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE [ONLY] <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>action</i></font></code> [, ... ]</font></p><a name="wp136538"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE <code><font face="Courier New, Courier, mono" size="2"><i>parent_table_name</i></font></code> </font></p><a name="wp139303"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[ ALTER PARTITION { <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code> | FOR (RANK(<code><font face="Courier New, Courier, mono" size="2"><i>number</i></font></code>)) 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| FOR (<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>) } [...] ]</font><a name="wp139304"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;| ALTER DEFAULT PARTITION ]</font><a name="wp140461"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| DROP DEFAULT PARTITION [IF EXISTS]</font><a name="wp140417"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| DROP PARTITION [IF EXISTS] { <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code> | </font><a name="wp140063"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;FOR (RANK(<code><font face="Courier New, Courier, mono" size="2"><i>number</i></font></code>)) | FOR (&#39;<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>&#39;) } [CASCADE]</font><a name="wp140090"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| TRUNCATE DEFAULT PARTITION</font><a name="wp140072"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| TRUNCATE PARTITION { <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code> | FOR (RANK(<code><font face="Courier New, Courier, mono" size="2"><i>number</i></font></code>)) | </font><a name="wp140435"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;FOR (&#39;<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>&#39;) }</font><a name="wp140028"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| RENAME DEFAULT PARTITION TO <code><font face="Courier New, Courier, mono" size="2"><i>new_partition_name</i></font></code></font><a name="wp140474"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| RENAME PARTITION { <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code> | FOR (RANK(<code><font face="Courier New, Courier, mono" size="2"><i>number</i></font></code>)) | </font><a name="wp140077"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;FOR (&#39;<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>&#39;) } TO <code><font face="Courier New, Courier, mono" size="2"><i>new_partition_name</i></font></code></font><a name="wp140031"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| ADD DEFAULT PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> </font><a name="wp139382"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;|<code><font face="Courier New, Courier, mono" size="2"><i> </i></font></code>ADD PARTITION [<code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] <code><font face="Courier New, Courier, mono" size="2"><i>partition_element</i></font></code></font><a name="wp140001"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ ( <code><font face="Courier New, Courier, mono" size="2"><i>subpartition_specification</i></font></code> ) ]</font><a name="wp139359"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| EXCHANGE PARTITION { <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code> | FOR (RANK(<code><font face="Courier New, Courier, mono" size="2"><i>number</i></font></code>)) | </font><a name="wp140082"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;FOR (&#39;<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>&#39;) } WITH TABLE <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> </font><a name="wp139457"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ WITH | WITHOUT VALIDATION ]</font><a name="wp140159"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| SPLIT DEFAULT PARTITION AT (&#39;<code><font face="Courier New, Courier, mono" size="2"><i>list_value</i></font></code>&#39;)</font><a name="wp140640"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;| START([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>range_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE] </font><a name="wp140674"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;END([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>range_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font><a name="wp140695"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;[ INTO ( PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>new_partition_name</i></font></code>, </font><a name="wp140608"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>default_partition_name</i></font></code> ) ]</font><a name="wp140801"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| SPLIT PARTITION { <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code> | FOR (RANK(<code><font face="Courier New, Courier, mono" size="2"><i>number</i></font></code>)) | </font><a name="wp140638"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;FOR (&#39;<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>&#39;) } AT (&#39;<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>&#39;) </font><a name="wp140609"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;[ INTO (PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code>, PARTITION <code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code>)]</font><a name="wp140631"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where action is one of:</font></p><a name="wp136562"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ADD [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column_type</i></font></code> [<code><font face="Courier New, Courier, mono" size="2"><i>column_constraint</i></font></code> [ ... ]]</font><a name="wp136501"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;DROP [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> [RESTRICT | CASCADE]</font><a name="wp136502"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ALTER [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> TYPE <code><font face="Courier New, Courier, mono" size="2"><i>type</i></font></code> [USING <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code>]</font><a name="wp136503"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ALTER [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> SET DEFAULT <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code></font><a name="wp136504"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ALTER [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> DROP DEFAULT</font><a name="wp136505"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ALTER [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> { SET | DROP } NOT NULL</font><a name="wp136506"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ALTER [COLUMN] <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> SET STATISTICS <code><font face="Courier New, Courier, mono" size="2"><i>integer</i></font></code></font><a name="wp136507"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ADD <code><font face="Courier New, Courier, mono" size="2"><i>table_constraint</i></font></code></font><a name="wp136509"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;DROP CONSTRAINT <code><font face="Courier New, Courier, mono" size="2"><i>constraint_name</i></font></code> [RESTRICT | CASCADE]</font><a name="wp136510"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;DISABLE TRIGGER [<code><font face="Courier New, Courier, mono" size="2"><i>trigger_name</i></font></code> | ALL | USER]</font><a name="wp136511"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ENABLE TRIGGER [trigger_name | ALL | USER]</font><a name="wp136512"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;CLUSTER ON index_name</font><a name="wp136513"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;SET WITHOUT CLUSTER</font><a name="wp136514"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;SET WITHOUT OIDS</font><a name="wp136515"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;SET (FILLFACTOR = <code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>)</font><a name="wp136516"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;RESET (FILLFACTOR)</font><a name="wp136517"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;INHERIT <code><font face="Courier New, Courier, mono" size="2"><i>parent_table</i></font></code></font><a name="wp136518"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;NO INHERIT <code><font face="Courier New, Courier, mono" size="2"><i>parent_table</i></font></code></font><a name="wp136519"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;OWNER TO <code><font face="Courier New, Courier, mono" size="2"><i>new_owner</i></font></code></font><a name="wp136520"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;SET TABLESPACE new_tablespace</font><a name="wp134797"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2"></font></p><a name="wp139436"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where partition_element is:</font></p><a name="wp139399"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;VALUES (<code><font face="Courier New, Courier, mono" size="2"><i>list_value</i></font></code> [,...] )</font></p><a name="wp139401"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| START ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>start_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font></p><a name="wp139402"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE] ]</font><a name="wp139404"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font></p><a name="wp139406"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">[ WITH ( <code><font face="Courier New, Courier, mono" size="2"><i>partition_storage_parameter</i></font></code>=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> [, ... ] ) ]</font></p><a name="wp139409"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[ TABLESPACE tablespace ]</font><a name="wp139410"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where subpartition_specification is:</font></p><a name="wp139411"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>subpartition_element</i></font></code> [, ...]</font><a name="wp139412"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">and subpartition_element is:</font></p><a name="wp139413"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;DEFAULT SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code></font><a name="wp139414"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] VALUES (<code><font face="Courier New, Courier, mono" size="2"><i>list_value</i></font></code> [,...] )</font></p><a name="wp139415"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] </font></p><a name="wp139416"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;START ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>start_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font><a name="wp139417"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE] ]</font><a name="wp139418"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ EVERY ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>number | </i></font></code>INTERVAL] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>interval_value</i></font></code>&#39;) ]</font><a name="wp139419"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;| [SUBPARTITION <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code>] </font></p><a name="wp139420"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;END ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>end_value</i></font></code>&#39;) [INCLUSIVE | EXCLUSIVE]</font><a name="wp139421"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[ EVERY ([<code><font face="Courier New, Courier, mono" size="2"><i>datatype</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>number | </i></font></code>INTERVAL] &#39;<code><font face="Courier New, Courier, mono" size="2"><i>interval_value</i></font></code>&#39;) ]</font><a name="wp139422"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">[ WITH ( <code><font face="Courier New, Courier, mono" size="2"><i>partition_storage_parameter</i></font></code>=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> [, ... ] ) ]</font></p><a name="wp139423"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[ TABLESPACE tablespace ]</font><a name="wp139424"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp136716"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">ALTER TABLE</font></code> changes the definition of an existing table. There are several subforms: 
+</font></p>
+<ul>
+<a name="wp136720"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>ADD COLUMN</b></font></code> - Adds a new column to the table, using the same syntax as <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE</font></code>. </font></li>
+</ul>
+
+<ul>
+<a name="wp136723"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>DROP COLUMN</b></font></code> - Drops a column from a table. Note that if you drop table columns that are being used as the Greenplum Database distribution key, the distribution policy for the table will be changed to <code><font face="Courier New, Courier, mono" size="2">DISTRIBUTED RANDOMLY</font></code>. Indexes and table constraints involving the column will be automatically dropped as well. You will need to say <code><font face="Courier New, Courier, mono" size="2">CASCADE</font></code> if anything outside the table depends on the column (such as views). </font></li>
+</ul>
+
+<ul>
+<a name="wp136879"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>ALTER COLUMN TYPE</b></font></code> - Changes the data type of a column of a table. Note that you cannot alter column data types that are being used as the Greenplum Database distribution key. Indexes and simple table constraints involving the column will be automatically converted to use the new column type by reparsing the originally supplied expression. The optional <code><font face="Courier New, Courier, mono" size="2">USING</font></code> clause specifies how to compute the new column value from the old. If omitted, the default conversion is the same as an assignment cast from old data type to new. A <code><font face="Courier New, Courier, mono" size="2">USING</font></code> clause must be provided if there is no implicit or assignment cast from old to new type.</font></li>
+</ul>
+
+<ul>
+<a name="wp136904"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET/DROP DEFAULT</b></font></code> - Sets or removes the default value for a column. The default values only apply to subsequent <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> commands. They do not cause rows already in the table to change. Defaults may also be created for views, in which case they are inserted into statements on the view before the view&#39;s <code><font face="Courier New, Courier, mono" size="2">ON INSERT</font></code> rule is applied. </font></li>
+</ul>
+
+<ul>
+<a name="wp136929"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET/DROP NOT NULL</b></font></code> - Changes whether a column is marked to allow null values or to reject null values. You can only use <code><font face="Courier New, Courier, mono" size="2">SET NOT NULL</font></code> when the column contains no null values.</font></li>
+</ul>
+
+<ul>
+<a name="wp136944"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET STATISTICS</b></font></code> - Sets the per-column statistics-gathering target for subsequent <code><font face="Courier New, Courier, mono" size="2">ANALYZE</font></code> operations. The target can be set in the range 0 to 1000, or set to -1 to revert to using the system default statistics target (<code><font face="Courier New, Courier, mono" size="2">default_statistics_target</font></code>).</font></li>
+</ul>
+
+<ul>
+<a name="wp137022"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>ADD table_constraint</b></font></code> - Adds a new constraint to a table using the same syntax as <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE</font></code>. </font></li>
+</ul>
+
+<ul>
+<a name="wp137038"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>DROP CONSTRAINT</b></font></code> - Drops the specified constraint on a table.</font></li>
+</ul>
+
+<ul>
+<a name="wp137055"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>DISABLE/ENABLE TRIGGER</b></font></code> - Disables or enables trigger(s) belonging to the table. A disabled trigger is still known to the system, but is not executed when its triggering event occurs. For a deferred trigger, the enable status is checked when the event occurs, not when the trigger function is actually executed. One may disable or enable a single trigger specified by name, or all triggers on the table, or only user-created triggers. Disabling or enabling constraint triggers requires superuser privileges. Note that foreign key constraint triggers are not currently supported in Greenplum Database, and triggers in general have very limited functionality due to the parallelism of Greenplum Database. See <code><font face="Courier New, Courier, mono" size="2">CREATE TRIGGER</font></code> for more information.</font></li>
+</ul>
+
+<ul>
+<a name="wp137071"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>CLUSTER/SET WITHOUT CLUSTER</b></font></code> - Selects or removes the default index for future <code><font face="Courier New, Courier, mono" size="2">CLUSTER</font></code> operations. It does not actually re-cluster the table. Note that <code><font face="Courier New, Courier, mono" size="2">CLUSTER</font></code> is not the recommended way to physically reorder a table in Greenplum Database because it takes so long. It is better to recreate the table with <a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a> and order it by the index column(s).</font></li>
+</ul>
+
+<ul>
+<a name="wp137152"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET WITHOUT OIDS</b></font></code> - Removes the OID system column from the table. Note that there is no variant of <code><font face="Courier New, Courier, mono" size="2">ALTER TABLE</font></code> that allows OIDs to be restored to a table once they have been removed. </font></li>
+</ul>
+
+<ul>
+<a name="wp137192"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET ( FILLFACTOR = value) / RESET (FILLFACTOR)</b></font></code> - Changes the storage parameters for the table. Currently the only available parameter is <code><font face="Courier New, Courier, mono" size="2">FILLFACTOR</font></code>. The fillfactor for a table is a percentage between 10 and 100. 100 (complete packing) is the default. When a smaller fillfactor is specified, <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> operations pack table pages only to the indicated percentage; the remaining space on each page is reserved for updating rows on that page. This gives <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> a chance to place the updated copy of a row on the same page as the original, which is more efficient than placing it on a different page. For a table whose entries are never updated, complete packing is the best choice, but in heavily updated tables smaller fillfactors are appropriate. Note that the table contents will not be modified immediately by this command. You will need to rewrite the table to get the desired effects.</font></li>
+</ul>
+
+<ul>
+<a name="wp137232"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>INHERIT parent_table / NO INHERIT parent_table</b></font></code> - Adds or removes the target table as a child of the specified parent table. Queries against the parent will include records of its child table. To be added as a child, the target table must already contain all the same columns as the parent (it could have additional columns, too). The columns must have matching data types, and if they have <code><font face="Courier New, Courier, mono" size="2">NOT</font></code> <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> constraints in the parent then they must also have <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code> constraints in the child. There must also be matching child-table constraints for all <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraints of the parent.</font></li>
+</ul>
+
+<ul>
+<a name="wp137262"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>OWNER</b></font></code> - Changes the owner of the table, sequence, or view to the specified user. </font></li>
+</ul>
+
+<ul>
+<a name="wp137271"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET TABLESPACE</b></font></code> - Changes the table&#39;s tablespace to the specified tablespace and moves the data file(s) associated with the table to the new tablespace. Indexes on the table, if any, are not moved; but they can be moved separately with additional <code><font face="Courier New, Courier, mono" size="2">SET TABLESPACE</font></code> commands. See also <code><font face="Courier New, Courier, mono" size="2">CREATE TABLESPACE</font></code>. </font></li>
+</ul>
+
+<ul>
+<a name="wp137292"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>RENAME</b></font></code> - Changes the name of a table (or an index, sequence, or view) or the name of an individual column in a table. There is no effect on the stored data. Note that Greenplum Database distribution key columns cannot be renamed.</font></li>
+</ul>
+
+<ul>
+<a name="wp137307"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SET SCHEMA</b></font></code> - Moves the table into another schema. Associated indexes, constraints, and sequences owned by table columns are moved as well. </font></li>
+</ul>
+
+<ul>
+<a name="wp139526"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>ALTER | DROP | RENAME | TRUNCATE | ADD | SPLIT | EXCHANGE PARTITION</b></font></code> - Changes the structure of a partitioned table. In most cases, you must go through the parent table to alter one of its child table partitions.</font></li>
+</ul>
+
+<a name="wp136792"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You must own the table to use <code><font face="Courier New, Courier, mono" size="2">ALTER TABLE</font></code>. To change the schema of a table, you must also have <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code> privilege on the new schema. To add the table as a new child of a parent table, you must own the parent table as well. To alter the owner, you must also be a direct or indirect member of the new owning role, and that role must have <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code> privilege on the table&#39;s schema. A superuser has these privileges automatically.
+</font></p>
+<a name="wp134773"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp137339"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp137340"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (possibly schema-qualified) of an existing table to alter. If <code><font face="Courier New, Courier, mono" size="2">ONLY</font></code> is specified, only that table is altered. If <code><font face="Courier New, Courier, mono" size="2">ONLY</font></code> is not specified, the table and all its descendant tables (if any) are updated. 
+</font></div>
+<a name="wp137342"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column</i></b></font>
+</b></font></h6>
+<a name="wp137343"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Name of a new or existing column. Note that Greenplum Database distribution key columns must be treated with special care. Altering or dropping these columns can change the distribution policy for the table.
+</font></div>
+<a name="wp137345"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_column</i></b></font>
+</b></font></h6>
+<a name="wp137346"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+New name for an existing column. 
+</font></div>
+<a name="wp137348"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_name</i></b></font>
+</b></font></h6>
+<a name="wp137349"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+New name for the table. 
+</font></div>
+<a name="wp137351"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>type</i></b></font>
+</b></font></h6>
+<a name="wp137352"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Data type of the new column, or new data type for an existing column. If changing the data type of a Greenplum distribution key column, you are only allowed to change it to a compatible type (for example, <code><font face="Courier New, Courier, mono" size="2">text</font></code> to <code><font face="Courier New, Courier, mono" size="2">varchar</font></code> is OK, but <code><font face="Courier New, Courier, mono" size="2">text</font></code> to <code><font face="Courier New, Courier, mono" size="2">int</font></code> is not).
+</font></div>
+<a name="wp137354"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table_constraint</i></b></font>
+</b></font></h6>
+<a name="wp137355"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+New table constraint for the table. Note that foreign key constraints are currently not supported in Greenplum Database. Also a table is only allowed one unique constraint and the uniqueness must be within the Greenplum Database distribution key.
+</font></div>
+<a name="wp137357"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>constraint_name</i></b></font>
+</b></font></h6>
+<a name="wp137358"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Name of an existing constraint to drop.
+</font></div>
+<a name="wp137360"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CASCADE
+</b></font></h6>
+<a name="wp137361"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Automatically drop objects that depend on the dropped column or constraint (for example, views referencing the column). 
+</font></div>
+<a name="wp137363"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+RESTRICT
+</b></font></h6>
+<a name="wp137364"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Refuse to drop the column or constraint if there are any dependent objects. This is the default behavior. 
+</font></div>
+<a name="wp137366"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>trigger_name</i></b></font>
+</b></font></h6>
+<a name="wp137367"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Name of a single trigger to disable or enable. Note that Greenplum Database has limited support of triggers. See <code><font face="Courier New, Courier, mono" size="2">CREATE TRIGGER</font></code> for more information.
+</font></div>
+<a name="wp137369"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ALL
+</b></font></h6>
+<a name="wp137370"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Disable or enable all triggers belonging to the table including constraint related triggers. This requires superuser privilege.
+</font></div>
+<a name="wp137372"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+USER
+</b></font></h6>
+<a name="wp137373"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Disable or enable all user-created triggers belonging to the table. 
+</font></div>
+<a name="wp137375"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>index_name</i></b></font>
+</b></font></h6>
+<a name="wp137376"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The index name on which the table should be marked for clustering. Note that <code><font face="Courier New, Courier, mono" size="2">CLUSTER</font></code> is not the recommended way to physically reorder a table in Greenplum Database because it takes so long. It is better to recreate the table with <a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a> and order it by the index column(s).
+</font></div>
+<a name="wp137378"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FILLFACTOR
+</b></font></h6>
+<a name="wp137379"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Currently the only table storage parameter.
+</font></div>
+<a name="wp137381"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>value</i></b></font>
+</b></font></h6>
+<a name="wp137382"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The new value for the <code><font face="Courier New, Courier, mono" size="2">FILLFACTOR</font></code> parameter, which is a percentage between 10 and 100. 100 is the default.
+</font></div>
+<a name="wp137384"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>parent_table</i></b></font>
+</b></font></h6>
+<a name="wp137385"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A parent table to associate or de-associate with this table. 
+</font></div>
+<a name="wp137387"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_owner</i></b></font>
+</b></font></h6>
+<a name="wp137388"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The role name of the new owner of the table. 
+</font></div>
+<a name="wp137390"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_tablespace</i></b></font>
+</b></font></h6>
+<a name="wp137391"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the tablespace to which the table will be moved. 
+</font></div>
+<a name="wp137393"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>new_schema</i></b></font>
+</b></font></h6>
+<a name="wp137394"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the schema to which the table will be moved. 
+</font></div>
+<a name="wp139541"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+parent_table_name
+</b></font></h6>
+<a name="wp139853"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When altering a partitioned table, the name of the top-level parent table.
+</font></div>
+<a name="wp139542"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ALTER PARTITION
+</b></font></h6>
+<a name="wp139857"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If altering a partition deeper than the first level of partitions, the <code><font face="Courier New, Courier, mono" size="2">ALTER PARTITION</font></code> clause is used to specify which subpartition in the hierarchy you want to alter.
+</font></div>
+<a name="wp139758"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DROP PARTITION
+</b></font></h6>
+<a name="wp139889"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Drops the specified partition. If the partition has subpartitions, the subpartitions are automatically dropped as well.
+</font></div>
+<a name="wp139759"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+TRUNCATE PARTITION
+</b></font></h6>
+<a name="wp139893"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Truncates the specified partition. If the partition has subpartitions, the subpartitions are automatically truncated as well.
+</font></div>
+<a name="wp139764"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+RENAME PARTITION
+</b></font></h6>
+<a name="wp140179"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Changes the partition name of a partition (not the relation name). Partitioned tables are created using the naming convention: <code><font face="Courier New, Courier, mono" size="2">&lt;</font></code><code><font face="Courier New, Courier, mono" size="2"><i>parentname</i></font></code><code><font face="Courier New, Courier, mono" size="2">&gt;_&lt;</font></code><code><font face="Courier New, Courier, mono" size="2"><i>level</i></font></code><code><font face="Courier New, Courier, mono" size="2">&gt;_prt_&lt;</font></code><code><font face="Courier New, Courier, mono" size="2"><i>partition_name</i></font></code><code><font face="Courier New, Courier, mono" size="2">&gt;</font></code>.
+</font></div>
+<a name="wp139700"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ADD DEFAULT PARTITION
+</b></font></h6>
+<a name="wp140113"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Adds a default partition to an existing partition design. When data does not match to an existing partition, it is inserted into the default partition. Partition designs that do not have a default partition will reject incoming rows that do not match to an existing partition. Default partitions must be given a name.
+</font></div>
+<a name="wp140105"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ADD PARTITION
+</b></font></h6>
+<a name="wp139725"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>partition_element</i></b></font> - Using the existing partition type of the table (range or list), defines the boundaries of new partition you are adding.
+</font></div>
+<a name="wp139728"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font> - A name for this new partition.
+</font></div>
+<a name="wp139729"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>VALUES</b></font> - For list partitions, defines the value(s) that the partition will contain.
+</font></div>
+<a name="wp139730"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>START</b></font> - For range partitions, defines the starting range value for the partition. By default, start values are <code><font face="Courier New, Courier, mono" size="2">INCLUSIVE</font></code>. For example, if you declared a start date of `<code><font face="Courier New, Courier, mono" size="2">2008-01-01</font></code>&#39;, then the partition would contain all dates greater than or equal to `<code><font face="Courier New, Courier, mono" size="2">2008-01-01</font></code>&#39;. Typically the data type of the <code><font face="Courier New, Courier, mono" size="2">START</font></code> expression is the same type as the partition key column. If that is not the case, then you must explicitly cast to the intended data type.
+</font></div>
+<a name="wp139731"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>END</b></font> - For range partitions, defines the ending range value for the partition. By default, end values are <code><font face="Courier New, Courier, mono" size="2">EXCLUSIVE</font></code>. For example, if you declared an end date of `<code><font face="Courier New, Courier, mono" size="2">2008-02-01</font></code>&#39;, then the partition would contain all dates less than but not equal to `<code><font face="Courier New, Courier, mono" size="2">2008-02-01</font></code>&#39;. Typically the data type of the <code><font face="Courier New, Courier, mono" size="2">END</font></code> expression is the same type as the partition key column. If that is not the case, then you must explicitly cast to the intended data type.
+</font></div>
+<a name="wp139733"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>WITH</b></font> - Sets the table storage options for a partition. For example, you may want older partitions to be append-only tables and newer partitions to be regular heap tables.
+</font></div>
+<a name="wp139737"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>TABLESPACE</b></font> - Currently not supported in Greenplum Database. The name of the tablespace in which the partition is to be created.
+</font></div>
+<a name="wp139805"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>subpartition_specification </i></b></font>- Only allowed on partition designs that were created without a subpartition template. Declares a subpartition specification for the new partition you are adding. If the partitioned table was originally defined using a subpartition template, then the template will be used to generate the subpartitions automatically.
+</font></div>
+<a name="wp139832"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+EXCHANGE PARTITION
+</b></font></h6>
+<a name="wp139954"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Exchanges another table into the partition hierarchy into the place of an existing partition. In a multi-level partition design, you can only exchange the lowest level partitions (those that contain data). 
+</font></div>
+<a name="wp139536"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>WITH TABLE</b></font> <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table_name</i></b></font> - The name of the table you are swapping in to the partition design.
+</font></div>
+<a name="wp139841"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>WITH | WITHOUT VALIDATION</b></font> - Validates that the data in the table matches the <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraint of the partition you are exchanging. The default is to validate the data against the <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraint.
+</font></div>
+<a name="wp140491"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+SPLIT DEFAULT PARTITION
+</b></font></h6>
+<a name="wp140729"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Splits a default partition. In a multi-level partition design, you can only split the lowest level default partitions (those that contain data). Splitting a default partition creates a new partition containing the values specified and leaves the default partition containing any values that do not match to an existing partition.
+</font></div>
+<a name="wp140760"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>AT</b></font> - For list partitioned tables, specifies a single list value that should be used as the criteria for the split. 
+</font></div>
+<a name="wp140761"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>START</b></font> - For range partitioned tables, specifies a starting value for the new partition. 
+</font></div>
+<a name="wp140762"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>END</b></font> - For range partitioned tables, specifies an ending value for the new partition.
+</font></div>
+<a name="wp140775"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>INTO</b></font> - Allows you to specify a name for the new partition. When using the <code><font face="Courier New, Courier, mono" size="2">INTO</font></code> clause to split a default partition, the second partition name specified should always be that of the existing default partition. If you do not know the name of the default partition, you can look it up using the pg_partitions view.
+</font></div>
+<a name="wp140776"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+SPLIT PARTITION
+</b></font></h6>
+<a name="wp140495"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Splits an existing partition into two partitions. In a multi-level partition design, you can only split the lowest level partitions (those that contain data). 
+</font></div>
+<a name="wp140764"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>AT</b></font> - Specifies a single value that should be used as the criteria for the split. The partition will be divided into two new partitions with the split value specified being the starting range for the latter partition.
+</font></div>
+<a name="wp140765"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>INTO</b></font> - Allows you to specify names for the two new partitions created by the split.
+</font></div>
+<a name="wp140222"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>partition_name</i></b></font>
+</b></font></h6>
+<a name="wp140255"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The given name of a partition. 
+</font></div>
+<a name="wp140230"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FOR (RANK(<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>number</i></b></font>))
+</b></font></h6>
+<a name="wp140259"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+For range partitions, the rank of the partition in the range. 
+</font></div>
+<a name="wp140229"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FOR (&#39;value&#39;)
+</b></font></h6>
+<a name="wp140263"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies a partition by declaring a value that falls within the partition boundary specification. If the value declared with <code><font face="Courier New, Courier, mono" size="2">FOR</font></code> matches to both a partition and one of its subpartitions (for example, if the value is a date and the table is partitioned by month and then by day), then <code><font face="Courier New, Courier, mono" size="2">FOR</font></code> will operate on the first level where a match is found (for example, the monthly partition). If your intent is to operate on a subpartition, you must declare so as follows:<br><code><font face="Courier New, Courier, mono" size="2">ALTER TABLE </font></code><code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code><code><font face="Courier New, Courier, mono" size="2"> ALTER PARTITION FOR (&#39;2008-10-01&#39;) DROP PARTITION FOR (&#39;2008-10-01&#39;);</font></code>
+</font></div>
+<a name="wp132918"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp136326"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Take special care when altering or dropping columns that are part of the Greenplum Database distribution key as this can change the distribution policy for the table.
+</font></p>
+<a name="wp137807"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database does not currently support foreign key constraints. For a unique constraint to be enforced in Greenplum Database, the table must be hash-distributed (not <code><font face="Courier New, Courier, mono" size="2">DISTRIBUTED RANDOMLY</font></code>), and all of the distribution key columns must be present among the unique constraint columns. 
+</font></p>
+<a name="wp137902"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Adding a <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> or <code><font face="Courier New, Courier, mono" size="2">NOT NULL</font></code> constraint requires scanning the table to verify that existing rows meet the constraint.
+</font></p>
+<a name="wp137836"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When a column is added with <code><font face="Courier New, Courier, mono" size="2">ADD COLUMN</font></code>, all existing rows in the table are initialized with the column&#39;s default value (<code><font face="Courier New, Courier, mono" size="2">NULL</font></code> if no <code><font face="Courier New, Courier, mono" size="2">DEFAULT</font></code> clause is specified). Adding a column with a non-null default or changing the type of an existing column will require the entire table to be rewritten. This may take a significant amount of time for a large table; and it will temporarily require double the disk space.
+</font></p>
+<a name="wp137842"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can specify multiple changes in a single <code><font face="Courier New, Courier, mono" size="2">ALTER TABLE</font></code> command, which will be done in a single pass over the table. 
+</font></p>
+<a name="wp137844"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">DROP COLUMN</font></code> form does not physically remove the column, but simply makes it invisible to SQL operations. Subsequent insert and update operations in the table will store a null value for the column. Thus, dropping a column is quick but it will not immediately reduce the on-disk size of your table, as the space occupied by the dropped column is not reclaimed. The space will be reclaimed over time as existing rows are updated.
+</font></p>
+<a name="wp137846"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The fact that <code><font face="Courier New, Courier, mono" size="2">ALTER TYPE</font></code> requires rewriting the whole table is sometimes an advantage, because the rewriting process eliminates any dead space in the table. For example, to reclaim the space occupied by a dropped column immediately, the fastest way is: <code><font face="Courier New, Courier, mono" size="2">ALTER TABLE table ALTER COLUMN anycol TYPE sametype; </font></code>Where anycol is any remaining table column and sametype is the same type that column already has. This results in no semantically-visible change in the table, but the command forces rewriting, which gets rid of no-longer-useful data.
+</font></p>
+<a name="wp137852"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If a table is partitioned or has any descendant tables, it is not permitted to add, rename, or change the type of a column in the parent table without doing the same to the descendants. This ensures that the descendants always have columns matching the parent. 
+</font></p>
+<a name="wp139912"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To see the structure of a partitioned table, you can use the view <a href="../../Output/Admin/pg_partitions.html#wp143896">pg_partitions</a>. This view can help identify the particular partitions you may want to alter.
+</font></p>
+<a name="wp137854"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A recursive <code><font face="Courier New, Courier, mono" size="2">DROP COLUMN</font></code> operation will remove a descendant table&#39;s column only if the descendant does not inherit that column from any other parents and never had an independent definition of the column. A nonrecursive <code><font face="Courier New, Courier, mono" size="2">DROP COLUMN</font></code> (<code><font face="Courier New, Courier, mono" size="2">ALTER TABLE ONLY ... DROP COLUMN</font></code>) never removes any descendant columns, but instead marks them as independently defined rather than inherited. 
+</font></p>
+<a name="wp137856"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">TRIGGER</font></code>, <code><font face="Courier New, Courier, mono" size="2">CLUSTER</font></code>, <code><font face="Courier New, Courier, mono" size="2">OWNER</font></code>, and <code><font face="Courier New, Courier, mono" size="2">TABLESPACE</font></code> actions never recurse to descendant tables; that is, they always act as though <code><font face="Courier New, Courier, mono" size="2">ONLY</font></code> were specified. Adding a constraint can recurse only for <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraints.
+</font></p>
+<a name="wp137858"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Changing any part of a system catalog table is not permitted.
+</font></p>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp137754"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Add a column to a table:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE distributors ADD COLUMN address varchar(30);</font><a name="wp137755"> </a>
+</pre>
+<a name="wp137756"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Rename an existing column:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE distributors RENAME COLUMN address TO city;</font><a name="wp137757"> </a>
+</pre>
+<a name="wp137758"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Rename an existing table:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE distributors RENAME TO suppliers;</font><a name="wp137759"> </a>
+</pre>
+<a name="wp137760"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Add a not-null constraint to a column:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE distributors ALTER COLUMN street SET NOT NULL;</font><a name="wp137761"> </a>
+</pre>
+<a name="wp137793"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Add a check constraint to a table:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE distributors ADD CONSTRAINT zipchk CHECK 
+(char_length(zipcode) = 5);</font><a name="wp137762"> </a>
+</pre>
+<a name="wp137791"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Move a table to a different schema:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE myschema.distributors SET SCHEMA yourschema;</font><a name="wp137763"> </a>
+</pre>
+<a name="wp140530"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Add a new partition to a partitioned table:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE sales ADD PARTITION </font><a name="wp140536"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;START (date &#39;2009-02-01&#39;) INCLUSIVE </font><a name="wp140537"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;END (date &#39;2009-03-01&#39;) EXCLUSIVE;</font><a name="wp140531"> </a>
+</pre>
+<a name="wp140560"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Add a default partition to an existing partition design:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE sales ADD DEFAULT PARTITION other;</font><a name="wp140555"> </a>
+</pre>
+<a name="wp140545"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Rename a partition:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE sales RENAME PARTITION FOR (&#39;2008-01-01&#39;) TO 
+jan08;</font><a name="wp140546"> </a>
+</pre>
+<a name="wp140554"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Drop the first (oldest) partition in a range sequence:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE sales DROP PARTITION FOR (RANK(1));</font><a name="wp140570"> </a>
+</pre>
+<a name="wp140587"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Exchange a table into your partition design:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE sales EXCHANGE PARTITION FOR (&#39;2008-01-01&#39;) WITH 
+TABLE jan08;</font><a name="wp140588"> </a>
+</pre>
+<a name="wp140596"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Split the default partition (where the existing default partition&#39;s name is `other&#39;) to add a new monthly partition for January 2009:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE sales SPLIT DEFAULT PARTITION </font><a name="wp140600"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">START (&#39;2009-01-01&#39;) INCLUSIVE </font><a name="wp140899"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">END (&#39;2009-02-01&#39;) EXCLUSIVE </font><a name="wp140900"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">INTO (PARTITION jan09, PARTITION other);</font><a name="wp140901"> </a>
+</pre>
+<a name="wp140908"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Split a monthly partition into two with the first partition containing dates January 1-15 and the second partition containing dates January 16-31:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ALTER TABLE sales SPLIT PARTITION FOR (&#39;2008-01-01&#39;)</font><a name="wp140924"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">AT (&#39;2008-01-16&#39;)</font><a name="wp140925"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">INTO (PARTITION jan081to15, PARTITION jan0816to31);</font><a name="wp140922"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp137721"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">ADD</font></code>, <code><font face="Courier New, Courier, mono" size="2">DROP</font></code>, and <code><font face="Courier New, Courier, mono" size="2">SET DEFAULT</font></code> forms conform with the SQL standard. The other forms are Greenplum Database extensions of the SQL standard. Also, the ability to specify more than one manipulation in a single <code><font face="Courier New, Courier, mono" size="2">ALTER TABLE</font></code> command is an extension.
+</font></p>
+<a name="wp137723"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">ALTER TABLE DROP COLUMN</font></code> can be used to drop the only column of a table, leaving a zero-column table. This is an extension of SQL, which disallows zero-column tables.
+</font></p>
+<a name="wp136314"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp136319"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_TABLE.html">CREATE TABLE</a>, <a href="DROP_TABLE.html">DROP TABLE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="ALTER_SEQUENCE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="ALTER_TABLESPACE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

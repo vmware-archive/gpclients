@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:48">
+    <title>CREATE DOMAIN</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_DATABASE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_EXTERNAL_TABLE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE DOMAIN
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new domain.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> [AS] <code><font face="Courier New, Courier, mono" size="2"><i>data_type</i></font></code> [DEFAULT <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code>] </font></p><a name="wp141670"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[CONSTRAINT <code><font face="Courier New, Courier, mono" size="2"><i>constraint_name</i></font></code> </font><a name="wp141921"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;| NOT NULL | NULL </font><a name="wp141922"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;| CHECK (<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code>) [...]]</font><a name="wp141923"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp141737"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE DOMAIN</font></code> creates a new domain. A domain is essentially a data type with optional constraints (restrictions on the allowed set of values). The user who defines a domain becomes its owner. The domain name must be unique among the data types and domains existing in its schema. 
+</font></p>
+<a name="wp141741"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Domains are useful for abstracting common constraints on fields into a single location for maintenance. For example, several tables might contain email address columns, all requiring the same <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> constraint to verify the address syntax. It is easier to define a domain rather than setting up a column constraint for each table that has an email column.
+</font></p>
+<a name="wp138453"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp141781"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp141782"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of a domain to be created. 
+</font></div>
+<a name="wp141784"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>data_type</i></b></font>
+</b></font></h6>
+<a name="wp141785"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The underlying data type of the domain. This may include array specifiers. 
+</font></div>
+<a name="wp141787"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DEFAULT <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>expression</i></b></font>
+</b></font></h6>
+<a name="wp141788"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies a default value for columns of the domain data type. The value is any variable-free expression (but subqueries are not allowed). The data type of the default expression must match the data type of the domain. If no default value is specified, then the default value is the null value. The default expression will be used in any insert operation that does not specify a value for the column. If a default value is defined for a particular column, it overrides any default associated with the domain. In turn, the domain default overrides any default value associated with the underlying data type.
+</font></div>
+<a name="wp141792"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CONSTRAINT <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>constraint_name</i></b></font>
+</b></font></h6>
+<a name="wp141793"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An optional name for a constraint. If not specified, the system generates a name. 
+</font></div>
+<a name="wp141795"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+NOT NULL
+</b></font></h6>
+<a name="wp141796"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Values of this domain are not allowed to be null. 
+</font></div>
+<a name="wp141798"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+NULL
+</b></font></h6>
+<a name="wp141799"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Values of this domain are allowed to be null. This is the default. This clause is only intended for compatibility with nonstandard SQL databases. Its use is discouraged in new applications.
+</font></div>
+<a name="wp141803"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CHECK (<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>expression</i></b></font>)
+</b></font></h6>
+<a name="wp141804"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> clauses specify integrity constraints or tests which values of the domain must satisfy. Each constraint must be an expression producing a Boolean result. It should use the key word <code><font face="Courier New, Courier, mono" size="2">VALUE</font></code> to refer to the value being tested. Currently, <code><font face="Courier New, Courier, mono" size="2">CHECK</font></code> expressions cannot contain subqueries nor refer to variables other than <code><font face="Courier New, Courier, mono" size="2">VALUE</font></code>. 
+</font></div>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp141613"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create the us_zip_code data type. A regular expression test is used to verify that the value looks like a valid US zip code. 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE DOMAIN us_zip_code AS TEXT CHECK 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;( VALUE ~ &#39;^\\d{5}$&#39; OR VALUE ~ &#39;^\\d{5}-\\d{4}$&#39; );</font><a name="wp141615"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp141485"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE DOMAIN</font></code> conforms to the SQL standard. 
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp140866"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_DOMAIN.html">ALTER DOMAIN</a>, <a href="DROP_DOMAIN.html">DROP DOMAIN</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_DATABASE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_EXTERNAL_TABLE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

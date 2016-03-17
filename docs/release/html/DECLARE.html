@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:00">
+    <title>DECLARE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="DEALLOCATE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="DELETE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+DECLARE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a cursor.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">DECLARE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> [BINARY] [INSENSITIVE] [NO SCROLL] CURSOR </font></p><a name="wp152355"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[{WITH | WITHOUT} HOLD] </font><a name="wp152371"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;FOR <code><font face="Courier New, Courier, mono" size="2"><i>query</i></font></code> [FOR READ ONLY]</font><a name="wp152372"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp152559"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">DECLARE</font></code> allows a user to create cursors, which can be used to retrieve a small number of rows at a time out of a larger query. Cursors can return data either in text or in binary format using <a href="FETCH.html">FETCH</a>. 
+</font></p>
+<a name="wp152561"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Normal cursors return data in text format, the same as a <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> would produce. Since data is stored natively in binary format, the system must do a conversion to produce the text format. Once the information comes back in text form, the client application may need to convert it to a binary format to manipulate it. In addition, data in the text format is often larger in size than in the binary format. Binary cursors return the data in a binary representation that may be more easily manipulated. Nevertheless, if you intend to display the data as text anyway, retrieving it in text form will save you some effort on the client side.
+</font></p>
+<a name="wp152563"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+As an example, if a query returns a value of one from an integer column, you would get a string of 1 with a default cursor whereas with a binary cursor you would get a 4-byte field containing the internal representation of the value (in big-endian byte order). 
+</font></p>
+<a name="wp152565"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Binary cursors should be used carefully. Many applications, including psql, are not prepared to handle binary cursors and expect data to come back in the text format. 
+</font></p>
+<a name="wp152567"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Note: When the client application uses the `extended query&#39; protocol to issue a <code><font face="Courier New, Courier, mono" size="2">FETCH</font></code> command, the Bind protocol message specifies whether data is to be retrieved in text or binary format. This choice overrides the way that the cursor is defined. The concept of a binary cursor as such is thus obsolete when using extended query protocol - any cursor can be treated as either text or binary.
+</font></div>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp152396"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp152397"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the cursor to be created. 
+</font></div>
+<a name="wp152399"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+BINARY
+</b></font></h6>
+<a name="wp152400"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Causes the cursor to return data in binary rather than in text format. 
+</font></div>
+<a name="wp152402"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+INSENSITIVE
+</b></font></h6>
+<a name="wp152403"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Indicates that data retrieved from the cursor should be unaffected by updates to the tables underlying the cursor while the cursor exists. In Greenplum Database, all cursors are insensitive. This key word currently has no effect and is present for compatibility with the SQL standard. 
+</font></div>
+<a name="wp152406"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+NO SCROLL
+</b></font></h6>
+<a name="wp152407"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A cursor cannot be used to retrieve rows in a nonsequential fashion. This is the default behavior in Greenplum Database, since scrollable cursors (<code><font face="Courier New, Courier, mono" size="2">SCROLL</font></code>) are not supported.
+</font></div>
+<a name="wp152409"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+WITH HOLD <br>WITHOUT HOLD
+</b></font></h6>
+<a name="wp152411"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">WITH HOLD</font></code> specifies that the cursor may continue to be used after the transaction that created it successfully commits. <code><font face="Courier New, Courier, mono" size="2">WITHOUT HOLD</font></code> specifies that the cursor cannot be used outside of the transaction that created it. <code><font face="Courier New, Courier, mono" size="2">WITHOUT HOLD</font></code> is the default. 
+</font></div>
+<a name="wp152413"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>query</i></b></font>
+</b></font></h6>
+<a name="wp152414"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A <a href="SELECT.html">SELECT</a> or <a href="VALUES.html">VALUES</a> command which will provide the rows to be returned by the cursor.
+</font></div>
+<a name="wp152416"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FOR READ ONLY
+</b></font></h6>
+<a name="wp152418"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Cursors can only be used in a read-only mode in Greenplum Database. Greenplum Database does not support updateable cursors (<code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code>), so this is the default behavior.
+</font></div>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp152620"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Unless <code><font face="Courier New, Courier, mono" size="2">WITH HOLD</font></code> is specified, the cursor created by this command can only be used within the current transaction. Thus, <code><font face="Courier New, Courier, mono" size="2">DECLARE</font></code> without <code><font face="Courier New, Courier, mono" size="2">WITH HOLD</font></code> is useless outside a transaction block: the cursor would survive only to the completion of the statement. Therefore Greenplum Database reports an error if this command is used outside a transaction block. Use <code><font face="Courier New, Courier, mono" size="2">BEGIN</font></code>, <code><font face="Courier New, Courier, mono" size="2">COMMIT</font></code> and <code><font face="Courier New, Courier, mono" size="2">ROLLBACK</font></code> to define a transaction block.
+</font></p>
+<a name="wp152622"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If <code><font face="Courier New, Courier, mono" size="2">WITH HOLD</font></code> is specified and the transaction that created the cursor successfully commits, the cursor can continue to be accessed by subsequent transactions in the same session. (But if the creating transaction is aborted, the cursor is removed.) A cursor created with <code><font face="Courier New, Courier, mono" size="2">WITH HOLD</font></code> is closed when an explicit <code><font face="Courier New, Courier, mono" size="2">CLOSE</font></code> command is issued on it, or the session ends. In the current implementation, the rows represented by a held cursor are copied into a temporary file or memory area so that they remain available for subsequent transactions. 
+</font></p>
+<a name="wp152624"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Scrollable cursors are not currently supported in Greenplum Database. You can only use <code><font face="Courier New, Courier, mono" size="2">FETCH</font></code> to move the cursor position forward, not backwards.
+</font></p>
+<a name="wp152628"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can see all available cursors by querying the pg_cursors system view. 
+</font></p>
+<a name="wp152617"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp152773"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Declare a cursor: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">DECLARE mycursor CURSOR FOR SELECT * FROM mytable;</font><a name="wp152774"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp152699"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+SQL standard allows cursors only in embedded SQL and in modules. Greenplum Database permits cursors to be used interactively. 
+</font></p>
+<a name="wp152742"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database does not implement an <code><font face="Courier New, Courier, mono" size="2">OPEN</font></code> statement for cursors. A cursor is considered to be open when it is declared.
+</font></p>
+<a name="wp152701"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard allows cursors to update table data. All Greenplum Database cursors are read only. 
+</font></p>
+<a name="wp152702"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard allows cursors to move both forward and backward. All Greenplum Database cursors are forward moving only (not scrollable).
+</font></p>
+<a name="wp152703"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Binary cursors are a Greenplum Database extension. 
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp152557"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CLOSE.html">CLOSE</a>, <a href="FETCH.html">FETCH</a>, <a href="MOVE.html">MOVE</a>, <a href="SELECT.html">SELECT</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="DEALLOCATE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="DELETE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

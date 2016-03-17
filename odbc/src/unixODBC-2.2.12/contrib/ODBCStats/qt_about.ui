@@ -1,0 +1,967 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>qt_aboutDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>qt_aboutDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>590</width>
+            <height>281</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>About ODBCConfig</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QTabWidget" row="0" column="1" rowspan="2" colspan="2">
+            <property name="name">
+                <cstring>tabWidget</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>aboutTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Abo&amp;ut</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <spacer row="1" column="0">
+                        <property name="name">
+                            <cstring>spacer3</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>31</width>
+                                <height>16</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>aboutLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&lt;b&gt;ODBC Statistics&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Version:&lt;/b&gt; 0.2&lt;br&gt;
+&lt;b&gt;Web site:&lt;/b&gt; &lt;a href="http://www.unixodbc.org"&gt;www.unixodbc.org&lt;/a&gt;&lt;br&gt;
+&lt;b&gt;Author:&lt;/b&gt; Fizz (fizz@titania.co.uk)&lt;br&gt;
+&lt;br&gt;
+This program is designed to monitor ODBC and display statistics.&lt;br&gt;
+&lt;br&gt;</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>creditsTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Credits</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QListBox" row="1" column="0">
+                        <item>
+                            <property name="text">
+                                <string>Nick Gorham (Project Lead, Driver Manager, gODBCConfig, odbctest)</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Peter Harvey (Original project lead, libs, DataManager, isql, odbcinst)</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Fizz (ODBCConfig, ODBCStats)</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jon Pounder</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Martin Evans</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Lars Doelle</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Manush Dodunekov</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Scott Courtney</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Greg Bentz</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Shandy J. Brown</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Mark Hessling</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Charles Morrison</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Holger Bischoff</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Charles Overbeck</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Murray Todd Williams</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jim Ziegler</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Thomas Langen</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Nikolai Afanasiev</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Ralf Fassel</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Tim Roepken</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Zoltan Boszormenyi</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Murad Nayal</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Michael Koch</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Dmitriy Yusupov</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Alex Hornby</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Steve Gilbert</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Max Khon</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jay Q. Cai</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Bill Bouma</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Steffen Dettmer</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jens Schlegel</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Venu Anuganti</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Tomas Zellerin</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>James Dugal</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Simon Pepping</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Bard Hustveit</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Ola Sundell</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Christian Werner</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Martin Edlman</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Dave Berry</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Holger Schurig</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Martin Ediman</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jon Kre Hellan</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Trond Eivind Glomsrd</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>J&lt;FC&gt;rgen Pfeifer</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jason Crummack</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Bojnourdi Kaikavous</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Martin Hobbs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Gary Bunting</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Patrice Favre</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>John C. Rood</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Martin Lacko</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Mikko Vierula</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Paul Richardson</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Samuel Cote</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Christian Jullien</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Mark Vanderwiel</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jeff Garzik</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Keith Woodard</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Steven M. Schultz</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Joel W. Reed</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jay Van Vark</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Rick Flower</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Artiom Morozov</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Bill Medland</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Per I. Mathisen</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Emile Heitor</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>John L Miller</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Brian Harris</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Craig A Berry</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Stefan Radman</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Jay Cai</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Steve Langasek</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Stuart Coupe</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>David Brown</string>
+                            </property>
+                        </item>
+                        <property name="name">
+                            <cstring>listBox2</cstring>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>textLabel2_2</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&lt;b&gt;Credits&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Contributors to the unixODBC project (in no particular order)</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>thanksTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Than&amp;ks to</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>textLabel2</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&lt;b&gt;Thanks to:&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;&gt;&lt;/b&gt; Everyone who has added to the unixODBC project.&lt;br&gt;
+&lt;b&gt;&gt;&lt;/b&gt; Trolltech for the QT libraries.&lt;br&gt;
+&lt;b&gt;&gt;&lt;/b&gt; KDE for the icons and the development environment.&lt;br&gt;</string>
+                        </property>
+                    </widget>
+                    <spacer row="1" column="0">
+                        <property name="name">
+                            <cstring>spacer9</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>21</width>
+                                <height>51</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>licenseTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>License A&amp;greement</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QTextEdit" row="0" column="0">
+                        <property name="name">
+                            <cstring>licenseEdit</cstring>
+                        </property>
+                        <property name="text">
+                            <string>		    GNU GENERAL PUBLIC LICENSE
+		       Version 2, June 1991
+
+ Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+                       51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+			    Preamble
+
+  The licenses for most software are designed to take away your
+freedom to share and change it.  By contrast, the GNU General Public
+License is intended to guarantee your freedom to share and change free
+software--to make sure the software is free for all its users.  This
+General Public License applies to most of the Free Software
+Foundation's software and to any other program whose authors commit to
+using it.  (Some other Free Software Foundation software is covered by
+the GNU Library General Public License instead.)  You can apply it to
+your programs, too.
+
+  When we speak of free software, we are referring to freedom, not
+price.  Our General Public Licenses are designed to make sure that you
+have the freedom to distribute copies of free software (and charge for
+this service if you wish), that you receive source code or can get it
+if you want it, that you can change the software or use pieces of it
+in new free programs; and that you know you can do these things.
+
+  To protect your rights, we need to make restrictions that forbid
+anyone to deny you these rights or to ask you to surrender the rights.
+These restrictions translate to certain responsibilities for you if you
+distribute copies of the software, or if you modify it.
+
+  For example, if you distribute copies of such a program, whether
+gratis or for a fee, you must give the recipients all the rights that
+you have.  You must make sure that they, too, receive or can get the
+source code.  And you must show them these terms so they know their
+rights.
+
+  We protect your rights with two steps: (1) copyright the software, and
+(2) offer you this license which gives you legal permission to copy,
+distribute and/or modify the software.
+
+  Also, for each author's protection and ours, we want to make certain
+that everyone understands that there is no warranty for this free
+software.  If the software is modified by someone else and passed on, we
+want its recipients to know that what they have is not the original, so
+that any problems introduced by others will not reflect on the original
+authors' reputations.
+
+  Finally, any free program is threatened constantly by software
+patents.  We wish to avoid the danger that redistributors of a free
+program will individually obtain patent licenses, in effect making the
+program proprietary.  To prevent this, we have made it clear that any
+patent must be licensed for everyone's free use or not licensed at all.
+
+  The precise terms and conditions for copying, distribution and
+modification follow.
+ 
+		    GNU GENERAL PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. This License applies to any program or other work which contains
+a notice placed by the copyright holder saying it may be distributed
+under the terms of this General Public License.  The "Program", below,
+refers to any such program or work, and a "work based on the Program"
+means either the Program or any derivative work under copyright law:
+that is to say, a work containing the Program or a portion of it,
+either verbatim or with modifications and/or translated into another
+language.  (Hereinafter, translation is included without limitation in
+the term "modification".)  Each licensee is addressed as "you".
+
+Activities other than copying, distribution and modification are not
+covered by this License; they are outside its scope.  The act of
+running the Program is not restricted, and the output from the Program
+is covered only if its contents constitute a work based on the
+Program (independent of having been made by running the Program).
+Whether that is true depends on what the Program does.
+
+  1. You may copy and distribute verbatim copies of the Program's
+source code as you receive it, in any medium, provided that you
+conspicuously and appropriately publish on each copy an appropriate
+copyright notice and disclaimer of warranty; keep intact all the
+notices that refer to this License and to the absence of any warranty;
+and give any other recipients of the Program a copy of this License
+along with the Program.
+
+You may charge a fee for the physical act of transferring a copy, and
+you may at your option offer warranty protection in exchange for a fee.
+
+  2. You may modify your copy or copies of the Program or any portion
+of it, thus forming a work based on the Program, and copy and
+distribute such modifications or work under the terms of Section 1
+above, provided that you also meet all of these conditions:
+
+    a) You must cause the modified files to carry prominent notices
+    stating that you changed the files and the date of any change.
+
+    b) You must cause any work that you distribute or publish, that in
+    whole or in part contains or is derived from the Program or any
+    part thereof, to be licensed as a whole at no charge to all third
+    parties under the terms of this License.
+
+    c) If the modified program normally reads commands interactively
+    when run, you must cause it, when started running for such
+    interactive use in the most ordinary way, to print or display an
+    announcement including an appropriate copyright notice and a
+    notice that there is no warranty (or else, saying that you provide
+    a warranty) and that users may redistribute the program under
+    these conditions, and telling the user how to view a copy of this
+    License.  (Exception: if the Program itself is interactive but
+    does not normally print such an announcement, your work based on
+    the Program is not required to print an announcement.)
+ 
+These requirements apply to the modified work as a whole.  If
+identifiable sections of that work are not derived from the Program,
+and can be reasonably considered independent and separate works in
+themselves, then this License, and its terms, do not apply to those
+sections when you distribute them as separate works.  But when you
+distribute the same sections as part of a whole which is a work based
+on the Program, the distribution of the whole must be on the terms of
+this License, whose permissions for other licensees extend to the
+entire whole, and thus to each and every part regardless of who wrote it.
+
+Thus, it is not the intent of this section to claim rights or contest
+your rights to work written entirely by you; rather, the intent is to
+exercise the right to control the distribution of derivative or
+collective works based on the Program.
+
+In addition, mere aggregation of another work not based on the Program
+with the Program (or with a work based on the Program) on a volume of
+a storage or distribution medium does not bring the other work under
+the scope of this License.
+
+  3. You may copy and distribute the Program (or a work based on it,
+under Section 2) in object code or executable form under the terms of
+Sections 1 and 2 above provided that you also do one of the following:
+
+    a) Accompany it with the complete corresponding machine-readable
+    source code, which must be distributed under the terms of Sections
+    1 and 2 above on a medium customarily used for software interchange; or,
+
+    b) Accompany it with a written offer, valid for at least three
+    years, to give any third party, for a charge no more than your
+    cost of physically performing source distribution, a complete
+    machine-readable copy of the corresponding source code, to be
+    distributed under the terms of Sections 1 and 2 above on a medium
+    customarily used for software interchange; or,
+
+    c) Accompany it with the information you received as to the offer
+    to distribute corresponding source code.  (This alternative is
+    allowed only for noncommercial distribution and only if you
+    received the program in object code or executable form with such
+    an offer, in accord with Subsection b above.)
+
+The source code for a work means the preferred form of the work for
+making modifications to it.  For an executable work, complete source
+code means all the source code for all modules it contains, plus any
+associated interface definition files, plus the scripts used to
+control compilation and installation of the executable.  However, as a
+special exception, the source code distributed need not include
+anything that is normally distributed (in either source or binary
+form) with the major components (compiler, kernel, and so on) of the
+operating system on which the executable runs, unless that component
+itself accompanies the executable.
+
+If distribution of executable or object code is made by offering
+access to copy from a designated place, then offering equivalent
+access to copy the source code from the same place counts as
+distribution of the source code, even though third parties are not
+compelled to copy the source along with the object code.
+ 
+  4. You may not copy, modify, sublicense, or distribute the Program
+except as expressly provided under this License.  Any attempt
+otherwise to copy, modify, sublicense or distribute the Program is
+void, and will automatically terminate your rights under this License.
+However, parties who have received copies, or rights, from you under
+this License will not have their licenses terminated so long as such
+parties remain in full compliance.
+
+  5. You are not required to accept this License, since you have not
+signed it.  However, nothing else grants you permission to modify or
+distribute the Program or its derivative works.  These actions are
+prohibited by law if you do not accept this License.  Therefore, by
+modifying or distributing the Program (or any work based on the
+Program), you indicate your acceptance of this License to do so, and
+all its terms and conditions for copying, distributing or modifying
+the Program or works based on it.
+
+  6. Each time you redistribute the Program (or any work based on the
+Program), the recipient automatically receives a license from the
+original licensor to copy, distribute or modify the Program subject to
+these terms and conditions.  You may not impose any further
+restrictions on the recipients' exercise of the rights granted herein.
+You are not responsible for enforcing compliance by third parties to
+this License.
+
+  7. If, as a consequence of a court judgment or allegation of patent
+infringement or for any other reason (not limited to patent issues),
+conditions are imposed on you (whether by court order, agreement or
+otherwise) that contradict the conditions of this License, they do not
+excuse you from the conditions of this License.  If you cannot
+distribute so as to satisfy simultaneously your obligations under this
+License and any other pertinent obligations, then as a consequence you
+may not distribute the Program at all.  For example, if a patent
+license would not permit royalty-free redistribution of the Program by
+all those who receive copies directly or indirectly through you, then
+the only way you could satisfy both it and this License would be to
+refrain entirely from distribution of the Program.
+
+If any portion of this section is held invalid or unenforceable under
+any particular circumstance, the balance of the section is intended to
+apply and the section as a whole is intended to apply in other
+circumstances.
+
+It is not the purpose of this section to induce you to infringe any
+patents or other property right claims or to contest validity of any
+such claims; this section has the sole purpose of protecting the
+integrity of the free software distribution system, which is
+implemented by public license practices.  Many people have made
+generous contributions to the wide range of software distributed
+through that system in reliance on consistent application of that
+system; it is up to the author/donor to decide if he or she is willing
+to distribute software through any other system and a licensee cannot
+impose that choice.
+
+This section is intended to make thoroughly clear what is believed to
+be a consequence of the rest of this License.
+ 
+  8. If the distribution and/or use of the Program is restricted in
+certain countries either by patents or by copyrighted interfaces, the
+original copyright holder who places the Program under this License
+may add an explicit geographical distribution limitation excluding
+those countries, so that distribution is permitted only in or among
+countries not thus excluded.  In such case, this License incorporates
+the limitation as if written in the body of this License.
+
+  9. The Free Software Foundation may publish revised and/or new versions
+of the General Public License from time to time.  Such new versions will
+be similar in spirit to the present version, but may differ in detail to
+address new problems or concerns.
+
+Each version is given a distinguishing version number.  If the Program
+specifies a version number of this License which applies to it and "any
+later version", you have the option of following the terms and conditions
+either of that version or of any later version published by the Free
+Software Foundation.  If the Program does not specify a version number of
+this License, you may choose any version ever published by the Free Software
+Foundation.
+
+  10. If you wish to incorporate parts of the Program into other free
+programs whose distribution conditions are different, write to the author
+to ask for permission.  For software which is copyrighted by the Free
+Software Foundation, write to the Free Software Foundation; we sometimes
+make exceptions for this.  Our decision will be guided by the two goals
+of preserving the free status of all derivatives of our free software and
+of promoting the sharing and reuse of software generally.
+
+			    NO WARRANTY
+
+  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
+OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
+OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
+TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
+PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
+REPAIR OR CORRECTION.
+
+  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,
+INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING
+OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED
+TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY
+YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGES.
+
+		     END OF TERMS AND CONDITIONS
+ 
+	    How to Apply These Terms to Your New Programs
+
+  If you develop a new program, and you want it to be of the greatest
+possible use to the public, the best way to achieve this is to make it
+free software which everyone can redistribute and change under these terms.
+
+  To do so, attach the following notices to the program.  It is safest
+to attach them to the start of each source file to most effectively
+convey the exclusion of warranty; and each file should have at least
+the "copyright" line and a pointer to where the full notice is found.
+
+    &lt;one line to give the program's name and a brief idea of what it does.&gt;
+    Copyright (C) &lt;year&gt;  &lt;name of author&gt;
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+
+Also add information on how to contact you by electronic and paper mail.
+
+If the program is interactive, make it output a short notice like this
+when it starts in an interactive mode:
+
+    Gnomovision version 69, Copyright (C) year name of author
+    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; type `show c' for details.
+
+The hypothetical commands `show w' and `show c' should show the appropriate
+parts of the General Public License.  Of course, the commands you use may
+be called something other than `show w' and `show c'; they could even be
+mouse-clicks or menu items--whatever suits your program.
+
+You should also get your employer (if you work as a programmer) or your
+school, if any, to sign a "copyright disclaimer" for the program, if
+necessary.  Here is a sample; alter the names:
+
+  Yoyodyne, Inc., hereby disclaims all copyright interest in the program
+  `Gnomovision' (which makes passes at compilers) written by James Hacker.
+
+  &lt;signature of Ty Coon&gt;, 1 April 1989
+  Ty Coon, President of Vice
+
+This General Public License does not permit incorporating your program into
+proprietary programs.  If your program is a subroutine library, you may
+consider it more useful to permit linking proprietary applications with the
+library.  If this is what you want to do, use the GNU Library General
+Public License instead of this License.
+</string>
+                        </property>
+                        <property name="wordWrap">
+                            <enum>WidgetWidth</enum>
+                        </property>
+                        <property name="readOnly">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+        <spacer row="1" column="0">
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>31</width>
+                    <height>91</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>appPixmap</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="pixmap">
+                <pixmap>image0</pixmap>
+            </property>
+            <property name="scaledContents">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="2">
+            <property name="name">
+                <cstring>closeButton</cstring>
+            </property>
+            <property name="text">
+                <string>Close</string>
+            </property>
+            <property name="iconSet">
+                <iconset>image1</iconset>
+            </property>
+        </widget>
+        <spacer row="2" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>500</width>
+                    <height>21</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
+</widget>
+<images>
+    <image name="image0">
+        <data format="PNG" length="5047">89504e470d0a1a0a0000000d494844520000003000000035080600000007cf68340000137e494441546881b59a7f6c1ce779e73f2467ed77e45979c6d875776c6d8e6fce143c8c2984aced56bcbaa9d5386de806462904415da46dc46bd236bd266e5d1428d45457a9287a700b04855a5c011ad7025681a6e1a16e2db7d681c25908f5075b6e02ba1a2364efdd8684676a0e38ef8913cd1b692cf68f77b924253971eed2fde7d967073beff37e9f5fdff79919d8dedee6bbfdcc9c981992be7c5469352c7dd9505a35a42f43a5d503d297dfa70ad5949e0c54a13ce9c9eda448b6423fdc545afdabf464aab47a4bfaf25f955699f465a6b48a675f9cbdf25d1b020cbcd70dcc9c988970f83015cf0847fc100e848d7040786228f2a241edeb81f1f6384618a24311a94991be44658a96d742658ac00958ea2e11e4011dddd92e8bf21dadf576aef30153996bc0df53f1b738fcafd93f9d7debff6b03677ef5cc01a5d5b4f4e5c754a13e227d790f3e03d34f4c3ba30f8d8280a49b80032a53f8c2ef1ba91245580f51b935beabbb0c7bc376534d495ee5c886441881db702945896c48e6ff619e54a5d5c21b0b03d2976fab4cfdb5f4e5df28adfe6ef6c5d99bef6903332766eec7e173547c6ea235516b8db7ee3afe23c7494c82a8049d6e07bff2515a117a216a431112a22a8544a22a458b166995d2725a74ab2ec3ceb0950cd3a5bb7b9d16aa5276e10a223f82364c3e3249a213f4ba66eec2dc8dd2949bc6982fe0f067b37f3afbad77ddc0cc89994f4b5f7e9106cec99f3fe9002459c2527789d00b49b284c0098837625a4e8b388b919e44150ae94bd22265d81fb688fbc3a4454acb6f9116293290a82d850c24c95642580f49b6126420edfd448b6ed6c5777c129d107a2146189efde8b398cc307761ae5a585dd0d293cf9cfcc3930bfb3630f3e919978abf12421cfbec7ff9ac188d46595a5c4218419cc50479405cc4b4aa168a5da4712c72d291f6774792925ac4b1c8a758a45352a4b0ff938e242121744212127b3f7a9bcb13822a401945ae734c65986c4d123d158186337f72e63a70e6ec1f9f3d0d30d873dfb98987263e7cf6f7cf0ae949e65f9d87022ec797218725bd6413116511c7224e854dd49e9ed2f3003d0f90d20a5aa48ef5405225c8a6355e06929cdcfe5eb37a52d8ebb99b332ec79152323932c952b6c4fcff9c67e1cd05cefeeed9bb023f38f9c26fbef0198081139f3af19f85105f7ce1f75f38907653ae74afc006c43ab6c8eec436bb722766fb083ad2c6b4b0b1dd47dee9217f2be2ce1ec40b1b2e499110fa21894e2c2885ea8767e885c46b312213244ec2f39f7c9ee77feff9b245ebfb07a52f67a63e3a7580026bfc167475d7225aa57d64fb487b12b0c82755d2bfdef27bc6ef20eff78c0f7ac607611ff9bdc64b5f92989e2c1264e3f6dff32267bc3d0e872014212fbdfa12d34f4d8b94f4270795561f7cfac34f73f9cdcbb85b2e716a135469b52bb152d2430689d2360776aea745afea145d8b7c4f575bca22bf653da0b67affcf15a11fdafbee29047d4fdce2195528a26684ae34a4e01ff20784103f31287d59a380a811ed22ba837c95ee8bf1db72a0e789949496d7eae7c00ef269b5c703f5d0de7f6fccef0d975b8cbfcd333d391c0e5b4f36245478834aab81244ba0015118ed47ded983fc1e0f00fb7edff1c030b684b668a1725b6d546efb44b295eceadeae91b7197fa71cf0773d11afc54c3d394567b543e884f70d4a5f0ece5d9c230c43a2431193d1643fe6bf530e7cbbeab32fd6df25f6f71abf3707287a9eedd1115108a42fe9c41d8e8d1d63f4e151d4b22221f186e4983c35fde43473afce31393589d7f068dfdb264e631a5503754dd1a68d323dc4aff7e4350583a08da63dd866ddac333c384cd7743934788875b38e1c9428a3680fb659336bc8411b16e1bd216b57d7900725eaaaa27db0bd4f0ffc60b7096ea6547945e7ed0ecf7eec599a879b5cfaeb4b2ca7cb54d7ab6f0d4a4f6284e1687494d917670944801c97cc7c7c86288a989013b68e7f871c782f1ee857a3e2f6d896fe1ee40b9b53f14a4c99978811c1cc8919dccae5fc5f9c67295d62e6276700189263f2d4f1a78e935dcb38f2e0113800eea04b79b3e481e80184278864c4dad61aef77de4fd774ad470ab50fe1f7e281f6a0f564fbde366bd7d6687bed5d0f6cae31200688ff25a6aeeb6cbcb3c1e3e38f13fd40c4fbee7f1faffcdd2bbcfca59709c7427eee677e8ed7ffe1756a6fd56e0c9c7eeef4f6cc2767109e4069c5c46313900302d0400330401dd8b2dfd5aa222912e2b51859b789d90a5aa4790ff95cddc67dfa7afd0e7243118d44e0c1c4c313e0da5e7925be82490d7317e6983a3ac5e40f4e820ff99b39499170eed573c5c0899f3fb1fdc2afbfd04f28e10bdcc025cf730211f48955a21328202912263e380135bb4892248422b494dae9516a11a0524bb1136d13333569bf54478dde79a125c94d4ed00c28b74a30d079a343ae723aeb1d223f4248c1d31f7b9a3ccfa1b0d45d7a9285d5053a8b9d6f0e9c7eeef4cda94f4e0d484f8281602cb01e08b0d2030a2bf3d59c7835eeb3475333442ddb5c644b222a41d00aa0bac5733b1ecda0744a54a6084588ce3438b0102f208c40579af1b1714443301a8dc20da0663d113a21a63036520a051ace5f3a9f3b4adb4eb9e3813ccf09bc6057163da973824600191c1b3e669110b26fcc4267c1b2c84ad1aa5abbfcbfeaf639d1b0334ceaa444222276e3be27a69e98020f826640be91133841dfe8bdfd60af3c77e91cd2917ae0f473a7abf127c687261f99242912461f19b5b1ef73bb4c213739461bf0b0e1e587f6ba471f040a10bed857d7f1ad275ddfddd57bf72db31204fdf3c55ea4efa427ab0997e3cbe455fec6a0d26a205d4e997f63be8f341eef2a55a1ac71a647bc4c8268887e6c272641f86297456631c631c4698cc1b0b4be445ee52c7577a5c1ec3b1ced35f6567de1cd052e5ebe882f7d006fe0f473a7b7695896e74b9fe33f72dcc6aebf1bfb7d99425ee5ef8accbfa71e8a90f397ce238c201c0bc9558eca941e548562eae8142a53a49d94a5558b8c4a953db8eb6457ee84c97b40ea7ba5c7598c5ed69cfd8bb344ed88e8890861ecd93c241c189afed0f4a9c73ff038b22d59d95c210a238af582baa8b396ad118a904a57040703caab2575a78e290c4dafb90fa9efa59eac2714bae0c2572e603283f37d0e3ffbcccf621c43f67f325eefbcce673ef11916bebef0ad2139264f7de4473f42763d63ac3d86110667d0a1b3dea14e9de56f2ce33a2ef1db31c61816df5ca479d02e36e28fa00ab56ff1ff17bd468d852b0b987f36bcf6d5d7a85fafe3840ec77fec38eda8cd91878ef0dac26bbcfaeaab70003efff9cfb3f8d545922cb93e70fab9d3db539f9cb24864067fd8274e634227646975c936b3dee1225631149093dbe1d51da60db269133b6a4436973cfaa5364e624237ecf791545bcea3d11c1b3f662b96a45fffd982643d61f64bb344ad88a927a770475caec4576c1fb87c7e6b7f27f6241a6d0ff05a1110f417bf925e81042ebe79111c108e400a4bd08410b88ecbb0b075be7f16ee9da1231191b8bd0e5ca544ad889c9cd1c6a865a78dd076e420402905199c5f3c8f5ff8988661e66333945e895bb82cad2f213d49a7db215fcebfb99f0b158a8943139445b9cb857c6cdd17d059edd8769e2804963bede5f1a949899a114979bb27dc86dbd78d36b6d46a0bced2fa12e410a73113728296d762f4d1515bf96a80babdfae545cec5cec5ff3b70e253276e9ef9f533038949763de0efba7787daee2c16afc7849ef548e8d8c95c809de3b4aadd89dbbeb950af33efcc87869d615261e744792d676278021a20a5a4cc4b5ce1a25275fbf06c8f9cbb34876ffc6fd84efce4f8d0e4c393b683b6c4edf5bf278d36fd837ce88516c95beb76af03875ed8f7e0ce2cd47a022814f8a3bbf7cf2c57cad31c04fbef7787be10a731f1620c1e578664244fe13060b60ded072c4f0f0e0636076e914dafc98a5e411e94ac5d5b23f443d6cc1a23fe086bc51ae17df6a415fa21c9b58476abc00cfe25ef7fdf656a5ca41676e166078210aa04ee0d296b50bb17d44d100d17754d137a6dd6f4ca1dab579cc6cc5f98a779a849c33406074e3f777a5b7ed0a2239a82631f3c66bfdfa923f6c2e8db77d080a07a098615541da81f853200f728dc30509be8b5f9607742dbab3a6509c605bd01a5803485c829416b8427987f631ebda2f1477cf48a068fab83aa508c8f8ca32b4da7d361feabf3243a21ce6cac2bad6c29dc9946bf5b07d53113fe1c014f43eb1c1429d4a7a19c0077aa677c043794e5d937ecf38cbc677c72035c174c09ad26e802840ff3c625162167ffe61cac817c4ca297ed265a4e6b7b68fa43d3a7e4072423e1088eeb20be29b8fcf5cb846ec8ca5b2b3ce03d40723561a4314275b5223810dcd64193749e23eb7f0ed7ba303c0937c7a0790cb60cdce342f932dc5d41390f771b282fc0dda0f223700fac6c41d3059d83a8c35a0ed287ba01ff002c6e823b52b13cb04af58f1923ff698489e1093adfe85c1f9263f2d4334f3d437a2de5f0fd8729860aa207235e5f7e9ddadb3596df5aa66eea2c27cb5059ca7bd83fcc9a59a3e935d1dd390e774ec2b515684ad001341cd8bc00a2039b17c1cbe05a0cf764b0a5e01e4db9b1c5c65d4f136f42f32e587e1bb80b3a29d41c58494178a0ae2a122fe6e56c9ef8be00d1f6f8e5479f61f18d458416d787a63f347d6a229ae8275ed48a18b83e806c4bf490a6211a2caf2fe31a97c5d545dc6b2ef17a8cfb2d17b53cc7e36f7d112a032353501830297c6d1eee1e839beb70b00157351c70a0a8e0de00b6126aa2cdeb6f3d4df300a80c9a1eac6c42f300acbc0d9e032f7e7d9658241457538e348e10a73185e3f2f26a874ff8132ca7cb3786e4983c35f5e4940d8b83b6f934ef6b92998cd143a3989a61ac3d86ae690e1f38cc72b64c2dabb1dc7d9d5fb8fae7600af047a058874d05c51adc742053900e90dc70a8df6fe06a05072ad8b49bc9b37748f869ba9b25a1a8b1b259d2103556b392eafa0ab3fabf93de57b0be99b23e18906c2a82fbc658796b05e5d4c9b562dcb4ae0f4d7f68fab79b23cd0179d0c6f44e291c698cc055ec66aa8c89f74de0ba2e237204738fe1a7458a9b2d424358e40735980a0e0ab866e0a045bcbe5dc07a13ee0f7b9e00362bdcbb222ea4cfd01035ba1a1aa2c64a06857f8939fd1a4d2f24db2ce0401b932578773559c956700f4a74b6c6b2681215faeaa0d2ea6640b0a79aec4e8d69b0efe4e5377c349a89872710ab5fb687f75443a12133bb7a05a43d3d319024705181919096e094e499423810a72539d0d1f3cc899738b73e8f1110670a2342f254510a88b304e384a854616e80de505c747c06a52fff79be33bfef608feecdfff5fe89d90e97f175895ba5600c086159a7e076bdd8d10d50c2c525c88e411a1008502904022eebb3cca1485245cb91e4199442926709c693e80c8c08d11b0988105301f59005e29b4332920f6e641b8f55a2720e0787d9a836a8fb75d674afd3eab55ddd0b515715e1cd826af512352fa4c4a576b069a56852deac53bbab4e5959c975179c3ae575971a75783b854c90bcd3e6652fe4fce639321152ea35dc03b0b1595823337b12341b05e6664851245437a12a0a180ce15a8219a4e6485f9e565a7d3c7923199e2fe6878e8e1d4555aacf1aa52ffbacd368d36b5e0b8c1e8a011f37f461abc40d24940a37b0ddc8f5a56d66fd6984ec712041b9728ca54b671047bf8cf0e648120575835e335007b3c6aedccbc9b49d76980284272a5398ab3b4f29ff231597851075392cc5e4f824796559625ee5fdb9fd4e67965e48f0a5f7db56e987e008db5d9b62df086557f612dd0b79e5e269e88c920690ff14a485226fccd249cf633c43922498ca602ad37f0afa6de495fe73e233bf7ac6575afd0fe9cb8f6847bbe30f8d8380a81dd979d1a151cb2afd5eb5ea9e84f845183f6191f686c174c11fee21dfda953a85ead7f8f28549424015200fc1f971087d4834c89662be38891082b4482945894a14c635a41be91dd931057f74a727f53f81c3ef523112f881109e18884484f6349117f54f58d43a4caefc323422889e046df60fc17ac8973a40af9c616915420792ca4ae541fc14a073423f20d139f801c6bc40e2c77d82b823d32c2517394992909a1463cc3b383cf2edde95784215ea73d2971f4e8ae46ed990dbda68d7f77cb4d144ad8863c52ca17711c26978680ab4025ff665b97a8c3491280dd283b200d707a5a1d5828b125a3d5dee480f52b3b42d5a31aa8807fa61dbab8a08f883c53fc078e60fb79fddfeb5f7f4b6ca677fe5b3a3c08f4a473e93924ee2b04dc5a0745ae24971965191c2d8b3f0f034e82e8871963a11a1092ce240c27ea90498c740e91ce907567a01aac869790169915772384997f4f907a5270754a1701d97e72f3d8fc1cc53f1e3dbbfb47de33dbf6eb3f339fb3b678754a1be5ffaf2c9a4480e4b3f7cf05973f631d78fefa3fd2c3cf41265971e05b7c81a6df37d076153000d6e2ef80c4acfe644e84152d8eb7d5d836ca19579a5d635dd7b4e5e3e8916fa350a8e6f7f7abb80efe27da1eff8f9827be2853f2a7f119f47a73e0eee474136ac513bc6ed1815faa00c37c430b5a428093d175594c83bc8a5f5921717ddeb73c5e457f02e7f858affbafd4bdbd5ceb2dfbb0d00675c5aa1c36f251527640331fe7118fd456cd9bba59ed3e01d2a86f0a1d43637f6ca58c3b94538df855c97af08cffd0df505fee9d635bfa71be86fa44e8b8a13a1c327128723e38f581a34f110e48760621cf206ef046d86ae24e03a7065bdc4c5e5a5e584cbab3eb9491341ebaf0ce96cf2dfe4d7de6dad7f970decfdccd6f90f49c50f870e8f26151f081d6452d1083cbe79e653e5fdc273af53949b78744dc18af0dcaf5194ff1b8fafaa2fb8dfd1b87f03a83ba770a5dca6030000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="875">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff610000033249444154388d4d93414c5b7500c67fe5fd4bde8396f535ade11d509e11e4b18d84aa247d46484c8405493c18b3c34ecac5c33c1a49b69b1e8c0e1793e9657220069c28bdb83506128c24ebcc6aa871481b607b35ccb401425f68c7fbcbfe120fc3e077ff1d7ef9be2ff4ce994bdc510510fda00aa445bfb924733d28c640c6c10595db43e83711945c52b59c5a01012849c8e919e54902c03817c8e0b2dd69bfec383666ec552087d370982a66f04ac5db083e42e83fa2240021e7cc255005fae9bf5810858f3f7defc356eb6c8a549a933c067cb8727d8ad9ef2a8f6a7e76c215eeb59ccaa125e302088f54a94e7f357e4db7864cfabaa3acad792485c9caba87d56cb256adf0c6c82022526fceafacbe566c6cdc154dfa7d6d3871a1cd53def5890b139dd11760a0bd1bda20a99bdcfa25475f5b1fd9df0386864cd887d433dd540ea4565c2d3c8b52df37e554eeb415b3dc9a5ec1de71081280014104dc4e974cfe166f9e339ea82461e6a725faa58311315d09a79b0c1833133aa97697997286eaaf01046018603e07e36fbf0ec7fc95cf66287eed3179678ab448a3c3981689db6f25e3d68bfe3f3ecebecdf46f73241f7690e8d509b786413b863f9921f36d164f79e8cd82b22a2365e38f2657b8040d493bed64aa59ec8acdccea3c86304e5aa883858d44e2ea2e003a69a402ad1e13ae2142af787b5bc87d894c4aa6ae5e86e8f13aea01e16898aebe04e50736b9cd0ca245b0ebaf22a5bfa059713b9084c6075b06f1db6accdf9884d613e7dd15496f4f07e1536186073b60d724bf9ec769d87807de075a246eed2bc590dfe27758e628fa29497797c5175fceb3f8c332b9529eaded0e5e1ab0084b989c9dc2dff52954f339e0aa361a3ffff796f2fe0a1fa5ce476365cd3aea20fbf312c6768c9dd02e23cf0f53585f2422dbf9fcc634f68ecd7279f9b13a94ef026b5abd0d0ca1dfafcb8d9adf680cf987956637ec52149b442383f8aac4f053c32c3c58a0faa747766de1916cf8ef03df006856a28b00709b06ee7a8d8d95cab66f17f7ef3d7df6c0a112ba476fcc61ae30476cd360a1b4785b1dca8bc0ac2ed2a8a387843a3bd32074fe7b975498400f30a6eb7a1c259152ee49c54d5d50026affbb19ff028a0b5a4a055deee80000000049454e44ae426082</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>closeButton</sender>
+        <signal>clicked()</signal>
+        <receiver>qt_aboutDialog</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -1,0 +1,33 @@
+Changelog
+~~~~~~~~~
+
+Version: 0.2
+Author : Fizz
+Date   : 06/12/2005
+Changes: Feature : Added username and program
+                   details to the ODBC details
+                   page.
+         Feature : Added a manual.
+         Improved: Vastly improved the "Whats this"
+                   help.
+         Improved: Improved the "Tool Tips".
+         Improved: Added unixodbc contributors to
+                   about dialog.
+         Improved: Increased the minimal refresh setting
+                   to 1/2 a second from 2 tenths.
+         Improved: The details table only has rows for
+                   valid connections.
+         Improved: Increased total number of possible
+                   entries to 64 from 10.
+         Fixed:    Added missing LICENSE file.
+
+Version: 0.1
+Author : Fizz
+Date   : 27/11/2005
+Changes: Feature : Added ODBC Summary Statistics.
+         Feature : Added ODBC Detailed Statistics.
+         Improved: Added "About ODBC Stats".
+         Improved: Added "Tool Tips".
+         Improved: Added "Whats this".
+         Improved: Added Icons, thanks to KDE
+

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:14">
+    <title>SET TRANSACTION</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="SET_SESSION_AUTHORIZATION.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="SHOW.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+SET TRANSACTION
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Sets the characteristics of the current transaction.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SET TRANSACTION <code><font face="Courier New, Courier, mono" size="2"><i>transaction_mode</i></font></code> [, ...]</font></p><a name="wp137827"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SET SESSION CHARACTERISTICS AS TRANSACTION <code><font face="Courier New, Courier, mono" size="2"><i>transaction_mode</i></font></code> [, ...]</font></p><a name="wp137828"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where transaction_mode is one of:</font></p><a name="wp137830"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ISOLATION LEVEL {SERIALIZABLE | REPEATABLE READ | READ 
+COMMITTED | READ UNCOMMITTED}</font><a name="wp137832"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">READ WRITE | READ ONLY</font><a name="wp137160"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp137932"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">SET TRANSACTION</font></code> command sets the characteristics of the current transaction. It has no effect on any subsequent transactions.
+</font></p>
+<a name="wp137934"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The available transaction characteristics are the transaction isolation level and the transaction access mode (read/write or read-only). 
+</font></p>
+<a name="wp137936"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The isolation level of a transaction determines what data the transaction can see when other transactions are running concurrently.
+</font></p>
+<ul>
+<a name="wp137940"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>READ COMMITTED</b></font></code> - A statement can only see rows committed before it began. This is the default. </font></li>
+</ul>
+
+<ul>
+<a name="wp137943"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>SERIALIZABLE</b></font></code> - All statements of the current transaction can only see rows committed before the first query or data-modification statement was executed in this transaction.</font></li>
+</ul>
+
+<a name="wp137946"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard defines two additional levels, <code><font face="Courier New, Courier, mono" size="2">READ UNCOMMITTED</font></code> and <code><font face="Courier New, Courier, mono" size="2">REPEATABLE READ</font></code>. In Greenplum Database <code><font face="Courier New, Courier, mono" size="2">READ UNCOMMITTED</font></code> is treated as <code><font face="Courier New, Courier, mono" size="2">READ COMMITTED</font></code>, while <code><font face="Courier New, Courier, mono" size="2">REPEATABLE READ</font></code> is treated as <code><font face="Courier New, Courier, mono" size="2">SERIALIZABLE</font></code>. 
+</font></p>
+<a name="wp137948"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The transaction isolation level cannot be changed after the first query or data-modification statement (<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>, <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>, <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">FETCH</font></code>, or <code><font face="Courier New, Courier, mono" size="2">COPY</font></code>) of a transaction has been executed.
+</font></p>
+<a name="wp137950"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The transaction access mode determines whether the transaction is read/write or read-only. Read/write is the default. When a transaction is read-only, the following SQL commands are disallowed: <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">COPY FROM</font></code> if the table they would write to is not a temporary table; all <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">ALTER</font></code>, and <code><font face="Courier New, Courier, mono" size="2">DROP</font></code> commands; <code><font face="Courier New, Courier, mono" size="2">GRANT</font></code>, <code><font face="Courier New, Courier, mono" size="2">REVOKE</font></code>, <code><font face="Courier New, Courier, mono" size="2">TRUNCATE</font></code>; and <code><font face="Courier New, Courier, mono" size="2">EXPLAIN ANALYZE</font></code> and <code><font face="Courier New, Courier, mono" size="2">EXECUTE</font></code> if the command they would execute is among those listed. This is a high-level notion of read-only that does not prevent all writes to disk.
+</font></p>
+<a name="wp134773"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp137285"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+SESSION CHARACTERISTICS
+</b></font></h6>
+<a name="wp138095"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Sets the default transaction characteristics for subsequent transactions of a session.
+</font></div>
+<a name="wp138090"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+SERIALIZABLE <br>REPEATABLE READ <br>READ COMMITTED <br>READ UNCOMMITTED
+</b></font></h6>
+<a name="wp137522"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard defines four transaction isolation levels: <code><font face="Courier New, Courier, mono" size="2">READ COMMITTED</font></code>, <code><font face="Courier New, Courier, mono" size="2">READ UNCOMMITTED</font></code>, <code><font face="Courier New, Courier, mono" size="2">SERIALIZABLE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">REPEATABLE READ</font></code>. The default behavior is that a statement can only see rows committed before it began (<code><font face="Courier New, Courier, mono" size="2">READ COMMITTED</font></code>). In Greenplum Database <code><font face="Courier New, Courier, mono" size="2">READ UNCOMMITTED</font></code> is treated the same as <code><font face="Courier New, Courier, mono" size="2">READ COMMITTED</font></code>. <code><font face="Courier New, Courier, mono" size="2">SERIALIZABLE</font></code> is supported the same as <code><font face="Courier New, Courier, mono" size="2">REPEATABLE READ</font></code> wherein all statements of the current transaction can only see rows committed before the first statement was executed in the transaction. <code><font face="Courier New, Courier, mono" size="2">SERIALIZABLE</font></code> is the strictest transaction isolation. This level emulates serial transaction execution, as if transactions had been executed one after another, serially, rather than concurrently. Applications using this level must be prepared to retry transactions due to serialization failures.
+</font></div>
+<a name="wp137360"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+READ WRITE <br>READ ONLY
+</b></font></h6>
+<a name="wp137363"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Determines whether the transaction is read/write or read-only. Read/write is the default. When a transaction is read-only, the following SQL commands are disallowed: <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">COPY FROM</font></code> if the table they would write to is not a temporary table; all <code><font face="Courier New, Courier, mono" size="2">CREATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">ALTER</font></code>, and <code><font face="Courier New, Courier, mono" size="2">DROP</font></code> commands; <code><font face="Courier New, Courier, mono" size="2">GRANT</font></code>, <code><font face="Courier New, Courier, mono" size="2">REVOKE</font></code>, <code><font face="Courier New, Courier, mono" size="2">TRUNCATE</font></code>; and <code><font face="Courier New, Courier, mono" size="2">EXPLAIN ANALYZE</font></code> and <code><font face="Courier New, Courier, mono" size="2">EXECUTE</font></code> if the command they would execute is among those listed.
+</font></div>
+<a name="wp132918"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp138101"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If <code><font face="Courier New, Courier, mono" size="2">SET TRANSACTION</font></code> is executed without a prior <code><font face="Courier New, Courier, mono" size="2">START TRANSACTION</font></code> or <code><font face="Courier New, Courier, mono" size="2">BEGIN</font></code>, it will appear to have no effect. 
+</font></p>
+<a name="wp138103"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+It is possible to dispense with <code><font face="Courier New, Courier, mono" size="2">SET TRANSACTION</font></code> by instead specifying the desired transaction_modes in <code><font face="Courier New, Courier, mono" size="2">BEGIN</font></code> or <code><font face="Courier New, Courier, mono" size="2">START TRANSACTION</font></code>. 
+</font></p>
+<a name="wp138105"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The session default transaction modes can also be set by setting the configuration parameters default_transaction_isolation and default_transaction_read_only.
+</font></p>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp138155"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Set the transaction isolation level for the current transaction:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">BEGIN;</font><a name="wp137135"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SET TRANSACTION SERIALIZABLE;</font><a name="wp138151"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp137868"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Both commands are defined in the SQL standard. <code><font face="Courier New, Courier, mono" size="2">SERIALIZABLE</font></code> is the default transaction isolation level in the standard. In Greenplum Database the default is <code><font face="Courier New, Courier, mono" size="2">READ COMMITTED</font></code>. Because of lack of predicate locking, the <code><font face="Courier New, Courier, mono" size="2">SERIALIZABLE</font></code> level is not truly serializable. Essentially, a predicate-locking system prevents phantom reads by restricting what is written, whereas a multi-version concurrency control model (MVCC) as used in Greenplum Database prevents them by restricting what is read. 
+</font></p>
+<a name="wp137870"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In the SQL standard, there is one other transaction characteristic that can be set with these commands: the size of the diagnostics area. This concept is specific to embedded SQL, and therefore is not implemented in the Greenplum Database server. 
+</font></p>
+<a name="wp137872"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The SQL standard requires commas between successive <code><font face="Courier New, Courier, mono" size="2"><i>transaction_modes</i></font></code>, but for historical reasons Greenplum Database allows the commas to be omitted.
+</font></p>
+<a name="wp136314"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp136319"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="BEGIN.html">BEGIN</a>, <a href="LOCK.html">LOCK</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="SET_SESSION_AUTHORIZATION.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="SHOW.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:07">
+    <title>INSERT</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="GRANT.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="LOAD.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+INSERT
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp155524"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Creates new rows in a table.
+</font></div>
+<a name="wp155546"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO <code><font face="Courier New, Courier, mono" size="2"><i>table</i></font></code> [( <code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> [, ...] )]</font></p><a name="wp156910"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;{DEFAULT VALUES | VALUES ( {<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> | DEFAULT} [, ...] ) 
+[, ...] | <code><font face="Courier New, Courier, mono" size="2"><i>query</i></font></code>}</font><a name="wp156924"> </a>
+</pre>
+<a name="wp155548"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp156999"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> inserts new rows into a table. One can insert one or more rows specified by value expressions, or zero or more rows resulting from a query.
+</font></p>
+<a name="wp157001"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The target column names may be listed in any order. If no list of column names is given at all, the default is the columns of the table in their declared order. The values supplied by the <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> clause or query are associated with the explicit or implicit column list left-to-right. 
+</font></p>
+<a name="wp157003"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Each column not present in the explicit or implicit column list will be filled with a default value, either its declared default value or null if there is no default. 
+</font></p>
+<a name="wp157005"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the expression for any column is not of the correct data type, automatic type conversion will be attempted.
+</font></p>
+<a name="wp157009"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You must have <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> privilege on a table in order to insert into it.
+</font></p>
+<a name="wp156383"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Outputs
+</b></font></h4>
+<a name="wp157068"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+On successful completion, an INSERT command returns a command tag of the form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT <code><font face="Courier New, Courier, mono" size="2"><i>oid</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code></font><a name="wp157070"> </a>
+</pre>
+<a name="wp157081"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> is the number of rows inserted. If count is exactly one, and the target table has OIDs, then <code><font face="Courier New, Courier, mono" size="2"><i>oid</i></font></code> is the OID assigned to the inserted row. Otherwise <code><font face="Courier New, Courier, mono" size="2"><i>oid</i></font></code> is zero.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp156967"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table</i></b></font>
+</b></font></h6>
+<a name="wp156968"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of an existing table.
+</font></div>
+<a name="wp156970"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column</i></b></font>
+</b></font></h6>
+<a name="wp156971"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a column in table. The column name can be qualified with a subfield name or array subscript, if needed. (Inserting into only some fields of a composite column leaves the other fields null.) 
+</font></div>
+<a name="wp156973"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DEFAULT VALUES
+</b></font></h6>
+<a name="wp156974"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+All columns will be filled with their default values.
+</font></div>
+<a name="wp156976"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>expression</i></b></font>
+</b></font></h6>
+<a name="wp156977"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An expression or value to assign to the corresponding column. 
+</font></div>
+<a name="wp156979"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DEFAULT
+</b></font></h6>
+<a name="wp156980"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The corresponding column will be filled with its default value.
+</font></div>
+<a name="wp156982"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>query</i></b></font>
+</b></font></h6>
+<a name="wp156983"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A query (<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement) that supplies the rows to be inserted. Refer to the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement for a description of the syntax.
+</font></div>
+<a name="wp156650"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp157249"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Insert a single row into table films: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films VALUES (&#39;UA502&#39;, &#39;Bananas&#39;, 105, 
+&#39;1971-07-13&#39;, &#39;Comedy&#39;, &#39;82 minutes&#39;);</font><a name="wp157251"> </a>
+</pre>
+<a name="wp157253"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In this example, the length column is omitted and therefore it will have the default value:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films (code, title, did, date_prod, kind) VALUES 
+(&#39;T_601&#39;, &#39;Yojimbo&#39;, 106, &#39;1961-06-16&#39;, &#39;Drama&#39;);</font><a name="wp157255"> </a>
+</pre>
+<a name="wp157257"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This example uses the <code><font face="Courier New, Courier, mono" size="2">DEFAULT</font></code> clause for the date_prod column rather than specifying a value: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films VALUES (&#39;UA502&#39;, &#39;Bananas&#39;, 105, DEFAULT, 
+&#39;Comedy&#39;, &#39;82 minutes&#39;);</font><a name="wp157259"> </a>
+</pre>
+<a name="wp157263"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To insert a row consisting entirely of default values: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films DEFAULT VALUES;</font><a name="wp157265"> </a>
+</pre>
+<a name="wp157266"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To insert multiple rows using the multirow <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> syntax: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films (code, title, did, date_prod, kind) VALUES</font><a name="wp157268"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    (&#39;B6717&#39;, &#39;Tampopo&#39;, 110, &#39;1985-02-10&#39;, &#39;Comedy&#39;),</font><a name="wp157269"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    (&#39;HG120&#39;, &#39;The Dinner Game&#39;, 140, DEFAULT, &#39;Comedy&#39;);</font><a name="wp157270"> </a>
+</pre>
+<a name="wp157271"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This example inserts some rows into table films from a table tmp_films with the same column layout as films: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO films SELECT * FROM tmp_films WHERE date_prod &lt; 
+&#39;2004-05-07&#39;;</font><a name="wp156116"> </a>
+</pre>
+<a name="wp154035"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp157200"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> conforms to the SQL standard. The case in which a column name list is omitted, but not all the columns are filled from the <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> clause or query, is disallowed by the standard. 
+</font></p>
+<a name="wp157202"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Possible limitations of the <code><font face="Courier New, Courier, mono" size="2"><i>query</i></font></code> clause are documented under <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp156110"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="COPY.html">COPY</a>, <a href="SELECT.html">SELECT</a>, <a href="CREATE_EXTERNAL_TABLE.html">CREATE EXTERNAL TABLE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="GRANT.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="LOAD.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

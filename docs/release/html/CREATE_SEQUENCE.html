@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:55">
+    <title>CREATE SEQUENCE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_SCHEMA.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TABLE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE SEQUENCE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new sequence generator.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE [TEMPORARY | TEMP] SEQUENCE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> </font></p><a name="wp148304"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[INCREMENT [BY] <code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code>] </font><a name="wp148355"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[MINVALUE <code><font face="Courier New, Courier, mono" size="2"><i>minvalue</i></font></code> | NO MINVALUE] </font><a name="wp148356"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[MAXVALUE <code><font face="Courier New, Courier, mono" size="2"><i>maxvalue</i></font></code> | NO MAXVALUE] </font><a name="wp148357"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[START [ WITH ] <code><font face="Courier New, Courier, mono" size="2"><i>start</i></font></code>] </font><a name="wp148358"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[CACHE <code><font face="Courier New, Courier, mono" size="2"><i>cache</i></font></code>] </font><a name="wp148359"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[[NO] CYCLE] </font><a name="wp148360"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[OWNED BY { <code><font face="Courier New, Courier, mono" size="2"><i>table</i></font></code>.<code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> | NONE }]</font><a name="wp148361"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp148399"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE SEQUENCE</font></code> creates a new sequence number generator. This involves creating and initializing a new special single-row table. The generator will be owned by the user issuing the command. 
+</font></p>
+<a name="wp148401"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If a schema name is given, then the sequence is created in the specified schema. Otherwise it is created in the current schema. Temporary sequences exist in a special schema, so a schema name may not be given when creating a temporary sequence. The sequence name must be distinct from the name of any other sequence, table, index, or view in the same schema. 
+</font></p>
+<a name="wp149393"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+After a sequence is created, you use the <code><font face="Courier New, Courier, mono" size="2">nextval</font></code> function to operate on the sequence. For example, to insert a row into a table that gets the next value of a sequence:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO distributors VALUES (nextval(&#39;myserial&#39;), 
+&#39;acme&#39;);</font><a name="wp148403"> </a>
+</pre>
+<a name="wp149434"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can also use the function <code><font face="Courier New, Courier, mono" size="2">setval</font></code> to operate on a sequence, but only for queries that do not operate on distributed data. For example, the following query is allowed because it resets the sequence counter value for the sequence generator process on the master:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT setval(&#39;myserial&#39;, 201);</font><a name="wp149406"> </a>
+</pre>
+<a name="wp149444"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+But the following query will be rejected in Greenplum Database because it operates on distributed data:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO product VALUES (setval(&#39;myserial&#39;, 201), 
+&#39;gizmo&#39;);</font><a name="wp149428"> </a>
+</pre>
+<a name="wp148436"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In a regular (non-distributed) database, functions that operate on the sequence go to the local sequence table to get values as they are needed.  In Greenplum Database, however, keep in mind that each segment is its own distinct database process. Therefore the segments need a single point of truth to go for sequence values so that all segments get incremented correctly and the sequence moves forward in the right order. A sequence server process runs on the master and is the point-of-truth for a sequence in a Greenplum distributed database. Segments get sequence values at runtime from the master.
+</font></p>
+<a name="wp148438"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Because of this distributed sequence design, there are some limitations on the functions that operate on a sequence in Greenplum Database:
+</font></p>
+<ul>
+<a name="wp148439"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">lastval</font></code> and <code><font face="Courier New, Courier, mono" size="2">currval</font></code> functions are not supported. </font></li>
+</ul>
+
+<ul>
+<a name="wp149500"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">setval</font></code> can only be used to set the value of the sequence generator on the master, it cannot be used in subqueries to update records on distributed table data.</font></li>
+</ul>
+
+<ul>
+<a name="wp149515"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">nextval</font></code> sometimes grabs a block of values from the master for a segment to use, depending on the query. So values may sometimes be skipped in the sequence if all of the block turns out not to be needed at the segment level. Note that a regular PostgreSQL database does this too, so this is not something unique to Greenplum Database.</font></li>
+</ul>
+
+<a name="wp149467"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Although you cannot update a sequence directly, you can use a query like:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM <code><font face="Courier New, Courier, mono" size="2"><i>sequence_name</i></font></code>;</font><a name="wp149468"> </a>
+</pre>
+<a name="wp148442"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+to examine the parameters and current state of a sequence. In particular, the last_value field of the sequence shows the last value allocated by any session.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp148510"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+TEMPORARY | TEMP
+</b></font></h6>
+<a name="wp148511"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If specified, the sequence object is created only for this session, and is automatically dropped on session exit. Existing permanent sequences with the same name are not visible (in this session) while the temporary sequence exists, unless they are referenced with schema-qualified names. 
+</font></div>
+<a name="wp148513"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp148514"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the sequence to be created. 
+</font></div>
+<a name="wp148516"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>increment</i></b></font>
+</b></font></h6>
+<a name="wp148517"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies which value is added to the current sequence value to create a new value. A positive value will make an ascending sequence, a negative one a descending sequence. The default value is 1. 
+</font></div>
+<a name="wp148519"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>minvalue</i></b></font> <br>NO MINVALUE
+</b></font></h6>
+<a name="wp148521"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Determines the minimum value a sequence can generate. If this clause is not supplied or <code><font face="Courier New, Courier, mono" size="2">NO MINVALUE</font></code> is specified, then defaults will be used. The defaults are 1 and -263-1 for ascending and descending sequences, respectively. 
+</font></div>
+<a name="wp148523"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>maxvalue</i></b></font> <br>NO MAXVALUE
+</b></font></h6>
+<a name="wp148525"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Determines the maximum value for the sequence. If this clause is not supplied or <code><font face="Courier New, Courier, mono" size="2">NO MAXVALUE</font></code> is specified, then default values will be used. The defaults are 263-1 and -1 for ascending and descending sequences, respectively. 
+</font></div>
+<a name="wp148527"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>start</i></b></font>
+</b></font></h6>
+<a name="wp148528"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Allows the sequence to begin anywhere. The default starting value is <code><font face="Courier New, Courier, mono" size="2"><i>minvalue</i></font></code> for ascending sequences and <code><font face="Courier New, Courier, mono" size="2"><i>maxvalue</i></font></code> for descending ones. 
+</font></div>
+<a name="wp148530"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>cache</i></b></font>
+</b></font></h6>
+<a name="wp148531"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies how many sequence numbers are to be preallocated and stored in memory for faster access. The minimum (and default) value is 1 (no cache). 
+</font></div>
+<a name="wp148533"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CYCLE <br>NO CYCLE
+</b></font></h6>
+<a name="wp148535"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Allows the sequence to wrap around when the <code><font face="Courier New, Courier, mono" size="2"><i>maxvalue</i></font></code> (for ascending) or <code><font face="Courier New, Courier, mono" size="2"><i>minvalue</i></font></code> (for descending) has been reached. If the limit is reached, the next number generated will be the <code><font face="Courier New, Courier, mono" size="2"><i>minvalue</i></font></code> (for ascending) or <code><font face="Courier New, Courier, mono" size="2"><i>maxvalue</i></font></code> (for descending). If <code><font face="Courier New, Courier, mono" size="2">NO CYCLE</font></code> is specified, any calls to <code><font face="Courier New, Courier, mono" size="2">nextval</font></code> after the sequence has reached its maximum value will return an error. If not specified, <code><font face="Courier New, Courier, mono" size="2">NO CYCLE</font></code> is the default.
+</font></div>
+<a name="wp148539"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+OWNED BY <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table.column</i></b></font> <br>OWNED BY NONE
+</b></font></h6>
+<a name="wp148541"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Causes the sequence to be associated with a specific table column, such that if that column (or its whole table) is dropped, the sequence will be automatically dropped as well. The specified table must have the same owner and be in the same schema as the sequence. <code><font face="Courier New, Courier, mono" size="2">OWNED BY NONE</font></code>, the default, specifies that there is no such association.
+</font></div>
+<a name="wp147533"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp149546"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Sequences are based on bigint arithmetic, so the range cannot exceed the range of an eight-byte integer (-9223372036854775808 to 9223372036854775807).
+</font></p>
+<a name="wp149550"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Although multiple sessions are guaranteed to allocate distinct sequence values, the values may be generated out of sequence when all the sessions are considered. For example, session A might reserve values 1..10 and return <code><font face="Courier New, Courier, mono" size="2">nextval=1</font></code>, then session B might reserve values 11..20 and return <code><font face="Courier New, Courier, mono" size="2">nextval=11</font></code> before session A has generated nextval=2. Thus, you should only assume that the <code><font face="Courier New, Courier, mono" size="2">nextval</font></code> values are all distinct, not that they are generated purely sequentially. Also, last_value will reflect the latest value reserved by any session, whether or not it has yet been returned by <code><font face="Courier New, Courier, mono" size="2">nextval</font></code>.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp148755"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a sequence named myseq:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE SEQUENCE myseq START 101;</font><a name="wp148766"> </a>
+</pre>
+<a name="wp148756"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Insert a row into a table that gets the next value:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO distributors VALUES (nextval(&#39;myseq&#39;), &#39;acme&#39;); </font><a name="wp148767"> </a>
+</pre>
+<a name="wp148757"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Reset the sequence counter value on the master:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT setval(&#39;myseq&#39;, 201);</font><a name="wp148774"> </a>
+</pre>
+<a name="wp148292"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Illegal use of <code><font face="Courier New, Courier, mono" size="2">setval</font></code> in Greenplum Database (setting sequence values on distributed data):
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO product VALUES (setval(&#39;myseq&#39;, 201), &#39;gizmo&#39;); </font><a name="wp148777"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp148454"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE SEQUENCE</font></code> conforms to the SQL standard, with the following exceptions: 
+</font></p>
+<ul>
+<a name="wp148458"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The <code><font face="Courier New, Courier, mono" size="2">AS </font></code><code><font face="Courier New, Courier, mono" size="2"><i>data_type</i></font></code> expression specified in the SQL standard is not supported. </font></li>
+</ul>
+
+<ul>
+<a name="wp148460"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Obtaining the next value is done using the <code><font face="Courier New, Courier, mono" size="2">nextval()</font></code> function instead of the <code><font face="Courier New, Courier, mono" size="2">NEXT VALUE FOR</font></code> expression specified in the SQL standard. </font></li>
+</ul>
+
+<ul>
+<a name="wp148462"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The <code><font face="Courier New, Courier, mono" size="2">OWNED BY</font></code> clause is a Greenplum Database extension. </font></li>
+</ul>
+
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp148302"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_SEQUENCE.html">ALTER SEQUENCE</a>, <a href="DROP_SEQUENCE.html">DROP SEQUENCE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_SCHEMA.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TABLE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

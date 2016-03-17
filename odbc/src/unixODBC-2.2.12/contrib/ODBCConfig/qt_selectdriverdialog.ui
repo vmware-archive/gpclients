@@ -1,0 +1,131 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>qt_selectDriverDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>qt_selectDriverDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>314</width>
+            <height>107</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Select Driver</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="resizeMode">
+            <enum>Fixed</enum>
+        </property>
+        <spacer row="1" column="0">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>141</width>
+                    <height>21</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="1" column="1">
+            <property name="name">
+                <cstring>selectDriverButton</cstring>
+            </property>
+            <property name="text">
+                <string>Select</string>
+            </property>
+            <property name="iconSet">
+                <iconset>image0</iconset>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Select ODBC driver</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;Select ODBC Driver&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Continue with the currently select ODBC driver.</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="1" column="2">
+            <property name="name">
+                <cstring>cancelSelectButton</cstring>
+            </property>
+            <property name="text">
+                <string>Ca&amp;ncel</string>
+            </property>
+            <property name="accel">
+                <string>Alt+N</string>
+            </property>
+            <property name="iconSet">
+                <iconset>image1</iconset>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Cancel</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;Cancel&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Cancel the whole operation.</string>
+            </property>
+        </widget>
+        <widget class="QFrame" row="0" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>frame3</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Raised</enum>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QComboBox" row="0" column="1">
+                    <property name="name">
+                        <cstring>selectDriverCombo</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>ODBC drivers</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;b&gt;ODBC Drivers&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Select an ODBC driver to use with the data source (DSN).</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>selectDriverLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Driver:</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<images>
+    <image name="image0">
+        <data format="PNG" length="502">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff61000001bd49444154388dc5d3bd6b54411405f0dfee3ec2539f187151910416e24765610a45d022c93fa09d885b694405b153d209b6828288e096412c622316db88088aa8a9148514092ef10389445708c9639d6c2c9c5d122d533830dcb997b973cecc3953585959b19e515c57370a6eeb97fb284733561790c5751a6386d0ad0fa499d3d85f32e2a96056cbb43616d18e3359c5b38da25dda2ee156c8ed0dc1f9629aa4bfd2341dc790b00ab11313e4b6495de9edeb7d52d953b926378b61bc298503614bf970f95868859130175e6af9d465c00e6dd5b42fad9587ca27b24d59b9f1aa51d752c5673d14e5269b0bcd96aa3e3bddc360c43fa7eca1e3ee18b52fcf738d478d09c149892f1d8605a3b6aba8bb685013353372f38e3ae808b6a28e093765aecafc94c6ab65241273a6bdd630a882aa01c1804a54e3aee0b91b326312cb7fbf5151130b264d5aeecad88b29d4503786cb826590c73d79e780252c79e19d795fa3d653b82ff7cc591b5c5fa3ca3f0c7204533e78af199bc7fd30e982444de84ab906b9134b7647d4a27e8b86bdf5cd8c53520f14b1394a9a4543751cbaf14f5e5289082db939877c77468fc75de442a4db46cf2a73c5bcf0df7fe36ff4559962c5f0e8480000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="728">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff610000029f49444154388d559331685b5714863fc947e13e21952bea67f440868a94628b042a70866e75c66c22141202854443067b6b9690d2a5a150488742ddcd5942a644a33368c81b3c6488b187506b50e0056c904964ee850874714fe30ecfaeebe983c3f9f9ffffc0292c2f2de3d563c41034b0217621a8bf8118a61a88c432550f6238d0f0fca1d8bfbcfae3d3fd42fbeb3608a0d0131630266d7ed7ad4f25106199e273aa277bd61bbf9af86b6bc216ca3102f27f674c48935ffea8f3e522910102e7d8badc9ee5a71f5f30f1d79e8addf2ea8f67e2b9989eb0a0423a7fef419db92a5082f719e83f30decbe93fc067352a8db82cdb3b9dead124dd114633db8dc50511d2f9db2b753e37d0f80a2e2670e0607f08a1044581760b7ca0f437248db82cbb834e7ca469d1a9bf915c6ed721c08700750b00975a20110407575af9ec8b04063bf07644b36266ebc21d89c4c0c4c3d84118c1130f37bb5005bebd0aa55ccb47e0ee2d1866a0819a58bc5212a781e6470f6f07f9e27e06ef32b8ff00aad17fe2e9f7d789f633a60a9180538f1128d6c48277b0e7612fcb19c2991840204a9aa0108905859a18bc42d1e989609c81f7306fe1d74767b19d8308f8ed67b8d206f520e034e4098c9813170b150b8fd7f3de53a07b1d56ee819b4214c1efeb60f323d7c412148a9986e7bb983115f2abffb9968b57bae0028c32f861354ff2e4696e56b1f4f06e57e8179697960bb7d42f7d63cc8b563d99a56acfba070fc6e615ad057f0062d9c8062e55565f6ae8cfd4e66abc1646c991a668e824715ca66ca0a879a5a240c5c0a70062e80d07aeaf617553b58f7038d36c345155866247d5304925844e92c4652a31140b50aee6bc5063e3cd1bb779a4ab9baa7d2bf63068383ef78d0885aeb264853b5e295901af60049c4226f45f292f110e4fbff15fd12f2da242589b170000000049454e44ae426082</data>
+    </image>
+</images>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

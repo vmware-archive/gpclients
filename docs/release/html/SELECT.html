@@ -1,0 +1,822 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:10">
+    <title>SELECT</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="SAVEPOINT.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="SELECT_INTO.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+SELECT
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Retrieves rows from a table or view.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SELECT [ALL | DISTINCT [ON (<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [, ...])]]</font></p><a name="wp138378"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;* | <code><font face="Courier New, Courier, mono" size="2"><i>expression </i></font></code>[[AS] <code><font face="Courier New, Courier, mono" size="2"><i>output_name</i></font></code>] [, ...]</font><a name="wp138379"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[FROM <code><font face="Courier New, Courier, mono" size="2"><i>from_item</i></font></code> [, ...]]</font><a name="wp141866"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[WHERE <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code>]</font><a name="wp138381"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[GROUP BY <code><font face="Courier New, Courier, mono" size="2"><i>grouping_element</i></font></code> [, ...]]</font><a name="wp138382"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[HAVING <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code> [, ...]]</font><a name="wp138383"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[WINDOW <code><font face="Courier New, Courier, mono" size="2"><i>window_name</i></font></code> AS (<code><font face="Courier New, Courier, mono" size="2"><i>window_specification</i></font></code>)]</font><a name="wp141917"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[{UNION | INTERSECT | EXCEPT} [ALL] <code><font face="Courier New, Courier, mono" size="2"><i>select</i></font></code>]</font><a name="wp141544"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[ORDER BY <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [ASC | DESC | USING <code><font face="Courier New, Courier, mono" size="2"><i>operator</i></font></code>] [, ...]]</font><a name="wp138385"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[LIMIT {<code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> | ALL}]</font><a name="wp138386"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[OFFSET <code><font face="Courier New, Courier, mono" size="2"><i>start</i></font></code>]</font><a name="wp138387"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[FOR {UPDATE | SHARE} [OF <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> [, ...]] [NOWAIT] [...]]</font><a name="wp138388"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where grouping_element can be one of:</font></p><a name="wp141639"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;()</font><a name="wp142040"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code></font><a name="wp141887"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;ROLLUP (<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [,...])</font><a name="wp141888"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;CUBE (<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [,...])</font><a name="wp141889"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;GROUPING SETS ((<code><font face="Courier New, Courier, mono" size="2"><i>grouping_element</i></font></code> [, ...]))</font><a name="wp141885"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where window_specification can be:</font></p><a name="wp141884"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>&#160;&#160;</i></font></code>[<code><font face="Courier New, Courier, mono" size="2"><i>window_name</i></font></code>]</font><a name="wp141748"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[PARTITION BY <code><font face="Courier New, Courier, mono" size="2"><i>expression </i></font></code>[, ...]]</font><a name="wp141943"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;[ORDER BY <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [ASC | DESC | USING <code><font face="Courier New, Courier, mono" size="2"><i>operator</i></font></code>] [, ...]</font><a name="wp141749"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;[{RANGE | ROWS} </font><a name="wp141750"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{ UNBOUNDED PRECEDING</font><a name="wp141956"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> PRECEDING</font><a name="wp141650"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| CURRENT ROW</font><a name="wp141962"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| BETWEEN <code><font face="Courier New, Courier, mono" size="2"><i>window_frame_bound</i></font></code> AND <code><font face="Courier New, Courier, mono" size="2"><i>window_frame_bound</i></font></code> }]]</font><a name="wp141661"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;where window_frame_bound can be one of:</font></p><a name="wp141976"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;UNBOUNDED PRECEDING</font><a name="wp141980"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> PRECEDING</font><a name="wp141993"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;CURRENT ROW</font><a name="wp141997"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> FOLLOWING</font><a name="wp142008"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;UNBOUNDED FOLLOWING</font><a name="wp142009"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where from_item can be one of:</font></p><a name="wp141641"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[ONLY] <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> [[AS] <code><font face="Courier New, Courier, mono" size="2"><i>alias</i></font></code> [( <code><font face="Courier New, Courier, mono" size="2"><i>column_alias</i></font></code> [, ...] )]]</font><a name="wp138392"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">(select) [AS] <code><font face="Courier New, Courier, mono" size="2"><i>alias</i></font></code> [( <code><font face="Courier New, Courier, mono" size="2"><i>column_alias</i></font></code> [, ...] )]</font><a name="wp138393"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>function_name</i></font></code> ( [<code><font face="Courier New, Courier, mono" size="2"><i>argument</i></font></code> [, ...]] ) [AS] <code><font face="Courier New, Courier, mono" size="2"><i>alias</i></font></code> </font><a name="wp138394"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[( <code><font face="Courier New, Courier, mono" size="2"><i>column_alias</i></font></code> [, ...] </font><a name="wp138512"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;| <code><font face="Courier New, Courier, mono" size="2"><i>column_definition</i></font></code> [, ...] )]</font><a name="wp138524"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>function_name</i></font></code> ( [<code><font face="Courier New, Courier, mono" size="2"><i>argument</i></font></code> [, ...]] ) AS </font><a name="wp138395"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;( <code><font face="Courier New, Courier, mono" size="2"><i>column_definition</i></font></code> [, ...] )</font><a name="wp138516"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>from_item</i></font></code> [NATURAL] <code><font face="Courier New, Courier, mono" size="2"><i>join_type</i></font></code> <code><font face="Courier New, Courier, mono" size="2"><i>from_item</i></font></code> </font><a name="wp137101"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[ON <code><font face="Courier New, Courier, mono" size="2"><i>join_condition</i></font></code> | USING ( <code><font face="Courier New, Courier, mono" size="2"><i>join_column</i></font></code> [, ...] )]</font><a name="wp138520"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp138792"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> retrieves rows from zero or more tables. The general processing of <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> is as follows: 
+</font></p>
+<a name="wp138796"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+1.	All elements in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> list are computed. (Each element in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> list is a real or virtual table.) If more than one element is specified in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> list, they are cross-joined together.
+</font></div>
+<ol start="2.	"><a name="wp138832"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">If the <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause is specified, all rows that do not satisfy the condition are eliminated from the output.</font></li >
+
+
+<a name="wp138840"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">If the <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause is specified, the output is divided into groups of rows that match on one or more of the defined grouping elements. If the <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> clause is present, it eliminates groups that do not satisfy the given condition.</font></li >
+
+
+<a name="wp141787"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">If a window expression is specified (and optional <code><font face="Courier New, Courier, mono" size="2">WINDOW</font></code> clause), the output is organized according to the positional (row) or value-based (range) window frame.</font></li >
+
+
+<a name="wp141798"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">DISTINCT</font></code> eliminates duplicate rows from the result. <code><font face="Courier New, Courier, mono" size="2">DISTINCT ON</font></code> eliminates rows that match on all the specified expressions. <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> (the default) will return all candidate rows, including duplicates.</font></li >
+
+
+<a name="wp138848"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The actual output rows are computed using the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> output expressions for each selected row.</font></li >
+
+
+<a name="wp138856"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Using the operators <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>, <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code>, and <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code>, the output of more than one <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement can be combined to form a single result set. The <code><font face="Courier New, Courier, mono" size="2">UNION</font></code> operator returns all rows that are in one or both of the result sets. The <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code> operator returns all rows that are strictly in both result sets. The <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> operator returns the rows that are in the first result set but not in the second. In all three cases, duplicate rows are eliminated unless <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> is specified.</font></li >
+
+
+<a name="wp138864"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">If the <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause is specified, the returned rows are sorted in the specified order. If <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> is not given, the rows are returned in whatever order the system finds fastest to produce.</font></li >
+
+
+<a name="wp138878"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">If the <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> or <code><font face="Courier New, Courier, mono" size="2">OFFSET</font></code> clause is specified, the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement only returns a subset of the result rows.</font></li >
+
+
+<a name="wp138885"> </a><li ><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">If <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> is specified, the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement locks the entire table against concurrent updates.</font></li >
+
+
+</ol><a name="wp138815"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You must have <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> privilege on a table to read its values. The use of <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> requires <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> privilege as well.
+</font></p>
+<a name="wp134773"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp139905"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The SELECT List
+</b></font></h4>
+<a name="wp139906"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> list (between the key words <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> and <code><font face="Courier New, Courier, mono" size="2">FROM</font></code>) specifies expressions that form the output rows of the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement. The expressions can (and usually do) refer to columns computed in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause. 
+</font></p>
+<a name="wp145137"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Using the clause <code><font face="Courier New, Courier, mono" size="2">[AS] </font></code><code><font face="Courier New, Courier, mono" size="2"><i>output_name</i></font></code>, another name can be specified for an output column. This name is primarily used to label the column for display. It can also be used to refer to the column&#39;s value in <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> and <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clauses, but not in the <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> or <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> clauses; there you must write out the expression instead. The <code><font face="Courier New, Courier, mono" size="2">AS</font></code> keyword is optional in most cases (such as when declaring an alias for column names, constants, function calls, and simple unary operator expressions). In cases where the declared alias is a reserved SQL keyword, the <code><font face="Courier New, Courier, mono" size="2"><i>output_name</i></font></code> must be enclosed in double quotes to avoid ambiguity.
+</font></p>
+<a name="wp142082"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> in the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> list can be a constant value, a column reference, an operator invocation, a function call, an aggregate expression, a window expression, a scalar subquery, and so on. See <a href="../../Output/Admin/query.html#wp140511">&quot;SQL Value Expressions&quot; </a> for more information. there are a number of constructs that can be classified as an expression but do not follow any general syntax rules. These generally have the semantics of a function or operator and are explained in <a href="../../Output/Admin/query.html#wp144774">&quot;Function Calls&quot; </a>. 
+</font></p>
+<a name="wp141830"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Instead of an expression, <code><font face="Courier New, Courier, mono" size="2">*</font></code> can be written in the output list as a shorthand for all the columns of the selected rows. Also, one can write <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code><code><font face="Courier New, Courier, mono" size="2">.*</font></code> as a shorthand for the columns coming from just that table.
+</font></p>
+<a name="wp138995"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The FROM Clause
+</b></font></h4>
+<a name="wp139083"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause specifies one or more source tables for the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>. If multiple sources are specified, the result is the Cartesian product (cross join) of all the sources. But usually qualification conditions are added to restrict the returned rows to a small subset of the Cartesian product. The <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause can contain the following elements: 
+</font></p>
+<a name="wp139001"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table_name</i></b></font>
+</b></font></h6>
+<a name="wp139002"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of an existing table or view. If <code><font face="Courier New, Courier, mono" size="2">ONLY</font></code> is specified, only that table is scanned. If <code><font face="Courier New, Courier, mono" size="2">ONLY</font></code> is not specified, the table and all its descendant tables (if any) are scanned.
+</font></div>
+<a name="wp139004"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>alias</i></b></font>
+</b></font></h6>
+<a name="wp139005"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A substitute name for the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> item containing the alias. An alias is used for brevity or to eliminate ambiguity for self-joins (where the same table is scanned multiple times). When an alias is provided, it completely hides the actual name of the table or function; for example given <code><font face="Courier New, Courier, mono" size="2">FROM foo AS f</font></code>, the remainder of the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> must refer to this <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> item as <code><font face="Courier New, Courier, mono" size="2">f</font></code> not <code><font face="Courier New, Courier, mono" size="2">foo</font></code>. If an alias is written, a column alias list can also be written to provide substitute names for one or more columns of the table.
+</font></div>
+<a name="wp139007"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>select</i></b></font>
+</b></font></h6>
+<a name="wp139008"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A sub-<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> can appear in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause. This acts as though its output were created as a temporary table for the duration of this single <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> command. Note that the sub-<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> must be surrounded by parentheses, and an alias must be provided for it. A <code><font face="Courier New, Courier, mono" size="2">VALUES</font></code> command can also be used here. See <a href="SELECT.html#wp139207">&quot;Limited Correlated Subquery Syntax&quot; </a> for limitations of using correlated sub-selects in Greenplum Database.
+</font></div>
+<a name="wp139010"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>function_name</i></b></font>
+</b></font></h6>
+<a name="wp139011"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Function calls can appear in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause. (This is especially useful for functions that return result sets, but any function can be used.) This acts as though its output were created as a temporary table for the duration of this single <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> command. An alias may also be used. If an alias is written, a column alias list can also be written to provide substitute names for one or more attributes of the function&#39;s composite return type. If the function has been defined as returning the record data type, then an alias or the key word <code><font face="Courier New, Courier, mono" size="2">AS</font></code> must be present, followed by a column definition list in the form <code><font face="Courier New, Courier, mono" size="2">( column_name data_type [, ... ] )</font></code>. The column definition list must match the actual number and types of columns returned by the function.
+</font></div>
+<a name="wp139013"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>join_type</i></b></font>
+</b></font></h6>
+<a name="wp139014"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+One of:
+</font></div>
+<ul>
+<a name="wp139018"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>[INNER] JOIN</b></font></code></font></li>
+</ul>
+
+<ul>
+<a name="wp139020"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>LEFT [OUTER] JOIN</b></font></code></font></li>
+</ul>
+
+<ul>
+<a name="wp139022"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>RIGHT [OUTER] JOIN</b></font></code></font></li>
+</ul>
+
+<ul>
+<a name="wp139024"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>FULL [OUTER] JOIN</b></font></code></font></li>
+</ul>
+
+<ul>
+<a name="wp139026"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>CROSS JOIN</b></font></code></font></li>
+</ul>
+
+<a name="wp139028"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+For the <code><font face="Courier New, Courier, mono" size="2">INNER</font></code> and <code><font face="Courier New, Courier, mono" size="2">OUTER</font></code> join types, a join condition must be specified, namely exactly one of <code><font face="Courier New, Courier, mono" size="2">NATURAL</font></code>, <code><font face="Courier New, Courier, mono" size="2">ON </font></code><code><font face="Courier New, Courier, mono" size="2"><i>join_condition</i></font></code>, or <code><font face="Courier New, Courier, mono" size="2">USING (</font></code><code><font face="Courier New, Courier, mono" size="2"><i>join_column</i></font></code><code><font face="Courier New, Courier, mono" size="2"> [, ...])</font></code>. See below for the meaning. For <code><font face="Courier New, Courier, mono" size="2">CROSS JOIN</font></code>, none of these clauses may appear.
+</font></div>
+<a name="wp139030"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A <code><font face="Courier New, Courier, mono" size="2">JOIN</font></code> clause combines two <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> items. Use parentheses if necessary to determine the order of nesting. In the absence of parentheses, <code><font face="Courier New, Courier, mono" size="2">JOIN</font></code>s nest left-to-right. In any case <code><font face="Courier New, Courier, mono" size="2">JOIN</font></code> binds more tightly than the commas separating <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> items.
+</font></div>
+<a name="wp139032"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CROSS JOIN</font></code> and <code><font face="Courier New, Courier, mono" size="2">INNER JOIN</font></code> produce a simple Cartesian product, the same result as you get from listing the two items at the top level of <code><font face="Courier New, Courier, mono" size="2">FROM</font></code>, but restricted by the join condition (if any). <code><font face="Courier New, Courier, mono" size="2">CROSS JOIN</font></code> is equivalent to <code><font face="Courier New, Courier, mono" size="2">INNER JOIN ON</font></code> <code><font face="Courier New, Courier, mono" size="2">(TRUE)</font></code>, that is, no rows are removed by qualification. These join types are just a notational convenience, since they do nothing you could not do with plain <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> and <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code>. 
+</font></div>
+<a name="wp139034"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">LEFT OUTER JOIN</font></code> returns all rows in the qualified Cartesian product (i.e., all combined rows that pass its join condition), plus one copy of each row in the left-hand table for which there was no right-hand row that passed the join condition. This left-hand row is extended to the full width of the joined table by inserting null values for the right-hand columns. Note that only the <code><font face="Courier New, Courier, mono" size="2">JOIN</font></code> clause&#39;s own condition is considered while deciding which rows have matches. Outer conditions are applied afterwards.
+</font></div>
+<a name="wp139036"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Conversely, <code><font face="Courier New, Courier, mono" size="2">RIGHT OUTER JOIN</font></code> returns all the joined rows, plus one row for each unmatched right-hand row (extended with nulls on the left). This is just a notational convenience, since you could convert it to a <code><font face="Courier New, Courier, mono" size="2">LEFT OUTER JOIN</font></code> by switching the left and right inputs.
+</font></div>
+<a name="wp139038"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">FULL OUTER JOIN</font></code> returns all the joined rows, plus one row for each unmatched left-hand row (extended with nulls on the right), plus one row for each unmatched right-hand row (extended with nulls on the left).
+</font></div>
+<a name="wp139040"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ON <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>join_condition</i></b></font>
+</b></font></h6>
+<a name="wp139041"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2"><i>join_condition</i></font></code> is an expression resulting in a value of type <code><font face="Courier New, Courier, mono" size="2">boolean</font></code> (similar to a <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause) that specifies which rows in a join are considered to match.
+</font></div>
+<a name="wp139043"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+USING (<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>join_column</i></b></font> [, ...])
+</b></font></h6>
+<a name="wp139044"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A clause of the form <code><font face="Courier New, Courier, mono" size="2">USING ( a, b, ... )</font></code> is shorthand for <code><font face="Courier New, Courier, mono" size="2">ON left_table.a = right_table.a AND left_table.b = right_table.b .... </font></code>Also, <code><font face="Courier New, Courier, mono" size="2">USING</font></code> implies that only one of each pair of equivalent columns will be included in the join output, not both.
+</font></div>
+<a name="wp139046"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+NATURAL
+</b></font></h6>
+<a name="wp139047"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">NATURAL</font></code> is shorthand for a <code><font face="Courier New, Courier, mono" size="2">USING</font></code> list that mentions all columns in the two tables that have the same names.
+</font></div>
+<a name="wp139457"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The WHERE Clause
+</b></font></h4>
+<a name="wp140329"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause has the general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">WHERE <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code></font><a name="wp139474"> </a>
+</pre>
+<a name="wp140327"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Where <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code> is any expression that evaluates to a result of type <code><font face="Courier New, Courier, mono" size="2">boolean</font></code>. Any row that does not satisfy this condition will be eliminated from the output. A row satisfies the condition if it returns true when the actual row values are substituted for any variable references. 
+</font></p>
+<a name="wp139508"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The GROUP BY Clause
+</b></font></h4>
+<a name="wp140352"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause has the general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY <code><font face="Courier New, Courier, mono" size="2"><i>grouping_element </i></font></code>[, ...]</font><a name="wp142542"> </a>
+</pre>
+<a name="wp143656"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+where grouping_element can be one of:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">()</font><a name="wp143657"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code></font><a name="wp143658"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">ROLLUP (<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [,...])</font><a name="wp142551"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CUBE (<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [,...])</font><a name="wp142552"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">GROUPING SETS ((<code><font face="Courier New, Courier, mono" size="2"><i>grouping_element</i></font></code> [, ...]))</font><a name="wp142543"> </a>
+</pre>
+<a name="wp142544"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> will condense into a single row all selected rows that share the same values for the grouped expressions. <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> can be an input column name, or the name or ordinal number of an output column (<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> list item), or an arbitrary expression formed from input-column values. In case of ambiguity, a <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> name will be interpreted as an input-column name rather than an output column name.
+</font></p>
+<a name="wp139514"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Aggregate functions, if any are used, are computed across all rows making up each group, producing a separate value for each group (whereas without <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code>, an aggregate produces a single value computed across all the selected rows). When <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> is present, it is not valid for the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> list expressions to refer to ungrouped columns except within aggregate functions, since there would be more than one possible value to return for an ungrouped column.
+</font></p>
+<a name="wp141428"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database has the following additional OLAP grouping extensions (often referred to as supergroups):
+</font></p>
+<a name="wp142260"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ROLLUP
+</b></font></h6>
+<a name="wp142310"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A <code><font face="Courier New, Courier, mono" size="2">ROLLUP</font></code> grouping is an extension to the <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause that creates aggregate subtotals that roll up from the most detailed level to a grand total, following a list of grouping columns (or expressions). <code><font face="Courier New, Courier, mono" size="2">ROLLUP</font></code> takes an ordered list of grouping columns, calculates the standard aggregate values specified in the <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause, then creates progressively higher-level subtotals, moving from right to left through the list. Finally, it creates a grand total. A <code><font face="Courier New, Courier, mono" size="2">ROLLUP</font></code> grouping can be thought of as a series of grouping sets. For example:
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY ROLLUP (a,b,c) </font><a name="wp142312"> </a>
+</pre>
+<a name="wp142350"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+is equivalent to:
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY GROUPING SETS( (a,b,c), (a,b), (a), () ) </font><a name="wp142314"> </a>
+</pre>
+<a name="wp142323"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notice that the n elements of a <code><font face="Courier New, Courier, mono" size="2">ROLLUP</font></code> translate to n+1 grouping sets. Also, the order in which the grouping expressions are specified is significant in a <code><font face="Courier New, Courier, mono" size="2">ROLLUP</font></code>.
+</font></div>
+<a name="wp142263"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+CUBE
+</b></font></h6>
+<a name="wp142810"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A <code><font face="Courier New, Courier, mono" size="2">CUBE</font></code> grouping is an extension to the <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause that creates subtotals for all of the possible combinations of the given list of grouping columns (or expressions). In terms of multidimensional analysis, <code><font face="Courier New, Courier, mono" size="2">CUBE</font></code> generates all the subtotals that could be calculated for a data cube with the specified dimensions. For example:
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY CUBE (a,b,c) </font><a name="wp142811"> </a>
+</pre>
+<a name="wp142812"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+is equivalent to:
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY GROUPING SETS( (a,b,c), (a,b), (a,c), (b,c), (a), 
+(b), (c), () ) </font><a name="wp142813"> </a>
+</pre>
+<a name="wp142787"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notice that n elements of a <code><font face="Courier New, Courier, mono" size="2">CUBE</font></code> translate to 2<i>n</i> grouping sets. Consider using <code><font face="Courier New, Courier, mono" size="2">CUBE</font></code> in any situation requiring cross-tabular reports. <code><font face="Courier New, Courier, mono" size="2">CUBE</font></code> is typically most suitable in queries that use columns from multiple dimensions rather than columns representing different levels of a single dimension. For instance, a commonly requested cross-tabulation might need subtotals for all the combinations of month, state, and product.
+</font></div>
+<a name="wp142266"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+GROUPING SETS
+</b></font></h6>
+<a name="wp142766"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can selectively specify the set of groups that you want to create using a <code><font face="Courier New, Courier, mono" size="2">GROUPING SETS</font></code> expression within a <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause. This allows precise specification across multiple dimensions without computing a whole <code><font face="Courier New, Courier, mono" size="2">ROLLUP</font></code> or <code><font face="Courier New, Courier, mono" size="2">CUBE</font></code>. For example:
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY GROUPING SETS( (a,c), (a,b) )</font><a name="wp142767"> </a>
+</pre>
+<a name="wp143729"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If using the grouping extension clauses <a href="SELECT.html#wp142260">ROLLUP</a>,  <a href="SELECT.html#wp142263">CUBE</a>, or <a href="SELECT.html#wp142266">GROUPING SETS</a>, two challenges arise. First, how do you determine which result rows are subtotals, and then the exact level of aggregation for a given subtotal. Or, how do you differentiate between result rows that contain both stored <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> values and &quot;NULL&quot; values created by the <code><font face="Courier New, Courier, mono" size="2">ROLLUP</font></code> or <code><font face="Courier New, Courier, mono" size="2">CUBE</font></code>. Secondly, when duplicate grouping sets are specified in the <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause, how do you determine which result rows are duplicates? There are two additional grouping functions you can use in the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> list to help with this:
+</font></div>
+<ul>
+<a name="wp143759"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>grouping(column [, ...]) </b></font></code>The <code><font face="Courier New, Courier, mono" size="2">grouping</font></code> function can be applied to one or more grouping attributes to distinguish super-aggregated rows from regular grouped rows. This can be helpful in distinguishing a &quot;NULL&quot; representing the set of all values in a super-aggregated row from a <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> value in a regular row. Each argument in this function produces a bit - either <code><font face="Courier New, Courier, mono" size="2">1</font></code> or <code><font face="Courier New, Courier, mono" size="2">0</font></code>, where <code><font face="Courier New, Courier, mono" size="2">1</font></code> means the result row is super-aggregated, and <code><font face="Courier New, Courier, mono" size="2">0</font></code> means the result row is from a regular grouping. The <code><font face="Courier New, Courier, mono" size="2">grouping</font></code> function returns an integer by treating these bits as a binary number and then converting it to a base-10 integer.</font></li>
+</ul>
+
+<ul>
+<a name="wp143806"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><b>group_id() </b></font></code>For grouping extension queries that contain duplicate grouping sets, the <code><font face="Courier New, Courier, mono" size="2">group_id</font></code> function is used to identify duplicate rows in the output. All unique grouping set output rows will have a group_id value of 0. For each duplicate grouping set detected, the <code><font face="Courier New, Courier, mono" size="2">group_id</font></code> function assigns a group_id number greater than 0. All output rows in a particular duplicate grouping set are identified by the same group_id number. </font></li>
+</ul>
+
+<a name="wp142768"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The WINDOW Clause
+</b></font></h4>
+<a name="wp142918"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">WINDOW</font></code> clause is used to define a window that can be used in the <code><font face="Courier New, Courier, mono" size="2">OVER()</font></code> expression of a window function such as <code><font face="Courier New, Courier, mono" size="2">rank</font></code> or <code><font face="Courier New, Courier, mono" size="2">avg</font></code>. For example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT vendor, rank() OVER (mywindow) FROM sale</font><a name="wp142991"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">WINDOW mywindow AS (ORDER BY sum(prc*qty));</font><a name="wp143035"> </a>
+</pre>
+<a name="wp142966"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A <code><font face="Courier New, Courier, mono" size="2">WINDOW</font></code> clause is has this general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">WINDOW <code><font face="Courier New, Courier, mono" size="2"><i>window_name</i></font></code> AS (<code><font face="Courier New, Courier, mono" size="2"><i>window_specification</i></font></code>)</font><a name="wp142938"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">where window_specification can be:</font><a name="wp142921"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">[<code><font face="Courier New, Courier, mono" size="2"><i>window_name</i></font></code>]</font><a name="wp142922"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">[PARTITION BY <code><font face="Courier New, Courier, mono" size="2"><i>expression </i></font></code>[, ...]]</font><a name="wp142923"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">[ORDER BY <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [ASC | DESC | USING <code><font face="Courier New, Courier, mono" size="2"><i>operator</i></font></code>] [, ...]</font><a name="wp142924"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;[{RANGE | ROWS} </font><a name="wp142925"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;{ UNBOUNDED PRECEDING</font><a name="wp142926"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;| <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> PRECEDING</font><a name="wp142927"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;| CURRENT ROW</font><a name="wp142928"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;| BETWEEN <code><font face="Courier New, Courier, mono" size="2"><i>window_frame_bound</i></font></code> AND <code><font face="Courier New, Courier, mono" size="2"><i>window_frame_bound</i></font></code> }]]</font><a name="wp142929"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;where window_frame_bound can be one of:</font><a name="wp142930"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;UNBOUNDED PRECEDING</font><a name="wp142931"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> PRECEDING</font><a name="wp142932"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;CURRENT ROW</font><a name="wp142933"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;<code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> FOLLOWING</font><a name="wp142934"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;UNBOUNDED FOLLOWING</font><a name="wp142935"> </a>
+</pre>
+<a name="wp143057"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>window_name</i></b></font>
+</b></font></h6>
+<a name="wp143117"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Gives a name to the window specification.
+</font></div>
+<a name="wp143116"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+PARTITION BY
+</b></font></h6>
+<a name="wp143115"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">PARTITION BY</font></code> clause organizes the result set into logical groups based on the unique values of the specified expression. When used with window functions, the functions are applied to each partition independently. For example, if you follow <code><font face="Courier New, Courier, mono" size="2">PARTITION BY</font></code> with a column name, the result set is partitioned by the distinct values of that column. If omitted, the entire result set is considered one partition.
+</font></div>
+<a name="wp143061"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ORDER BY
+</b></font></h6>
+<a name="wp143872"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause defines how to sort the rows in each partition of the result set. If omitted, rows are returned in whatever order is most efficient and may vary. NOTE: Columns of data types that lack a coherent ordering, such as <code><font face="Courier New, Courier, mono" size="2">time</font></code>, are not good candidates for use in the <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause of a window specification. Time, with or without time zone, lacks a coherent ordering because addition and subtraction do not have the expected effects. For example, the following is not generally true: <code><font face="Courier New, Courier, mono" size="2">x::time &lt; x::time + &#39;2 hour&#39;::interval</font></code>
+</font></div>
+<a name="wp143065"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ROWS | RANGE 
+</b></font></h6>
+<a name="wp143172"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Use either a <code><font face="Courier New, Courier, mono" size="2">ROWS</font></code> or <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> clause to express the bounds of the window. The window bound can be one, many, or all rows of a partition. You can express the bound of the window either in terms of a range of data values offset from the value in the current row (<code><font face="Courier New, Courier, mono" size="2">RANGE</font></code>), or in terms of the number of rows offset from the current row (<code><font face="Courier New, Courier, mono" size="2">ROWS</font></code>). When using the <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> clause, you must also use an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause. This is because the calculation performed to produce the window requires that the values be sorted. Additionally, the <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause cannot contain more than one expression, and the expression must result in either a date or a numeric value. When using the <code><font face="Courier New, Courier, mono" size="2">ROWS</font></code> or <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> clauses, if you specify only a starting row, the current row is used as the last row in the window.
+</font></div>
+<a name="wp143071"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>PRECEDING</b></font>
+</b></font></div>
+<a name="wp143673"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">PRECEDING</font></code> clause defines the first row of the window using the current row as a reference point. The starting row is expressed in terms of the number of rows preceding the current row. For example, in the case of <code><font face="Courier New, Courier, mono" size="2">ROWS</font></code> framing, <code><font face="Courier New, Courier, mono" size="2">5 PRECEDING</font></code> sets the window to start with the fifth row preceding the current row. In the case of <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> framing, it sets the window to start with the first row whose ordering column value precedes that of the current row by 5 in the given order.  If the specified order is ascending by date, this will be the first row within 5 days before the current row. <code><font face="Courier New, Courier, mono" size="2">UNBOUNDED PRECEDING</font></code> sets the first row in the window to be the first row in the partition.
+</font></div>
+<a name="wp143076"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>BETWEEN</b></font> 
+</font></div>
+<a name="wp143269"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">BETWEEN</font></code> clause defines the first and last row of the window, using the current row as a reference point. First and last rows are expressed in terms of the number of rows preceding and following the current row, respectively. For example, <code><font face="Courier New, Courier, mono" size="2">BETWEEN 3 PRECEDING AND 5 FOLLOWING</font></code> sets the window to start with the third row preceding the current row, and end with the fifth row following the current row. Use <code><font face="Courier New, Courier, mono" size="2">BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</font></code> to set the first and last rows in the window to be the first and last row in the partition, respectively. This is equivalent to the default behavior if no <code><font face="Courier New, Courier, mono" size="2">ROW</font></code> or <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> clause is specified.
+</font></div>
+<a name="wp143081"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>FOLLOWING</b></font> 
+</font></div>
+<a name="wp143697"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">FOLLOWING</font></code> clause defines the last row of the window using the current row as a reference point. The last row is expressed in terms of the number of rows following the current row. For example, in the case of <code><font face="Courier New, Courier, mono" size="2">ROWS</font></code> framing, <code><font face="Courier New, Courier, mono" size="2">5 FOLLOWING</font></code> sets the window to end with the fifth row following the current row. In the case of <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> framing, it sets the window to end with the last row whose ordering column value follows that of the current row by 5 in the given order.  If the specified order is ascending by date, this will be the last row within 5 days after the current row. Use <code><font face="Courier New, Courier, mono" size="2">UNBOUNDED FOLLOWING</font></code> to set the last row in the window to be the last row in the partition.
+</font></div>
+<a name="wp143086"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If you do not specify a <code><font face="Courier New, Courier, mono" size="2">ROW</font></code> or a <code><font face="Courier New, Courier, mono" size="2">RANGE</font></code> clause, the window bound starts with the first row in the partition (<code><font face="Courier New, Courier, mono" size="2">UNBOUNDED PRECEDING</font></code>) and ends with the current row (<code><font face="Courier New, Courier, mono" size="2">CURRENT ROW</font></code>) if <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> is used. If an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> is not specified, the window starts with the first row in the partition (<code><font face="Courier New, Courier, mono" size="2">UNBOUNDED PRECEDING</font></code>) and ends with last row in the partition (<code><font face="Courier New, Courier, mono" size="2">UNBOUNDED FOLLOWING</font></code>).
+</font></div>
+<a name="wp141842"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The HAVING Clause
+</b></font></h4>
+<a name="wp140375"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> clause has the general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">HAVING <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code></font><a name="wp140373"> </a>
+</pre>
+<a name="wp139759"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Where <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code> is the same as specified for the <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause. <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> eliminates group rows that do not satisfy the condition. <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> is different from <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code>: <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> filters individual rows before the application of <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code>, while <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> filters group rows created by <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code>. Each column referenced in <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code> must unambiguously reference a grouping column, unless the reference appears within an aggregate function.
+</font></p>
+<a name="wp139737"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The presence of <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> turns a query into a grouped query even if there is no <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause. This is the same as what happens when the query contains aggregate functions but no <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause. All the selected rows are considered to form a single group, and the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> list and <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> clause can only reference table columns from within aggregate functions. Such a query will emit a single row if the <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> condition is true, zero rows if it is not true. 
+</font></p>
+<a name="wp139938"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The UNION Clause
+</b></font></h4>
+<a name="wp139939"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">UNION</font></code> clause has this general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code> <code><font face="Courier New, Courier, mono" size="2">UNION [ALL]</font></code> <code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code></font><a name="wp139941"> </a>
+</pre>
+<a name="wp140099"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Where <code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code> is any <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement without an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code>, <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code>, <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> clause. (<code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> and <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> can be attached to a subquery expression if it is enclosed in parentheses. Without parentheses, these clauses will be taken to apply to the result of the <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>, not to its right-hand input expression.) 
+</font></p>
+<a name="wp139943"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">UNION</font></code> operator computes the set union of the rows returned by the involved <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statements. A row is in the set union of two result sets if it appears in at least one of the result sets. The two <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statements that represent the direct operands of the <code><font face="Courier New, Courier, mono" size="2">UNION</font></code> must produce the same number of columns, and corresponding columns must be of compatible data types.
+</font></p>
+<a name="wp139945"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The result of <code><font face="Courier New, Courier, mono" size="2">UNION</font></code> does not contain any duplicate rows unless the <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> option is specified. <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> prevents elimination of duplicates. (Therefore, <code><font face="Courier New, Courier, mono" size="2">UNION ALL</font></code> is usually significantly quicker than <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>; use <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> when you can.) 
+</font></p>
+<a name="wp139947"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Multiple <code><font face="Courier New, Courier, mono" size="2">UNION</font></code> operators in the same <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement are evaluated left to right, unless otherwise indicated by parentheses. 
+</font></p>
+<a name="wp139949"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Currently, <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> may not be specified either for a <code><font face="Courier New, Courier, mono" size="2">UNION</font></code> result or for any input of a <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>. 
+</font></p>
+<a name="wp139951"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The INTERSECT Clause
+</b></font></h4>
+<a name="wp139952"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code> clause has this general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code> INTERSECT [ALL] <code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code></font><a name="wp139954"> </a>
+</pre>
+<a name="wp140206"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Where <code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code> is any SELECT statement without an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code>, <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code>, <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> clause. 
+</font></p>
+<a name="wp139956"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code> operator computes the set intersection of the rows returned by the involved <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statements. A row is in the intersection of two result sets if it appears in both result sets.
+</font></p>
+<a name="wp139958"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The result of <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code> does not contain any duplicate rows unless the <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> option is specified. With <code><font face="Courier New, Courier, mono" size="2">ALL</font></code>, a row that has <code><font face="Courier New, Courier, mono" size="2"><i>m</i></font></code> duplicates in the left table and <code><font face="Courier New, Courier, mono" size="2"><i>n</i></font></code> duplicates in the right table will appear min(<code><font face="Courier New, Courier, mono" size="2"><i>m</i></font></code><code><font face="Courier New, Courier, mono" size="2">,</font></code><code><font face="Courier New, Courier, mono" size="2"><i>n</i></font></code>) times in the result set.
+</font></p>
+<a name="wp139960"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Multiple <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code> operators in the same <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement are evaluated left to right, unless parentheses dictate otherwise. <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code> binds more tightly than <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>. That is, <code><font face="Courier New, Courier, mono" size="2">A UNION B INTERSECT C</font></code> will be read as <code><font face="Courier New, Courier, mono" size="2">A UNION (B INTERSECT C)</font></code>. 
+</font></p>
+<a name="wp139962"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Currently, <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> may not be specified either for an <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code> result or for any input of an <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code>. 
+</font></p>
+<a name="wp139964"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The EXCEPT Clause
+</b></font></h4>
+<a name="wp139965"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> clause has this general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code> EXCEPT [ALL] <code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code></font><a name="wp139967"> </a>
+</pre>
+<a name="wp140402"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Where <code><font face="Courier New, Courier, mono" size="2"><i>select_statement</i></font></code> is any <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement without an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code>, <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code>, <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> clause. 
+</font></p>
+<a name="wp139969"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> operator computes the set of rows that are in the result of the left <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement but not in the result of the right one. 
+</font></p>
+<a name="wp139971"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The result of <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> does not contain any duplicate rows unless the <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> option is specified. With <code><font face="Courier New, Courier, mono" size="2">ALL</font></code>, a row that has <code><font face="Courier New, Courier, mono" size="2"><i>m</i></font></code> duplicates in the left table and <code><font face="Courier New, Courier, mono" size="2"><i>n</i></font></code> duplicates in the right table will appear max(<code><font face="Courier New, Courier, mono" size="2"><i>m-n</i></font></code>,0) times in the result set. 
+</font></p>
+<a name="wp139973"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Multiple <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> operators in the same <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement are evaluated left to right, unless parentheses dictate otherwise. <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> binds at the same level as <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>. 
+</font></p>
+<a name="wp139975"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Currently, <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> may not be specified either for an <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> result or for any input of an <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code>. 
+</font></p>
+<a name="wp139977"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The ORDER BY Clause
+</b></font></h4>
+<a name="wp139978"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause has this general form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">ORDER BY <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> [ASC | DESC | USING <code><font face="Courier New, Courier, mono" size="2"><i>operator</i></font></code>] [, ...]</font><a name="wp139980"> </a>
+</pre>
+<a name="wp140491"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Where <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> can be the name or ordinal number of an output column (<code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> list item), or it can be an arbitrary expression formed from input-column values. 
+</font></p>
+<a name="wp139982"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause causes the result rows to be sorted according to the specified expressions. If two rows are equal according to the left-most expression, they are compared according to the next expression and so on. If they are equal according to all specified expressions, they are returned in an implementation-dependent order.
+</font></p>
+<a name="wp139984"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The ordinal number refers to the ordinal (left-to-right) position of the result column. This feature makes it possible to define an ordering on the basis of a column that does not have a unique name. This is never absolutely necessary because it is always possible to assign a name to a result column using the <code><font face="Courier New, Courier, mono" size="2">AS</font></code> clause. 
+</font></p>
+<a name="wp139986"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+It is also possible to use arbitrary expressions in the <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause, including columns that do not appear in the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> result list. Thus the following statement is valid:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT name FROM distributors ORDER BY code;</font><a name="wp139988"> </a>
+</pre>
+<a name="wp140591"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A limitation of this feature is that an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause applying to the result of a <code><font face="Courier New, Courier, mono" size="2">UNION</font></code>, <code><font face="Courier New, Courier, mono" size="2">INTERSECT</font></code>, or <code><font face="Courier New, Courier, mono" size="2">EXCEPT</font></code> clause may only specify an output column name or number, not an expression.
+</font></p>
+<a name="wp139990"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> expression is a simple name that matches both a result column name and an input column name, <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> will interpret it as the result column name. This is the opposite of the choice that <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> will make in the same situation. This inconsistency is made to be compatible with the SQL standard. 
+</font></p>
+<a name="wp139992"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Optionally one may add the key word <code><font face="Courier New, Courier, mono" size="2">ASC</font></code> (ascending) or <code><font face="Courier New, Courier, mono" size="2">DESC</font></code> (descending) after any expression in the <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause. If not specified, <code><font face="Courier New, Courier, mono" size="2">ASC</font></code> is assumed by default. Alternatively, a specific ordering operator name may be specified in the <code><font face="Courier New, Courier, mono" size="2">USING</font></code> clause. <code><font face="Courier New, Courier, mono" size="2">ASC</font></code> is usually equivalent to <code><font face="Courier New, Courier, mono" size="2">USING &lt;</font></code> and <code><font face="Courier New, Courier, mono" size="2">DESC</font></code> is usually equivalent to <code><font face="Courier New, Courier, mono" size="2">USING &gt;</font></code>. (But the creator of a user-defined data type can define exactly what the default sort ordering is, and it might correspond to operators with other names.) 
+</font></p>
+<a name="wp139994"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The null value sorts higher than any other value. In other words, with ascending sort order, null values sort at the end, and with descending sort order, null values sort at the beginning.
+</font></p>
+<a name="wp139996"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Character-string data is sorted according to the locale-specific collation order that was established when the Greenplum Database system was initialized.
+</font></p>
+<a name="wp139998"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The DISTINCT Clause
+</b></font></h4>
+<a name="wp139999"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If <code><font face="Courier New, Courier, mono" size="2">DISTINCT</font></code> is specified, all duplicate rows are removed from the result set (one row is kept from each group of duplicates). <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> specifies the opposite: all rows are kept. <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> is the default. 
+</font></p>
+<a name="wp140001"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">DISTINCT ON ( </font></code><code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code><code><font face="Courier New, Courier, mono" size="2"> [, ...] )</font></code> keeps only the first row of each set of rows where the given expressions evaluate to equal. The <code><font face="Courier New, Courier, mono" size="2">DISTINCT ON</font></code> expressions are interpreted using the same rules as for <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code>. Note that the `first row&#39; of each set is unpredictable unless <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> is used to ensure that the desired row appears first. For example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT DISTINCT ON (location) location, time, report FROM 
+weather_reports ORDER BY location, time DESC;</font><a name="wp140003"> </a>
+</pre>
+<a name="wp140686"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+retrieves the most recent weather report for each location. But if we had not used <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> to force descending order of time values for each location, we would have gotten a report from an unpredictable time for each location.
+</font></p>
+<a name="wp140007"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">DISTINCT ON</font></code> expression(s) must match the left-most <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> expression(s). The <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause will normally contain additional expression(s) that determine the desired precedence of rows within each <code><font face="Courier New, Courier, mono" size="2">DISTINCT ON</font></code> group.
+</font></p>
+<a name="wp140009"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The LIMIT Clause
+</b></font></h4>
+<a name="wp140010"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> clause consists of two independent sub-clauses:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">LIMIT {<code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> | ALL}</font><a name="wp140012"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">OFFSET <code><font face="Courier New, Courier, mono" size="2"><i>start</i></font></code></font><a name="wp140013"> </a>
+</pre>
+<a name="wp140528"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Where <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code> specifies the maximum number of rows to return, while <code><font face="Courier New, Courier, mono" size="2"><i>start</i></font></code> specifies the number of rows to skip before starting to return rows. When both are specified, start rows are skipped before starting to count the count rows to be returned. 
+</font></p>
+<a name="wp140015"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When using <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code>, it is a good idea to use an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause that constrains the result rows into a unique order. Otherwise you will get an unpredictable subset of the query&#39;s rows - you may be asking for the tenth through twentieth rows, but tenth through twentieth in what ordering? You don&#39;t know what ordering unless you specify <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code>. 
+</font></p>
+<a name="wp140017"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The query planner takes <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> into account when generating a query plan, so you are very likely to get different plans (yielding different row orders) depending on what you use for <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> and <code><font face="Courier New, Courier, mono" size="2">OFFSET</font></code>. Thus, using different <code><font face="Courier New, Courier, mono" size="2">LIMIT/OFFSET</font></code> values to select different subsets of a query result will give inconsistent results unless you enforce a predictable result ordering with <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code>. This is not a defect; it is an inherent consequence of the fact that SQL does not promise to deliver the results of a query in any particular order unless <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> is used to constrain the order.
+</font></p>
+<a name="wp140019"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+FOR UPDATE/FOR SHARE Clause
+</b></font></h4>
+<a name="wp140020"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> clause has this form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">FOR UPDATE [OF <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> [, ...]] [NOWAIT]</font><a name="wp140022"> </a>
+</pre>
+<a name="wp140023"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The closely related <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> clause has this form:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">FOR SHARE [OF <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> [, ...]] [NOWAIT]</font><a name="wp140025"> </a>
+</pre>
+<a name="wp140026"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> causes the tables accessed by the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement to be locked as though for update. This prevents the table from being modified or deleted by other transactions until the current transaction ends. That is, other transactions that attempt <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">SELECT FOR UPDATE</font></code> of this table will be blocked until the current transaction ends. Also, if an <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">SELECT FOR UPDATE</font></code> from another transaction has already locked a selected table, <code><font face="Courier New, Courier, mono" size="2">SELECT FOR UPDATE</font></code> will wait for the other transaction to complete, and will then lock and return the updated table. Note that Greenplum Database takes a more restrictive lock for updates than does PostgreSQL.
+</font></p>
+<a name="wp140028"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To prevent the operation from waiting for other transactions to commit, use the <code><font face="Courier New, Courier, mono" size="2">NOWAIT</font></code> option. <code><font face="Courier New, Courier, mono" size="2">SELECT FOR UPDATE NOWAIT</font></code> reports an error, rather than waiting, if a selected row cannot be locked immediately. Note that <code><font face="Courier New, Courier, mono" size="2">NOWAIT</font></code> applies only to the row-level lock(s) - the required <code><font face="Courier New, Courier, mono" size="2">ROW SHARE</font></code> table-level lock is still taken in the ordinary way. You can use the <code><font face="Courier New, Courier, mono" size="2">NOWAIT</font></code> option of <code><font face="Courier New, Courier, mono" size="2">LOCK</font></code> if you need to acquire the table-level lock without waiting (see <a href="LOCK.html">LOCK</a>). 
+</font></p>
+<a name="wp140030"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> behaves similarly, except that it acquires a shared rather than exclusive lock on the table. A shared lock blocks other transactions from performing <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">SELECT FOR UPDATE</font></code> on the table, but it does not prevent them from performing <code><font face="Courier New, Courier, mono" size="2">SELECT FOR SHARE</font></code>.
+</font></p>
+<a name="wp140032"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If specific tables are named in <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code>, then only those tables are locked; any other tables used in the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> are simply read as usual. A <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> clause without a table list affects all tables used in the command. If <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> or <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> is applied to a view or subquery, it affects all tables used in the view or subquery.
+</font></p>
+<a name="wp140034"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Multiple <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> clauses can be written if it is necessary to specify different locking behavior for different tables. If the same table is mentioned (or implicitly affected) by both <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">FOR SHARE</font></code> clauses, then it is processed as <code><font face="Courier New, Courier, mono" size="2">FOR UPDATE</font></code>. Similarly, a table is processed as <code><font face="Courier New, Courier, mono" size="2">NOWAIT</font></code> if that is specified in any of the clauses affecting it.
+</font></p>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp140780"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To join the table films with the table distributors: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT f.title, f.did, d.name, f.date_prod, f.kind FROM 
+distributors d, films f WHERE f.did = d.did</font><a name="wp140782"> </a>
+</pre>
+<a name="wp140791"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To sum the column length of all films and group the results by kind: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT kind, sum(length) AS total FROM films GROUP BY kind;</font><a name="wp140793"> </a>
+</pre>
+<a name="wp140802"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To sum the column length of all films, group the results by kind and show those group totals that are less than 5 hours: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT kind, sum(length) AS total FROM films GROUP BY kind 
+HAVING sum(length) &lt; interval &#39;5 hours&#39;;</font><a name="wp143482"> </a>
+</pre>
+<a name="wp143483"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Calculate the subtotals and grand totals of all sales for movie kind and distributor.
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT kind, distributor, sum(prc*qty) FROM sales</font><a name="wp143484"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY ROLLUP(kind, distributor)</font><a name="wp143435"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">ORDER BY 1,2,3;</font><a name="wp143431"> </a>
+</pre>
+<a name="wp143430"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Calculate the rank of movie distributors based on total sales:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT distributor, sum(prc*qty), </font><a name="wp143493"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;rank() OVER (ORDER BY sum(prc*qty) DESC) </font><a name="wp143529"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">FROM sale</font><a name="wp143533"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">GROUP BY distributor ORDER BY 2 DESC;</font><a name="wp143499"> </a>
+</pre>
+<a name="wp143487"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The following two examples are identical ways of sorting the individual results according to the contents of the second column (name):
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM distributors ORDER BY name;</font><a name="wp140815"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM distributors ORDER BY 2;</font><a name="wp140816"> </a>
+</pre>
+<a name="wp140833"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The next example shows how to obtain the union of the tables distributors and actors, restricting the results to those that begin with the letter W in each table. Only distinct rows are wanted, so the key word <code><font face="Courier New, Courier, mono" size="2">ALL</font></code> is omitted: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT distributors.name FROM distributors WHERE 
+distributors.name LIKE &#39;W%&#39; UNION SELECT actors.name FROM 
+actors WHERE actors.name LIKE &#39;W%&#39;;</font><a name="wp140843"> </a>
+</pre>
+<a name="wp140859"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This example shows how to use a function in the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause, both with and without a column definition list: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION distributors(int) RETURNS SETOF distributors 
+AS $$ SELECT * FROM distributors WHERE did = $1; $$ LANGUAGE 
+SQL;</font><a name="wp140861"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM distributors(111);</font><a name="wp140865"> </a>
+</pre>
+<a name="wp141084"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION distributors_2(int) RETURNS SETOF record AS 
+$$ SELECT * FROM distributors WHERE did = $1; $$ LANGUAGE 
+SQL;</font><a name="wp140870"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM distributors_2(111) AS (dist_id int, dist_name 
+text);</font><a name="wp140874"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp138659"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement is compatible with the SQL standard, but there are some extensions and some missing features. 
+</font></p>
+<a name="wp138661"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Omitted FROM Clauses
+</b></font></h4>
+<a name="wp138662"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database allows one to omit the <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause. It has a straightforward use to compute the results of simple expressions. For example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT 2+2;</font><a name="wp138664"> </a>
+</pre>
+<a name="wp138668"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Some other SQL databases cannot do this except by introducing a dummy one-row table from which to do the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>. 
+</font></p>
+<a name="wp138670"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Note that if a <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause is not specified, the query cannot reference any database tables. For compatibility with applications that rely on this behavior the add_missing_from configuration variable can be enabled.
+</font></p>
+<a name="wp138674"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+The AS Key Word
+</b></font></h4>
+<a name="wp138675"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In the SQL standard, the optional key word <code><font face="Courier New, Courier, mono" size="2">AS</font></code> is just noise and can be omitted without affecting the meaning. The Greenplum Database parser requires this key word when renaming output columns because the type extensibility features lead to parsing ambiguities without it. <code><font face="Courier New, Courier, mono" size="2">AS</font></code> is optional in <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> items, however. 
+</font></p>
+<a name="wp138677"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Namespace Available to GROUP BY and ORDER BY
+</b></font></h4>
+<a name="wp138678"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In the SQL-92 standard, an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> clause may only use result column names or numbers, while a <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> clause may only use expressions based on input column names. Greenplum Database extends each of these clauses to allow the other choice as well (but it uses the standard&#39;s interpretation if there is ambiguity). Greenplum Database also allows both clauses to specify arbitrary expressions. Note that names appearing in an expression will always be taken as input-column names, not as result-column names. 
+</font></p>
+<a name="wp138680"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+SQL:1999 and later use a slightly different definition which is not entirely upward compatible with SQL-92. In most cases, however, Greenplum Database will interpret an <code><font face="Courier New, Courier, mono" size="2">ORDER BY</font></code> or <code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> expression the same way SQL:1999 does. 
+</font></p>
+<a name="wp138682"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Nonstandard Clauses
+</b></font></h4>
+<a name="wp138683"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The clauses <code><font face="Courier New, Courier, mono" size="2">DISTINCT ON</font></code>, <code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code>, and <code><font face="Courier New, Courier, mono" size="2">OFFSET</font></code> are not defined in the SQL standard.
+</font></p>
+<a name="wp139207"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Limited Correlated Subquery Syntax
+</b></font></h4>
+<a name="wp139619"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A correlated subquery is a nested <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement that refers to a column from an outer <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> statement. For example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * FROM product WHERE exists (SELECT * FROM sale WHERE 
+qty&gt;0 AND pn = product.pn);</font><a name="wp139610"> </a>
+</pre>
+<a name="wp139629"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Subqueries that do not need any input from the parent query and produce just a single value or row are not subject to the limitations described in this section. 
+</font></p>
+<a name="wp139669"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database (as does PostgreSQL) supports correlated subqueries by flattening (transforming the subquery into a join with the table(s) of the outer query). If a correlated subquery has none of the characteristics mentioned below that prevent flattening, then it will be transformed to a join and be executed as expected. Correlated subqueries with the following syntax cannot be flattened and will be rejected:
+</font></p>
+<ul>
+<a name="wp139214"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2"><i>expression operator</i></font></code><code><font face="Courier New, Courier, mono" size="2"> ANY/ALL (</font></code><code><font face="Courier New, Courier, mono" size="2"><i>subquery</i></font></code><code><font face="Courier New, Courier, mono" size="2">)</font></code> where <code><font face="Courier New, Courier, mono" size="2"><i>expression</i></font></code> contains a volatile function</font></li>
+</ul>
+
+<ul>
+<a name="wp139217"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">EXISTS</font></code> with aggregate in <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code></font></li>
+</ul>
+
+<ul>
+<a name="wp139218"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">(</font></code><code><font face="Courier New, Courier, mono" size="2"><i>subquery</i></font></code><code><font face="Courier New, Courier, mono" size="2">)</font></code> returning a single value or row </font></li>
+</ul>
+
+<ul>
+<a name="wp139219"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">ARRAY (</font></code><code><font face="Courier New, Courier, mono" size="2"><i>subquery</i></font></code><code><font face="Courier New, Courier, mono" size="2">)</font></code> returning an array of values or rows</font></li>
+</ul>
+
+<ul>
+<a name="wp139220"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Correlated subquery used in <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clause</font></li>
+</ul>
+
+<ul>
+<a name="wp139223"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Correlated subquery used in <code><font face="Courier New, Courier, mono" size="2">HAVING</font></code> clause </font></li>
+</ul>
+
+<ul>
+<a name="wp139224"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Correlated subquery used in <code><font face="Courier New, Courier, mono" size="2">OR</font></code> expression </font></li>
+</ul>
+
+<ul>
+<a name="wp139226"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Correlated subquery used in <code><font face="Courier New, Courier, mono" size="2"><i>select-list</i></font></code> </font></li>
+</ul>
+
+<ul>
+<a name="wp139227"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Set-returning function in <code><font face="Courier New, Courier, mono" size="2"><i>select-list</i></font></code> of subquery </font></li>
+</ul>
+
+<ul>
+<a name="wp139228"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Aggregate function in subquery (other than <code><font face="Courier New, Courier, mono" size="2">EXISTS</font></code>) </font></li>
+</ul>
+
+<ul>
+<a name="wp139229"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">DISTINCT</font></code> in value, row or <code><font face="Courier New, Courier, mono" size="2">ARRAY</font></code> subquery </font></li>
+</ul>
+
+<ul>
+<a name="wp139230"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">GROUP BY</font></code> or <code><font face="Courier New, Courier, mono" size="2">DISTINCT</font></code> in subquery (other than <code><font face="Courier New, Courier, mono" size="2">EXISTS</font></code>) </font></li>
+</ul>
+
+<ul>
+<a name="wp139231"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">LIMIT</font></code> in subquery (other than <code><font face="Courier New, Courier, mono" size="2">EXISTS</font></code>) </font></li>
+</ul>
+
+<ul>
+<a name="wp139232"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">OFFSET</font></code> in subquery </font></li>
+</ul>
+
+<ul>
+<a name="wp139234"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"> Subquery without a <code><font face="Courier New, Courier, mono" size="2">FROM</font></code> clause</font></li>
+</ul>
+
+<a name="wp139417"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Limited Use of STABLE and VOLATILE Functions
+</b></font></h4>
+<a name="wp139425"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To prevent data from becoming out-of-sync across the segments in Greenplum Database, any function classified as <code><font face="Courier New, Courier, mono" size="2">STABLE</font></code> or <code><font face="Courier New, Courier, mono" size="2">VOLATILE</font></code> cannot be executed at the segment database level if it contains SQL or modifies the database in any way. See <a href="CREATE_FUNCTION.html">CREATE FUNCTION</a> for more information.
+</font></p>
+<a name="wp137693"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp137697"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="EXPLAIN.html">EXPLAIN</a> 
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="SAVEPOINT.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="SELECT_INTO.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

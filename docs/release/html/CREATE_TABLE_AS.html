@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:57">
+    <title>CREATE TABLE AS</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_TABLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TABLESPACE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE TABLE AS
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new table from the results of a query.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE [ [GLOBAL | LOCAL] {TEMPORARY | TEMP} ] TABLE <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code></font></p><a name="wp151464"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[(<code><font face="Courier New, Courier, mono" size="2"><i>column_name</i></font></code> [, ...] )]</font><a name="wp151481"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[WITH ( FILLFACTOR=<code><font face="Courier New, Courier, mono" size="2"><i>value</i></font></code> OIDS={TRUE | FALSE} ) ]</font><a name="wp151487"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[ON COMMIT {PRESERVE ROWS | DELETE ROWS | DROP}]</font><a name="wp151500"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>tablespace</i></font></code>]</font><a name="wp151512"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;AS <code><font face="Courier New, Courier, mono" size="2"><i>query</i></font></code></font><a name="wp151511"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;[DISTRIBUTED BY (<code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code>, [ ... ] ) | DISTRIBUTED RANDOMLY]</font><a name="wp152112"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp151588"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS</font></code> creates a table and fills it with data computed by a <a href="SELECT.html">SELECT</a> command. The table columns have the names and data types associated with the output columns of the <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>, however you can override the column names by giving an explicit list of new column names. 
+</font></p>
+<a name="wp151590"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS</font></code> creates a new table and evaluates the query just once to fill the new table initially. The new table will not track subsequent changes to the source tables of the query.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp150504"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+GLOBAL | LOCAL
+</b></font></h6>
+<a name="wp150710"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+These keywords are present for SQL standard compatibility, but have no effect in Greenplum Database. 
+</font></div>
+<a name="wp150709"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+TEMPORARY | TEMP
+</b></font></h6>
+<a name="wp150505"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If specified, the new table is created as a temporary table. Temporary tables are automatically dropped at the end of a session, or optionally at the end of the current transaction (see <code><font face="Courier New, Courier, mono" size="2">ON COMMIT</font></code>). Existing permanent tables with the same name are not visible to the current session while the temporary table exists, unless they are referenced with schema-qualified names. Any indexes created on a temporary table are automatically temporary as well.
+</font></div>
+<a name="wp150509"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table_name</i></b></font>
+</b></font></h6>
+<a name="wp150510"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the new table to be created. 
+</font></div>
+<a name="wp150512"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column_name</i></b></font>
+</b></font></h6>
+<a name="wp150513"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a column in the new table. If column names are not provided, they are taken from the output column names of the query. If the table is created from an <code><font face="Courier New, Courier, mono" size="2">EXECUTE</font></code> command, a column name list cannot be specified.
+</font></div>
+<a name="wp150609"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+WITH ( FILLFACTOR=<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>value</i></b></font> OIDS={TRUE | FALSE} )
+</b></font></h6>
+<a name="wp150908"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">WITH</font></code> clause can be used to set the index storage parameter, <code><font face="Courier New, Courier, mono" size="2">FILLFACTOR</font></code>. See <code><font face="Courier New, Courier, mono" size="2">CREATE INDEX</font></code> for more information about this index storage parameter. 
+</font></div>
+<a name="wp151155"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">WITH</font></code> clause can also include <code><font face="Courier New, Courier, mono" size="2">OIDS=TRUE</font></code> to specify that rows of the new table should have object identifiers assigned to them, or <code><font face="Courier New, Courier, mono" size="2">OIDS=FALSE</font></code> to specify that the rows should not have object identifiers. If not specified, the system default setting of default_with_oids=false is used. If the new table inherits from any tables that have OIDs, then <code><font face="Courier New, Courier, mono" size="2">OIDS=TRUE</font></code> is forced even if the command says <code><font face="Courier New, Courier, mono" size="2">OIDS=FALSE</font></code>. It is generally considered better to not use OIDs for table rows, since it will reduce OID consumption and thereby postpone the wraparound of the 32-bit OID counter. Once the counter wraps around, OIDs can no longer be assumed to be unique, which makes them considerably less useful. In addition, excluding OIDs from a table reduces the space required to store the table on disk by 4 bytes per row, slightly improving performance.
+</font></div>
+<a name="wp150620"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ON COMMIT
+</b></font></h6>
+<a name="wp150621"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The behavior of temporary tables at the end of a transaction block can be controlled using <code><font face="Courier New, Courier, mono" size="2">ON COMMIT</font></code>. The three options are: 
+</font></div>
+<a name="wp150625"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>PRESERVE ROWS</b></font>
+</b></font></div>
+<a name="wp150626"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+No special action is taken at the ends of transactions for temporary tables. This is the default behavior. 
+</font></div>
+<a name="wp150628"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>DELETE ROWS</b></font>
+</b></font></div>
+<a name="wp150629"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+All rows in the temporary table will be deleted at the end of each transaction block. Essentially, an automatic <code><font face="Courier New, Courier, mono" size="2">TRUNCATE</font></code> is done at each commit. 
+</font></div>
+<a name="wp150631"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>DROP</b></font>
+</b></font></div>
+<a name="wp150632"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The temporary table will be dropped at the end of the current transaction block. 
+</font></div>
+<a name="wp150635"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+TABLESPACE <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>tablespace</i></b></font>
+</b></font></h6>
+<a name="wp150636"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The tablespace is the name of the tablespace in which the new table is to be created. If not specified, the database&#39;s default tablespace is used.
+</font></div>
+<a name="wp151582"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+AS <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>query</i></b></font>
+</b></font></h6>
+<a name="wp151583"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A <a href="SELECT.html">SELECT</a> or <a href="VALUES.html">VALUES</a> command, or an <a href="EXECUTE.html">EXECUTE</a> command that runs a prepared <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> or <code><font face="Courier New, Courier, mono" size="2">VALUES </font></code>query.
+</font></div>
+<a name="wp152126"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+DISTRIBUTED BY (<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column</i></b></font>, [ ... ] )<br>DISTRIBUTED RANDOMLY
+</b></font></h6>
+<a name="wp152124"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Used to declare the Greenplum Database distribution policy for the table. One or more columns can be used as the distribution key, meaning those columns are used by the hashing algorithm to divide the data evenly amongst all of the segments. The distribution key should be the primary key of the table or a unique column (or set of columns). If that is not possible, then you may choose to distribute randomly, which will send the data round-robin to the segment instances. If not supplied, then either the <code><font face="Courier New, Courier, mono" size="2">PRIMARY KEY</font></code> (if the table has one) or the first eligible column of the table will be used.
+</font></div>
+<a name="wp147533"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp151663"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This command is functionally similar to <a href="SELECT_INTO.html">SELECT INTO</a>, but it is preferred since it is less likely to be confused with other uses of the <code><font face="Courier New, Courier, mono" size="2">SELECT INTO</font></code> syntax. Furthermore, <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS</font></code> offers a superset of the functionality offered by <code><font face="Courier New, Courier, mono" size="2">SELECT INTO</font></code>. 
+</font></p>
+<a name="wp151691"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS</font></code> can be used for fast data loading from external table data sources. See <a href="CREATE_EXTERNAL_TABLE.html">CREATE EXTERNAL TABLE</a>.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp151825"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a new table films_recent consisting of only recent entries from the table films:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE films_recent AS SELECT * FROM films WHERE 
+date_prod &gt;= &#39;2007-01-01&#39;;</font><a name="wp151842"> </a>
+</pre>
+<a name="wp151827"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a new temporary table films_recent, consisting of only recent entries from the table films, using a prepared statement. The new table has OIDs and will be dropped at commit: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">PREPARE recentfilms(date) AS SELECT * FROM films WHERE 
+date_prod &gt; $1;</font><a name="wp151829"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CREATE TEMP TABLE films_recent WITH (OIDS) ON COMMIT DROP AS 
+EXECUTE recentfilms(&#39;2007-01-01&#39;);</font><a name="wp151831"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp151715"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE TABLE AS</font></code> conforms to the SQL standard, with the following exceptions: 
+</font></p>
+<ul>
+<a name="wp151719"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The standard requires parentheses around the subquery clause; in Greenplum Database, these parentheses are optional. </font></li>
+</ul>
+
+<ul>
+<a name="wp151721"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The standard defines a <code><font face="Courier New, Courier, mono" size="2">WITH [NO] DATA</font></code> clause; this is not currently implemented by Greenplum Database. The behavior provided by Greenplum Database is equivalent to the standard&#39;s <code><font face="Courier New, Courier, mono" size="2">WITH DATA</font></code> case. <code><font face="Courier New, Courier, mono" size="2">WITH NO DATA</font></code> can be simulated by appending <code><font face="Courier New, Courier, mono" size="2">LIMIT 0</font></code> to the query. </font></li>
+</ul>
+
+<ul>
+<a name="wp151723"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Greenplum Database handles temporary tables differently from the standard; see <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE</font></code> for details.</font></li>
+</ul>
+
+<ul>
+<a name="wp151725"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The <code><font face="Courier New, Courier, mono" size="2">WITH</font></code> clause is a Greenplum Database extension; neither storage parameters nor <code><font face="Courier New, Courier, mono" size="2">OIDs</font></code> are in the standard. </font></li>
+</ul>
+
+<ul>
+<a name="wp151727"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The Greenplum Database concept of tablespaces is not part of the standard. The <code><font face="Courier New, Courier, mono" size="2">TABLESPACE</font></code> clause is an extension.</font></li>
+</ul>
+
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp149643"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_EXTERNAL_TABLE.html">CREATE EXTERNAL TABLE</a>, <a href="CREATE_EXTERNAL_TABLE.html">CREATE EXTERNAL TABLE</a>, <a href="EXECUTE.html">EXECUTE</a>, <a href="SELECT.html">SELECT</a>, <a href="SELECT_INTO.html">SELECT INTO</a>, <a href="VALUES.html">VALUES</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_TABLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TABLESPACE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

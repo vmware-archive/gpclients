@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:52">
+    <title>CREATE OPERATOR</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_LANGUAGE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_OPERATOR_CLASS.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE OPERATOR
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new operator.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE OPERATOR <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> ( </font></p><a name="wp144127"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;PROCEDURE = <code><font face="Courier New, Courier, mono" size="2"><i>funcname</i></font></code></font><a name="wp145681"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, LEFTARG = <code><font face="Courier New, Courier, mono" size="2"><i>lefttype</i></font></code>] [, RIGHTARG = <code><font face="Courier New, Courier, mono" size="2"><i>righttype</i></font></code>]</font><a name="wp145682"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, COMMUTATOR = <code><font face="Courier New, Courier, mono" size="2"><i>com_op</i></font></code>] [, NEGATOR = <code><font face="Courier New, Courier, mono" size="2"><i>neg_op</i></font></code>]</font><a name="wp145683"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, RESTRICT = <code><font face="Courier New, Courier, mono" size="2"><i>res_proc</i></font></code>] [, JOIN = <code><font face="Courier New, Courier, mono" size="2"><i>join_proc</i></font></code>]</font><a name="wp145684"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, HASHES] [, MERGES]</font><a name="wp145685"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, SORT1 = <code><font face="Courier New, Courier, mono" size="2"><i>left_sort_op</i></font></code>] [, SORT2 = <code><font face="Courier New, Courier, mono" size="2"><i>right_sort_op</i></font></code>]</font><a name="wp145686"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, LTCMP = <code><font face="Courier New, Courier, mono" size="2"><i>less_than_op</i></font></code>] [, GTCMP = <code><font face="Courier New, Courier, mono" size="2"><i>greater_than_op</i></font></code>] )</font><a name="wp145687"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp144987"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE OPERATOR</font></code> defines a new operator. The user who defines an operator becomes its owner. 
+</font></p>
+<a name="wp144989"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The operator name is a sequence of up to <code><font face="Courier New, Courier, mono" size="2">NAMEDATALEN</font></code>-1 (63 by default) characters from the following list: <code><font face="Courier New, Courier, mono" size="2">+ - * / &lt; &gt; = ~ ! @ # % ^ &amp; | ` ?</font></code>
+</font></p>
+<a name="wp144993"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There are a few restrictions on your choice of name: 
+</font></p>
+<ul>
+<a name="wp144996"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><code><font face="Courier New, Courier, mono" size="2">--</font></code> and <code><font face="Courier New, Courier, mono" size="2">/*</font></code> cannot appear anywhere in an operator name, since they will be taken as the start of a comment. </font></li>
+</ul>
+
+<ul>
+<a name="wp144998"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">A multicharacter operator name cannot end in <code><font face="Courier New, Courier, mono" size="2">+</font></code> or <code><font face="Courier New, Courier, mono" size="2">-</font></code>, unless the name also contains at least one of these characters: <code><font face="Courier New, Courier, mono" size="2">~ ! @ # % ^ &amp; | ` ?</font></code></font></li>
+</ul>
+
+<a name="wp145002"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+For example, <code><font face="Courier New, Courier, mono" size="2">@-</font></code> is an allowed operator name, but <code><font face="Courier New, Courier, mono" size="2">*-</font></code> is not. This restriction allows Greenplum Database to parse SQL-compliant commands without requiring spaces between tokens. 
+</font></p>
+<a name="wp145005"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The operator <code><font face="Courier New, Courier, mono" size="2">!=</font></code> is mapped to <code><font face="Courier New, Courier, mono" size="2">&lt;&gt;</font></code> on input, so these two names are always equivalent. 
+</font></p>
+<a name="wp145007"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+At least one of <code><font face="Courier New, Courier, mono" size="2">LEFTARG</font></code> and <code><font face="Courier New, Courier, mono" size="2">RIGHTARG</font></code> must be defined. For binary operators, both must be defined. For right unary operators, only <code><font face="Courier New, Courier, mono" size="2">LEFTARG</font></code> should be defined, while for left unary operators only <code><font face="Courier New, Courier, mono" size="2">RIGHTARG</font></code> should be defined. 
+</font></p>
+<a name="wp145009"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2"><i>funcname</i></font></code> procedure must have been previously defined using <code><font face="Courier New, Courier, mono" size="2">CREATE FUNCTION</font></code>, must be <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>, and must be defined to accept the correct number of arguments (either one or two) of the indicated types. 
+</font></p>
+<a name="wp145129"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The other clauses specify optional operator optimization clauses. These clauses should be provided whenever appropriate to speed up queries that use the operator. But if you provide them, you must be sure that they are correct. Incorrect use of an optimization clause can result in server process crashes, subtly wrong output, or other unexpected results. You can always leave out an optimization clause if you are not sure about it.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp144240"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp144241"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The (optionally schema-qualified) name of the operator to be defined. Two operators in the same schema can have the same name if they operate on different data types.
+</font></div>
+<a name="wp144243"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>funcname</i></b></font>
+</b></font></h6>
+<a name="wp144244"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The function used to implement this operator (must be an <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code> function).
+</font></div>
+<a name="wp144246"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>lefttype</i></b></font>
+</b></font></h6>
+<a name="wp144247"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type of the operator&#39;s left operand, if any. This option would be omitted for a left-unary operator. 
+</font></div>
+<a name="wp144249"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>righttype</i></b></font>
+</b></font></h6>
+<a name="wp144250"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type of the operator&#39;s right operand, if any. This option would be omitted for a right-unary operator.
+</font></div>
+<a name="wp144252"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>com_op</i></b></font>
+</b></font></h6>
+<a name="wp144418"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">COMMUTATOR</font></code> clause names an operator that is the commutator of the operator being defined. We say that operator A is the commutator of operator B if (x A y) equals (y B x) for all possible input values x, y. Notice that B is also the commutator of A. For example, operators <code><font face="Courier New, Courier, mono" size="2">&lt;</font></code> and <code><font face="Courier New, Courier, mono" size="2">&gt;</font></code> for a particular data type are usually each others commutators, and operator + is usually commutative with itself. But operator <code><font face="Courier New, Courier, mono" size="2">-</font></code> is usually not commutative with anything. The left operand type of a commutable operator is the same as the right operand type of its commutator, and vice versa. So the name of the commutator operator is all that needs to be provided in the <code><font face="Courier New, Courier, mono" size="2">COMMUTATOR</font></code> clause. 
+</font></div>
+<a name="wp144255"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>neg_op</i></b></font>
+</b></font></h6>
+<a name="wp144478"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">NEGATOR</font></code> clause names an operator that is the negator of the operator being defined. We say that operator A is the negator of operator B if both return Boolean results and (x A y) equals NOT (x B y) for all possible inputs x, y. Notice that B is also the negator of A. For example, <code><font face="Courier New, Courier, mono" size="2">&lt;</font></code> and <code><font face="Courier New, Courier, mono" size="2">&gt;=</font></code> are a negator pair for most data types. An operator&#39;s negator must have the same left and/or right operand types as the operator to be defined, so only the operator name need be given in the <code><font face="Courier New, Courier, mono" size="2">NEGATOR</font></code> clause.
+</font></div>
+<a name="wp144258"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>res_proc</i></b></font>
+</b></font></h6>
+<a name="wp144525"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">RESTRICT</font></code> names a restriction selectivity estimation function for the operator. Note that this is a function name, not an operator name. <code><font face="Courier New, Courier, mono" size="2">RESTRICT</font></code> clauses only make sense for binary operators that return <code><font face="Courier New, Courier, mono" size="2">boolean</font></code>. The idea behind a restriction selectivity estimator is to guess what fraction of the rows in a table will satisfy a <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code>-clause condition of the form:
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">column OP constant</font><a name="wp144527"> </a>
+</pre>
+<a name="wp144546"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+for the current operator and a particular constant value. This assists the optimizer by giving it some idea of how many rows will be eliminated by <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code> clauses that have this form. 
+</font></div>
+<a name="wp144529"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can usually just use one of the following system standard estimator functions for many of your own operators: 
+</font></div>
+<a name="wp144532"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">eqsel</font></code> for = 
+</font></div>
+<a name="wp144533"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">neqsel</font></code> for &lt;&gt; 
+</font></div>
+<a name="wp144534"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">scalarltsel</font></code> for &lt; or &lt;= 
+</font></div>
+<a name="wp144535"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">scalargtsel</font></code> for &gt; or &gt;= 
+</font></div>
+<a name="wp144261"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>join_proc</i></b></font>
+</b></font></h6>
+<a name="wp144605"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">JOIN</font></code> clause names a join selectivity estimation function for the operator. Note that this is a function name, not an operator name. <code><font face="Courier New, Courier, mono" size="2">JOIN</font></code> clauses only make sense for binary operators that return <code><font face="Courier New, Courier, mono" size="2">boolean</font></code>. The idea behind a join selectivity estimator is to guess what fraction of the rows in a pair of tables will satisfy a <code><font face="Courier New, Courier, mono" size="2">WHERE</font></code>-clause condition of the form
+</font></div>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">table1.column1 OP table2.column2</font><a name="wp144607"> </a>
+</pre>
+<a name="wp144639"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+for the current operator. This helps the optimizer by letting it figure out which of several possible join sequences is likely to take the least work.
+</font></div>
+<a name="wp144609"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can usually just use one of the following system standard join selectivity estimator functions for many of your own operators:
+</font></div>
+<a name="wp144612"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">eqjoinsel</font></code> for = 
+</font></div>
+<a name="wp144613"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">neqjoinsel</font></code> for &lt;&gt; 
+</font></div>
+<a name="wp144614"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">scalarltjoinsel</font></code> for &lt; or &lt;= 
+</font></div>
+<a name="wp144615"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">scalargtjoinsel</font></code> for &gt; or &gt;= 
+</font></div>
+<a name="wp144616"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">areajoinsel</font></code> for 2D area-based comparisons 
+</font></div>
+<a name="wp144617"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">positionjoinsel</font></code> for 2D position-based comparisons 
+</font></div>
+<a name="wp144618"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">contjoinsel</font></code> for 2D containment-based comparisons 
+</font></div>
+<a name="wp144264"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+HASHES
+</b></font></h6>
+<a name="wp144702"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The optional <code><font face="Courier New, Courier, mono" size="2">HASHES</font></code> clause tells the system that it is permissible to use the hash join method for a join based on this operator. <code><font face="Courier New, Courier, mono" size="2">HASHES</font></code> only makes sense for a binary operator that returns <code><font face="Courier New, Courier, mono" size="2">boolean</font></code>. The hash join operator can only return true for pairs of left and right values that hash to the same hash code. If two values get put in different hash buckets, the join will never compare them at all, implicitly assuming that the result of the join operator must be false. So it never makes sense to specify <code><font face="Courier New, Courier, mono" size="2">HASHES</font></code> for operators that do not represent equality. 
+</font></div>
+<a name="wp144706"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To be marked <code><font face="Courier New, Courier, mono" size="2">HASHES</font></code>, the join operator must appear in a hash index operator class. Attempts to use the operator in hash joins will fail at run time if no such operator class exists. The system needs the operator class to find the data-type-specific hash function for the operator&#39;s input data type. You must also supply a suitable hash function before you can create the operator class. Care should be exercised when preparing a hash function, because there are machine-dependent ways in which it might fail to do the right thing.
+</font></div>
+<a name="wp144267"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+MERGES
+</b></font></h6>
+<a name="wp144753"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">MERGES</font></code> clause, if present, tells the system that it is permissible to use the merge-join method for a join based on this operator. <code><font face="Courier New, Courier, mono" size="2">MERGES</font></code> only makes sense for a binary operator that returns <code><font face="Courier New, Courier, mono" size="2">boolean</font></code>, and in practice the operator must represent equality for some data type or pair of data types. 
+</font></div>
+<a name="wp144755"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Merge join is based on the idea of sorting the left- and right-hand tables into order and then scanning them in parallel. So, both data types must be capable of being fully ordered, and the join operator must be one that can only succeed for pairs of values that fall at the same place in the sort order. In practice this means that the join operator must behave like equality. It is possible to merge-join two distinct data types so long as they are logically compatible. For example, the smallint-versus-integer equality operator is merge-joinable. We only need sorting operators that will bring both data types into a logically compatible sequence.
+</font></div>
+<a name="wp144845"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Execution of a merge join requires that the system be able to identify four operators related to the merge-join equality operator: less-than comparison for the left operand data type, less-than comparison for the right operand data type, less-than comparison between the two data types, and greater-than comparison between the two data types. It is possible to specify these operators individually by name, as the <code><font face="Courier New, Courier, mono" size="2">SORT1</font></code>, <code><font face="Courier New, Courier, mono" size="2">SORT2</font></code>, <code><font face="Courier New, Courier, mono" size="2">LTCMP</font></code>, and <code><font face="Courier New, Courier, mono" size="2">GTCMP</font></code> options respectively. The system will fill in the default names if any of these are omitted when <code><font face="Courier New, Courier, mono" size="2">MERGES</font></code> is specified.
+</font></div>
+<a name="wp144849"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>left_sort_op</i></b></font>
+</b></font></h6>
+<a name="wp144271"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If this operator can support a merge join, the less-than operator that sorts the left-hand data type of this operator. <code><font face="Courier New, Courier, mono" size="2">&lt;</font></code> is the default if not specified.
+</font></div>
+<a name="wp144273"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>right_sort_op</i></b></font>
+</b></font></h6>
+<a name="wp144274"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If this operator can support a merge join, the less-than operator that sorts the right-hand data type of this operator. <code><font face="Courier New, Courier, mono" size="2">&lt;</font></code> is the default if not specified.
+</font></div>
+<a name="wp144276"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>less_than_op</i></b></font>
+</b></font></h6>
+<a name="wp144277"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If this operator can support a merge join, the less-than operator that compares the input data types of this operator. <code><font face="Courier New, Courier, mono" size="2">&lt;</font></code> is the default if not specified. 
+</font></div>
+<a name="wp144279"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>greater_than_op</i></b></font>
+</b></font></h6>
+<a name="wp144280"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If this operator can support a merge join, the greater-than operator that compares the input data types of this operator. <code><font face="Courier New, Courier, mono" size="2">&gt;</font></code> is the default if not specified.
+</font></div>
+<a name="wp144805"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To give a schema-qualified operator name in optional arguments, use the <code><font face="Courier New, Courier, mono" size="2">OPERATOR() </font></code>syntax, for example:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">COMMUTATOR = OPERATOR(myschema.===) ,</font><a name="wp144223"> </a>
+</pre>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp144228"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Any functions used to implement the operator must be defined as <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp144906"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Here is an example of creating an operator for adding two complex numbers, assuming we have already created the definition of type <code><font face="Courier New, Courier, mono" size="2">complex</font></code>. First define the function that does the work, then define the operator: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION complex_add(complex, complex)</font><a name="wp144908"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    RETURNS complex</font><a name="wp144909"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    AS &#39;filename&#39;, &#39;complex_add&#39;</font><a name="wp144910"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    LANGUAGE C IMMUTABLE STRICT;</font><a name="wp144911"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CREATE OPERATOR + (</font><a name="wp144913"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    leftarg = complex,</font><a name="wp144914"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    rightarg = complex,</font><a name="wp144915"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    procedure = complex_add,</font><a name="wp144916"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    commutator = +</font><a name="wp144917"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">);</font><a name="wp144918"> </a>
+</pre>
+<a name="wp144919"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To use this operator in a query: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT (a + b) AS c FROM test_complex;</font><a name="wp144921"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp144236"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE OPERATOR</font></code> is a Greenplum Database language extension. The SQL standard does not provide for user-defined operators.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_FUNCTION.html">CREATE FUNCTION</a>, <a href="CREATE_TYPE.html">CREATE TYPE</a>, <a href="ALTER_OPERATOR.html">ALTER OPERATOR</a>, <a href="DROP_OPERATOR.html">DROP OPERATOR</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_LANGUAGE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_OPERATOR_CLASS.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

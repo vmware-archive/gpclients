@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:47">
+    <title>CREATE AGGREGATE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="COPY.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_CAST.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE AGGREGATE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new aggregate function.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE AGGREGATE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>input_data_type</i></font></code> [ , ... ]) </font></p><a name="wp139619"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;( SFUNC = <code><font face="Courier New, Courier, mono" size="2"><i>sfunc</i></font></code>,</font><a name="wp140248"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;STYPE = <code><font face="Courier New, Courier, mono" size="2"><i>state_data_type</i></font></code></font><a name="wp140249"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, PREFUNC = <code><font face="Courier New, Courier, mono" size="2"><i>prefunc</i></font></code>]</font><a name="wp140250"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, FINALFUNC = <code><font face="Courier New, Courier, mono" size="2"><i>ffunc</i></font></code>]</font><a name="wp140251"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, INITCOND = <code><font face="Courier New, Courier, mono" size="2"><i>initial_condition</i></font></code>]</font><a name="wp140252"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[, SORTOP = <code><font face="Courier New, Courier, mono" size="2"><i>sort_operator</i></font></code>] )</font><a name="wp140253"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp139692"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE AGGREGATE</font></code> defines a new aggregate function. Some basic and commonly-used aggregate functions such as <code><font face="Courier New, Courier, mono" size="2">count</font></code>, <code><font face="Courier New, Courier, mono" size="2">min</font></code>, <code><font face="Courier New, Courier, mono" size="2">max</font></code>, <code><font face="Courier New, Courier, mono" size="2">sum</font></code>, <code><font face="Courier New, Courier, mono" size="2">avg</font></code> and so on are already provided in Greenplum Database. If one defines new types or needs an aggregate function not already provided, then <code><font face="Courier New, Courier, mono" size="2">CREATE AGGREGATE</font></code> can be used to provide the desired features.
+</font></p>
+<a name="wp139696"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An aggregate function is identified by its name and input data type(s). Two aggregates in the same schema can have the same name if they operate on different input types. The name and input data type(s) of an aggregate must also be distinct from the name and input data type(s) of every ordinary function in the same schema.
+</font></p>
+<a name="wp139698"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An aggregate function is made from one, two or three ordinary functions (all of which must be <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code> functions): a state transition function <code><font face="Courier New, Courier, mono" size="2"><i>sfunc</i></font></code>, an optional preliminary segment-level calculation function <code><font face="Courier New, Courier, mono" size="2"><i>prefunc</i></font></code>, and an optional final calculation function <code><font face="Courier New, Courier, mono" size="2"><i>ffunc</i></font></code>. These are used as follows:
+</font></p>
+<a name="wp139700"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sfunc( internal-state, next-data-values ) ---&gt; next-internal-state
+</font></div>
+<a name="wp140031"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+prefunc( internal-state, internal-state ) ---&gt; next-internal-state
+</font></div>
+<a name="wp139701"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+ffunc( internal-state ) ---&gt; aggregate-value
+</font></div>
+<a name="wp139702"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum Database creates a temporary variable of data type <code><font face="Courier New, Courier, mono" size="2"><i>stype</i></font></code> to hold the current internal state of the aggregate. At each input row, the aggregate argument value(s) are calculated and the state transition function is invoked with the current state value and the new argument value(s) to calculate a new internal state value. After all the rows have been processed, the final function is invoked once to calculate the aggregate&#39;s return value. If there is no final function then the ending state value is returned as-is.
+</font></p>
+<a name="wp139704"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An aggregate function may provide an initial condition, that is, an initial value for the internal state value. This is specified and stored in the database as a value of type text, but it must be a valid external representation of a constant of the state value data type. If it is not supplied then the state value starts out null. 
+</font></p>
+<a name="wp139706"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the state transition function is declared strict, then it cannot be called with null inputs. With such a transition function, aggregate execution behaves as follows. Rows with any null input values are ignored (the function is not called and the previous state value is retained). If the initial state value is null, then at the first row with all-nonnull input values, the first argument value replaces the state value, and the transition function is invoked at subsequent rows with all-nonnull input values. This is handy for implementing aggregates like <code><font face="Courier New, Courier, mono" size="2">max</font></code>. Note that this behavior is only available when <code><font face="Courier New, Courier, mono" size="2"><i>state_data_type</i></font></code> is the same as the first <code><font face="Courier New, Courier, mono" size="2"><i>input_data_type</i></font></code>. When these types are different, you must supply a nonnull initial condition or use a nonstrict transition function.
+</font></p>
+<a name="wp139708"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the state transition function is not strict, then it will be called unconditionally at each input row, and must deal with null inputs and null transition values for itself. This allows the aggregate author to have full control over the aggregate&#39;s handling of null values.
+</font></p>
+<a name="wp139710"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the final function is declared strict, then it will not be called when the ending state value is null; instead a null result will be returned automatically. (Of course this is just the normal behavior of strict functions.) In any case the final function has the option of returning a null value. For example, the final function for <code><font face="Courier New, Courier, mono" size="2">avg</font></code> returns null when it sees there were zero input rows.
+</font></p>
+<a name="wp139857"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Single argument aggregate functions, such as min or max, can sometimes be optimized by looking into an index instead of scanning every input row. If this aggregate can be so optimized, indicate it by specifying a sort operator. The basic requirement is that the aggregate must yield the first element in the sort ordering induced by the operator; in other words
+</font></p>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SELECT <code><font face="Courier New, Courier, mono" size="2"><i>agg</i></font></code>(<code><font face="Courier New, Courier, mono" size="2"><i>col</i></font></code>) FROM <code><font face="Courier New, Courier, mono" size="2"><i>tab</i></font></code>; </font></p><a name="wp139714"> </a>
+<a name="wp139866"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+must be equivalent to:
+</font></p>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SELECT <code><font face="Courier New, Courier, mono" size="2"><i>col</i></font></code> FROM <code><font face="Courier New, Courier, mono" size="2"><i>tab</i></font></code> ORDER BY <code><font face="Courier New, Courier, mono" size="2"><i>col</i></font></code> USING <code><font face="Courier New, Courier, mono" size="2"><i>sortop</i></font></code> LIMIT 1;</font></p><a name="wp139716"> </a>
+<a name="wp139869"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Further assumptions are that the aggregate ignores null inputs, and that it delivers a null result if and only if there were no non-null inputs. Ordinarily, a data type&#39;s <code><font face="Courier New, Courier, mono" size="2">&lt;</font></code> operator is the proper sort operator for <code><font face="Courier New, Courier, mono" size="2">MIN</font></code>, and <code><font face="Courier New, Courier, mono" size="2">&gt;</font></code> is the proper sort operator for <code><font face="Courier New, Courier, mono" size="2">MAX</font></code>. Note that the optimization will never actually take effect unless the specified operator is the &quot;less than&quot; or &quot;greater than&quot; strategy member of a B-tree index operator class.
+</font></p>
+<a name="wp138453"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp139915"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp139916"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the aggregate function to create.
+</font></div>
+<a name="wp139918"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>input_data_type</i></b></font>
+</b></font></h6>
+<a name="wp139919"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An input data type on which this aggregate function operates. To create a zero-argument aggregate function, write * in place of the list of input data types. An example of such an aggregate is count(*).
+</font></div>
+<a name="wp139924"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>sfunc</i></b></font>
+</b></font></h6>
+<a name="wp139925"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the state transition function to be called for each input row. For an N-argument aggregate function, the <code><font face="Courier New, Courier, mono" size="2"><i>sfunc</i></font></code> must take N+1 arguments, the first being of type <code><font face="Courier New, Courier, mono" size="2"><i>state_data_type</i></font></code> and the rest matching the declared input data type(s) of the aggregate. The function must return a value of type <code><font face="Courier New, Courier, mono" size="2"><i>state_data_type</i></font></code>. This function takes the current state value and the current input data value(s), and returns the next state value.
+</font></div>
+<a name="wp139927"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>state_data_type</i></b></font>
+</b></font></h6>
+<a name="wp139928"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type for the aggregate&#39;s state value.
+</font></div>
+<a name="wp139998"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>prefunc</i></b></font>
+</b></font></h6>
+<a name="wp140046"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a preliminary aggregation function. This is a function of two arguments, both of type <code><font face="Courier New, Courier, mono" size="2"><i>state_data_type</i></font></code>. It must return a value of <code><font face="Courier New, Courier, mono" size="2"><i>state_data_type</i></font></code>. A preliminary function takes two transition state values and returns a new transition state value representing the combined aggregation. In Greenplum Database, if the result of the aggregate function is computed in a segmented fashion, the preliminary aggregation function is invoked on the individual internal states in order to combine them into an ending internal state.
+</font></div>
+<a name="wp139930"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>ffunc</i></b></font>
+</b></font></h6>
+<a name="wp139931"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the final function called to compute the aggregate&#39;s result after all input rows have been traversed. The function must take a single argument of type state_data_type. The return data type of the aggregate is defined as the return type of this function. If ffunc is not specified, then the ending state value is used as the aggregate&#39;s result, and the return type is state_data_type. 
+</font></div>
+<a name="wp139933"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>initial_condition</i></b></font>
+</b></font></h6>
+<a name="wp139934"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The initial setting for the state value. This must be a string constant in the form accepted for the data type state_data_type. If not specified, the state value starts out null. 
+</font></div>
+<a name="wp139936"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>sort_operator</i></b></font>
+</b></font></h6>
+<a name="wp139937"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The associated sort operator for a MIN- or MAX-like aggregate. This is just an operator name (possibly schema-qualified). The operator is assumed to have the same input data types as the aggregate (which must be a single-argument aggregate). 
+</font></div>
+<a name="wp139173"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp139579"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The ordinary functions used to define a new aggregate function must be defined first. Note that in this release of Greenplum Database, it is required that the <code><font face="Courier New, Courier, mono" size="2"><i>sfunc</i></font></code>, <code><font face="Courier New, Courier, mono" size="2"><i>ffunc</i></font></code>, and <code><font face="Courier New, Courier, mono" size="2"><i>prefunc</i></font></code> functions used to create the aggregate are defined as <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>.
+</font></p>
+<a name="wp140145"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Any compiled code (shared library files) for custom functions must be placed in the same location on every host in your Greenplum Database array (master and all segments). This location must also be in the <code><font face="Courier New, Courier, mono" size="2">LD_LIBRARY_PATH</font></code> so that the server can locate the files.
+</font></p>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp140192"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a sum of cubes aggregate:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION scube_accum(numeric, numeric) RETURNS 
+numeric</font><a name="wp140193"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    AS &#39;select $1 + $2 * $2 * $2&#39;</font><a name="wp140194"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    LANGUAGE SQL</font><a name="wp140195"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    IMMUTABLE</font><a name="wp140196"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    RETURNS NULL ON NULL INPUT;</font><a name="wp140197"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CREATE AGGREGATE scube(numeric) (</font><a name="wp140199"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    SFUNC = scube_accum,</font><a name="wp140200"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    STYPE = numeric,</font><a name="wp140201"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">    INITCOND = 0 );</font><a name="wp140202"> </a>
+</pre>
+<a name="wp140205"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To test this aggregate:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TABLE x(a INT);</font><a name="wp140206"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO x VALUES (1),(2),(3);</font><a name="wp140207"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">SELECT scube(a) FROM x;</font><a name="wp140208"> </a>
+</pre>
+<a name="wp140210"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Correct answer for reference:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT sum(a*a*a) FROM x;</font><a name="wp139600"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp140166"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE AGGREGATE</font></code> is a Greenplum Database language extension. The SQL standard does not provide for user-defined aggregate functions.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp140239"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_AGGREGATE.html">ALTER AGGREGATE</a>, <a href="DROP_AGGREGATE.html">DROP AGGREGATE</a>, <a href="CREATE_FUNCTION.html">CREATE FUNCTION</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="COPY.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_CAST.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:45">
+    <title>COMMENT</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CLUSTER.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="COMMIT.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+COMMENT
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines or change the comment of an object.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">COMMENT ON</font></p><a name="wp137101"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">{&#160;TABLE <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137103"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  COLUMN <code><font face="Courier New, Courier, mono" size="2"><i>table_name.column_name</i></font></code> |</font><a name="wp137104"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  AGGREGATE <code><font face="Courier New, Courier, mono" size="2"><i>agg_name</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>agg_type</i></font></code> [, ...]) |</font><a name="wp137105"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  CAST (<code><font face="Courier New, Courier, mono" size="2"><i>sourcetype</i></font></code> AS <code><font face="Courier New, Courier, mono" size="2"><i>targettype</i></font></code>) |</font><a name="wp137106"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  CONSTRAINT <code><font face="Courier New, Courier, mono" size="2"><i>constraint_name</i></font></code> ON <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> |</font><a name="wp137107"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  CONVERSION <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137108"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  DATABASE <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137109"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  DOMAIN <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137110"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  FUNCTION <code><font face="Courier New, Courier, mono" size="2"><i>func_name</i></font></code> ([[<code><font face="Courier New, Courier, mono" size="2"><i>argmode</i></font></code>] [<code><font face="Courier New, Courier, mono" size="2"><i>argname</i></font></code>] <code><font face="Courier New, Courier, mono" size="2"><i>argtype</i></font></code> [, ...]]) |</font><a name="wp137111"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  INDEX <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137112"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  LARGE OBJECT <code><font face="Courier New, Courier, mono" size="2"><i>large_object_oid</i></font></code> |</font><a name="wp137113"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  OPERATOR <code><font face="Courier New, Courier, mono" size="2"><i>op</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>leftoperand_type</i></font></code>, <code><font face="Courier New, Courier, mono" size="2"><i>rightoperand_type</i></font></code>) |</font><a name="wp137114"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  OPERATOR CLASS <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> USING <code><font face="Courier New, Courier, mono" size="2"><i>index_method</i></font></code> |</font><a name="wp137115"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  [PROCEDURAL] LANGUAGE <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137116"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  ROLE <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137117"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  RULE <code><font face="Courier New, Courier, mono" size="2"><i>rule_name</i></font></code> ON <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> |</font><a name="wp137118"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  SCHEMA <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137119"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  SEQUENCE <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137120"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  TABLESPACE <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137121"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  TRIGGER <code><font face="Courier New, Courier, mono" size="2"><i>trigger_name</i></font></code> ON <code><font face="Courier New, Courier, mono" size="2"><i>table_name</i></font></code> |</font><a name="wp137122"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  TYPE <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> |</font><a name="wp137123"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">  VIEW <code><font face="Courier New, Courier, mono" size="2"><i>object_name</i></font></code> } </font><a name="wp137124"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">IS &#39;<code><font face="Courier New, Courier, mono" size="2"><i>text</i></font></code>&#39;</font><a name="wp137133"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp137142"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">COMMENT</font></code> stores a comment about a database object. To modify a comment, issue a new <code><font face="Courier New, Courier, mono" size="2">COMMENT</font></code> command for the same object. Only one comment string is stored for each object. To remove a comment, write <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> in place of the text string. Comments are automatically dropped when the object is dropped.
+</font></p>
+<a name="wp137146"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Comments can be easily retrieved with the psql meta-commands <code><font face="Courier New, Courier, mono" size="2">\dd</font></code>, <code><font face="Courier New, Courier, mono" size="2">\d+</font></code>, and <code><font face="Courier New, Courier, mono" size="2">\l+</font></code>. Other user interfaces to retrieve comments can be built atop the same built-in functions that psql uses, namely <code><font face="Courier New, Courier, mono" size="2">obj_description</font></code>, <code><font face="Courier New, Courier, mono" size="2">col_description</font></code>, and <code><font face="Courier New, Courier, mono" size="2">shobj_description</font></code>.
+</font></p>
+<a name="wp134773"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp137354"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>object_name<br>table_name.column_name<br>agg_name<br>constraint_name<br>func_name<br>op<br>rule_name<br>trigger_name</i></b></font>
+</b></font></h6>
+<a name="wp137362"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the object to be commented. Names of tables, aggregates, domains, functions, indexes, operators, operator classes, sequences, types, and views may be schema-qualified. 
+</font></div>
+<a name="wp137364"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>agg_type</i></b></font>
+</b></font></h6>
+<a name="wp137365"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An input data type on which the aggregate function operates. To reference a zero-argument aggregate function, write <code><font face="Courier New, Courier, mono" size="2">*</font></code> in place of the list of input data types. 
+</font></div>
+<a name="wp137367"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>sourcetype</i></b></font>
+</b></font></h6>
+<a name="wp137368"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the source data type of the cast. 
+</font></div>
+<a name="wp137370"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>targettype</i></b></font>
+</b></font></h6>
+<a name="wp137371"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the target data type of the cast. 
+</font></div>
+<a name="wp137373"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argmode</i></b></font>
+</b></font></h6>
+<a name="wp137374"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The mode of a function argument: either <code><font face="Courier New, Courier, mono" size="2">IN</font></code>, <code><font face="Courier New, Courier, mono" size="2">OUT</font></code>, or <code><font face="Courier New, Courier, mono" size="2">INOUT</font></code>. If omitted, the default is <code><font face="Courier New, Courier, mono" size="2">IN</font></code>. Note that <code><font face="Courier New, Courier, mono" size="2">COMMENT ON FUNCTION</font></code> does not actually pay any attention to <code><font face="Courier New, Courier, mono" size="2">OUT</font></code> arguments, since only the input arguments are needed to determine the function&#39;s identity. So it is sufficient to list the <code><font face="Courier New, Courier, mono" size="2">IN</font></code> and <code><font face="Courier New, Courier, mono" size="2">INOUT</font></code> arguments. 
+</font></div>
+<a name="wp137376"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argname</i></b></font>
+</b></font></h6>
+<a name="wp137377"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a function argument. Note that <code><font face="Courier New, Courier, mono" size="2">COMMENT ON FUNCTION</font></code> does not actually pay any attention to argument names, since only the argument data types are needed to determine the function&#39;s identity. 
+</font></div>
+<a name="wp137379"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argtype</i></b></font>
+</b></font></h6>
+<a name="wp137380"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The data type(s) of the function&#39;s arguments (optionally schema-qualified), if any. 
+</font></div>
+<a name="wp137382"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>large_object_oid</i></b></font>
+</b></font></h6>
+<a name="wp137383"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The OID of the large object. 
+</font></div>
+<a name="wp137385"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+PROCEDURAL
+</b></font></h6>
+<a name="wp137386"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This is a noise word. 
+</font></div>
+<a name="wp137388"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>text</i></b></font>
+</b></font></h6>
+<a name="wp137389"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The new comment, written as a string literal; or <code><font face="Courier New, Courier, mono" size="2">NULL</font></code> to drop the comment.
+</font></div>
+<a name="wp132918"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp137200"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is presently no security mechanism for comments: any user connected to a database can see all the comments for objects in that database (although only superusers can change comments for objects that they do not own). For shared objects such as databases, roles, and tablespaces comments are stored globally and any user connected to any database can see all the comments for shared objects. Therefore, do not put security-critical information in comments.
+</font></p>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp137213"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Attach a comment to the table mytable: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">COMMENT ON TABLE mytable IS &#39;This is my table.&#39;;</font><a name="wp137215"> </a>
+</pre>
+<a name="wp137226"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Remove it again: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">COMMENT ON TABLE mytable IS NULL;</font><a name="wp137205"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp136743"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is no <code><font face="Courier New, Courier, mono" size="2">COMMENT</font></code> statement in the SQL standard.
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CLUSTER.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="COMMIT.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

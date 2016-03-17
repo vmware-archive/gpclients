@@ -1,0 +1,1051 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>qt_mainDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>qt_mainDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>495</width>
+            <height>319</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>ODBC Config</string>
+    </property>
+    <property name="icon">
+        <pixmap>image0</pixmap>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QPushButton" row="1" column="2">
+            <property name="name">
+                <cstring>closeButton</cstring>
+            </property>
+            <property name="text">
+                <string>C&amp;lose</string>
+            </property>
+            <property name="iconSet">
+                <iconset>image1</iconset>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Close ODBC Config</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;Close ODBC Config&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Closes the ODBC Config program. All ODBC configuration changes are not lost, the changes were made when adding, removing or configuring.</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="1" column="1">
+            <property name="name">
+                <cstring>aboutButton</cstring>
+            </property>
+            <property name="text">
+                <string>A&amp;bout</string>
+            </property>
+            <property name="accel">
+                <string>Alt+B</string>
+            </property>
+            <property name="iconSet">
+                <iconset>image2</iconset>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>About ODBC Config</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;About ODBC Config&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Display version information, program authors, unixODBC project details and license information.</string>
+            </property>
+        </widget>
+        <spacer row="1" column="0">
+            <property name="name">
+                <cstring>spacer4</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>315</width>
+                    <height>21</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QTabWidget" row="0" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>mainTabWidget</cstring>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;Configure a File Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to configure a file data source. Configurating a file data source will effect all users who have access to the file data source directory.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only users who have read / write access can configure a file data source.</string>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>userTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>&amp;User DSN</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <spacer row="4" column="1">
+                        <property name="name">
+                            <cstring>spacer1</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>51</width>
+                                <height>70</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QPushButton" row="0" column="1">
+                        <property name="name">
+                            <cstring>userAddButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&amp;Add</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+A</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Add a user data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Add a User Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to add a user data source that will be personal to you. You will need to know some details about the database you are going to be configuring the data source for. The database details required will differ for different types of database.</string>
+                        </property>
+                    </widget>
+                    <widget class="QListView" row="0" column="0" rowspan="5" colspan="1">
+                        <column>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Description</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Driver</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <property name="name">
+                            <cstring>userList</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="midLineWidth">
+                            <number>0</number>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;User Data Source List&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+The user data source (DNS) list. Data sources (DSN) are used by ODBC applications to access databases. This list is specific to each individual computer user.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="2" column="1">
+                        <property name="name">
+                            <cstring>userConfigureButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Co&amp;nfigure</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+N</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Configure a user data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Configure a User Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to configure a user data source. You will want to configure a data source where the database details have changed and need updating. Configuring a user data source will not effect other users.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="1" column="1">
+                        <property name="name">
+                            <cstring>userRemoveButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Remove</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Remove a user data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Remove a User Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to remove a user data source that will be personal to you, this will not effect other users.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="3" column="1">
+                        <property name="name">
+                            <cstring>userTestButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Test</string>
+                        </property>
+                        <property name="accel">
+                            <string></string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Test selected data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Test Selected Data Source&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Testing the selected data source (DSN) will confirm that it has been correctly configured.</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>systemTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>S&amp;ystem DSN</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QPushButton" row="1" column="1">
+                        <property name="name">
+                            <cstring>systemRemoveButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Remove</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Remove a system data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Remove a System Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to remove a system data source, the data source will then be unavailable for all users of this computer.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can perform this operation.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="0" column="1">
+                        <property name="name">
+                            <cstring>systemAddButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&amp;Add</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+A</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Add a system data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Add a System Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to add a system data source that will available to all users on this computer.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can perform this operation.</string>
+                        </property>
+                    </widget>
+                    <widget class="QListView" row="0" column="0" rowspan="5" colspan="1">
+                        <column>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Description</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Driver</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <property name="name">
+                            <cstring>systemList</cstring>
+                        </property>
+                        <property name="midLineWidth">
+                            <number>0</number>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;System Data Source List&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+The system data source (DNS) list. Data sources (DSN) are used by ODBC applications to access databases. The system data sources are available to all users on the computer.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="2" column="1">
+                        <property name="name">
+                            <cstring>systemConfigureButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Co&amp;nfigure</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+N</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Configure / view a system data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Configure / View a System Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to configure / view a system data source. Configuring a system data source will effect all users on the computer.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can perform this operation.</string>
+                        </property>
+                    </widget>
+                    <spacer row="4" column="1">
+                        <property name="name">
+                            <cstring>spacer1_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>51</width>
+                                <height>60</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QPushButton" row="3" column="1">
+                        <property name="name">
+                            <cstring>systemTestButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Test</string>
+                        </property>
+                        <property name="accel">
+                            <string></string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Test selected data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Test Selected Data Source&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Testing the selected data source (DSN) will confirm that it has been correctly configured.</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>fileTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>File DSN</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QPushButton" row="1" column="1">
+                        <property name="name">
+                            <cstring>fileAddButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&amp;Add</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+A</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Add a file data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Add a File Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to add a new file data dource.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can perform this operation.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="3" column="1">
+                        <property name="name">
+                            <cstring>fileConfigureButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Co&amp;nfigure</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+N</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Configure / view a file data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Configure / View a File Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to configure / view a file data source. Configurating a file data source will effect all users who have access to the file data source directory.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can perform this operation.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="2" column="1">
+                        <property name="name">
+                            <cstring>fileRemoveButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Remove</string>
+                        </property>
+                        <property name="accel">
+                            <string></string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Remove a file data source (DSN)</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Remove a File Data Source.&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Data sources (DSN) are used by ODBC applications to access databases. User data sources are personal and are not visible to other users. System data sources are available to all users on the computer on which they have been configured. File data sources can be configured for individuals, all users on a computer or, using shared storage, for all users on a whole network.&lt;br&gt;
+&lt;br&gt;
+Click this button to remove a file data source. This will effect all users who have access to the specified file data source directory.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can perform this operation.</string>
+                        </property>
+                    </widget>
+                    <widget class="QListView" row="1" column="0" rowspan="4" colspan="1">
+                        <column>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Description</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Driver</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <property name="name">
+                            <cstring>fileList</cstring>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;File Data Source List&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+The file data source (DNS) list. Data sources (DSN) are used by ODBC applications to access databases. The file data sources are available to all users who can access the selected directory.</string>
+                        </property>
+                    </widget>
+                    <spacer row="4" column="1">
+                        <property name="name">
+                            <cstring>spacer9</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>31</width>
+                                <height>80</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLayoutWidget" row="0" column="0">
+                        <property name="name">
+                            <cstring>layout1</cstring>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLineEdit" row="0" column="1">
+                                <property name="name">
+                                    <cstring>directoryEdit</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="backgroundOrigin">
+                                    <enum>WidgetOrigin</enum>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>The current file data source (DSN) directory</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Current File Data Source Directory&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This is the currently selected file data source directory.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>directoryLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Directory:</string>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>directoryEdit</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QToolButton" row="0" column="2">
+                                <property name="name">
+                                    <cstring>directoryButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>...</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Select a file data source (DSN) directory</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Select File Data Source Directory&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Click this button to browse to and select another file data source drectory.</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <widget class="QPushButton" row="0" column="1">
+                        <property name="name">
+                            <cstring>fileDefaultButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Set Default</string>
+                        </property>
+                        <property name="accel">
+                            <string></string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Set the default file data source (DSN) directory</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Set Default File Data Source Directory&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This button will configure the currently selected file data source (DSN) directory as the default for all users on the computer. This will not effect users on other computers who may be able to access the file data source directory.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can perform this operation.</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>driversTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Drivers</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QListView" row="0" column="0" rowspan="5" colspan="1">
+                        <column>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Description</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <property name="name">
+                            <cstring>driverList</cstring>
+                        </property>
+                        <property name="midLineWidth">
+                            <number>0</number>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver List&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This is a list of all ODBC drivers available for data sources (DNS).</string>
+                        </property>
+                    </widget>
+                    <spacer row="4" column="1">
+                        <property name="name">
+                            <cstring>spacer1_3</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>51</width>
+                                <height>50</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QPushButton" row="3" column="1">
+                        <property name="name">
+                            <cstring>driverConfigureButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Co&amp;nfigure</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+N</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Configure / view ODBC driver</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Configure / View an ODBC Driver&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+ODBC data sources require an ODBC driver in order to access a database. Click this button to configure a ODBC driver. Configuring an ODBC driver will effect all data sources that use the driver.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can configure ODBC drivers.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="2" column="1">
+                        <property name="name">
+                            <cstring>driverRemoveButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Remove</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Remove ODBC driver</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Remove ODBC Driver&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+ODBC data sources require an ODBC driver in order to access a database. Click this button to remove an ODBC driver. Once removed, any data sources that were configured to use the driver will no longer work. When removing an ODBC driver an option will be given to remove data sources (DSN) that use it. Opting to remove data sources that use the ODBC driver will only remove the data sources for the &lt;i&gt;root&lt;/i&gt; user and the system data sources.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can remove ODBC drivers.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="1" column="1">
+                        <property name="name">
+                            <cstring>driverAddButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&amp;Add</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+A</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Add ODBC driver</string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Add ODBC Driver&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+ODBC data sources require an ODBC driver in order to access a database. Click this button to add an ODBC driver. Once added it will be available for new data sources (DSN) to use.&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can add ODBC drivers.</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="0" column="1">
+                        <property name="name">
+                            <cstring>driverAutoButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Auto Setup</string>
+                        </property>
+                        <property name="accel">
+                            <string></string>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;ODBC Driver Auto Setup&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+ODBC data sources require an ODBC driver in order to access a database. The Auto Setup feature will look for known ODBC drivers that have not already been configure and add them. Once added the ODBC drivers will be available for new data sources (DSN).&lt;br&gt;
+&lt;br&gt;
+NOTE: Only the &lt;i&gt;root&lt;/i&gt; user can add ODBC drivers.</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>debugTab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Debug</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <spacer row="2" column="1">
+                        <property name="name">
+                            <cstring>spacer10</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>31</width>
+                                <height>111</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QPushButton" row="0" column="1">
+                        <property name="name">
+                            <cstring>debugApplyButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>&amp;Apply</string>
+                        </property>
+                        <property name="accel">
+                            <string>Alt+A</string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Apply debug options</string>
+                        </property>
+                    </widget>
+                    <widget class="QPushButton" row="1" column="1">
+                        <property name="name">
+                            <cstring>debugOffButton</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Turn Off</string>
+                        </property>
+                        <property name="accel">
+                            <string></string>
+                        </property>
+                        <property name="toolTip" stdset="0">
+                            <string>Turn off debugging</string>
+                        </property>
+                    </widget>
+                    <widget class="QButtonGroup" row="0" column="0" rowspan="3" colspan="1">
+                        <property name="name">
+                            <cstring>debugOptionsGroup</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Debug Options</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>tracingLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Tracing:</string>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignVCenter|AlignRight</set>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>tracingCheck</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="0" column="1">
+                                <property name="name">
+                                    <cstring>tracingCheck</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="accel">
+                                    <string></string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Enable Tracing</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Tracing&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This option enables the tracing options.</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="1">
+                                <property name="name">
+                                    <cstring>forceTracingCheck</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="accel">
+                                    <string></string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Force Tracing</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Force Tracing&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+Force the tracing of ODBC calls.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>forceTracingLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Force Tracing:</string>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignVCenter|AlignRight</set>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>forceTracingCheck</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="2" column="1">
+                                <property name="name">
+                                    <cstring>traceFileEdit</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Trace file</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Trace File&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This is the file where any ODBC calls will be logged to. This file can get large very quickly on busy systems.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>traceFileLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Trace File:</string>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignVCenter|AlignRight</set>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>lineEdit2</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QToolButton" row="2" column="2">
+                                <property name="name">
+                                    <cstring>traceFileButton</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>...</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="0">
+                                <property name="name">
+                                    <cstring>connectionPoolingLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Co&amp;nnection Pooling:</string>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignVCenter|AlignRight</set>
+                                </property>
+                                <property name="buddy" stdset="0">
+                                    <cstring>connectionPoolingCheck</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="3" column="1">
+                                <property name="name">
+                                    <cstring>connectionPoolingCheck</cstring>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="accel">
+                                    <string></string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Enable connection pooling</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Connection Pooling&lt;/b&gt;&lt;br&gt;
+&lt;br&gt;
+This option will enable any driver connection pooling options. It is most likely that you are enabling this option if ODBC is used from a server (such as a web server). Connection pooling may pose a security risk and should be disabled if not used.</string>
+                                </property>
+                            </widget>
+                            <spacer row="5" column="0" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>spacer11</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>321</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="4" column="0" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>spacer13</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>290</width>
+                                        <height>40</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </grid>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+    </grid>
+</widget>
+<images>
+    <image name="image0">
+        <data format="PNG" length="5362">89504e470d0a1a0a0000000d494844520000003000000035080600000007cf6834000014b9494441546881cd9a7d701be77de73f004167e1900ae08236200316a1528a8148aab016d16013db472872c6d4386ac4fa321627ed551c679ab2d7c9d4cebdc58ea3babe999ee399bb4e7433714977dc5871c731995616e9566ae056b21ff8446b57675a004fe47031228e8b923080a310622d23dcfb6341f04592a3ccdddcdcce60bef37b76f7c1f37c7fafcff3acc3b22c7ed56be0e8c0a794a0d22df222a404159fc88b0e25a80444416c55fcca5da220ee54fc8a47e4c5ed4a50a9ab0575490eca1f8abcf867c5af18222ffea7125416445e1495a0b228f2e2c2f04bc3f3bff24000c7ad4c60e01b032dd4b90f17fba9f315c925dd87c44ac017704a6d9233e949b6e8ed3ac95d49745347ee92d10b3ae160183da713f687c9e43344dba28c4d8d112d4719af8cafd4aab5954aa5b2522e969d26661138459dbfc3c55bc32f0e97fe8f2630fcdd619fc88b234a5039240ae20bc9cea4c3900cd7e023834eb7e4060ff001d47c35d2f934314f8cd44c8a8827427a2e4d2290203d972616883565cdd0488413688b1ac91d49d4a28ad2a560d40da2c12823ff308254963e1e7d6fd4a904953991137fa30495d707fe64e09d5b9ec0c0d1817b70f1efa973f470e761a73be17625ff45d266b22dccd8c531a29e286a5e45f6cb085d102346da4c1373c5d0ea9a2dd7d3244890264dc295b0db5d767b8cb5e7445dd87f5c87a42789113238b8ef206a4ec53bede5fb6f7fff17c065d334ff1d2ede187e71d8bae10486bf3bec1079f16d25a8fc47bdae3bfff4e93f7550849a5923359342f6c9889cb019d6d3443a22085da0f815b482462c14b3190e25481b6b8c5fd71e5ad73ea7a18414842e887434faf5441079bb5fbdae33f0e80023ff384265b26289bcf8ef8a5ff9cac09f0ccc6d98c0c03706daa9734692a47dfd5fef6f51120ae29c20d216213593225c0e93aaa6505010081beb025c36738aabd1ee52d0d048b8d6318fcdfc6afbaa26d6b72b2105312750420aea9c8a8c4caa9aa25c2963d64dfa3bfba11bca67ca0c5f1cbe06f41d7ff1f8298096d04ac83157991b3bfcf9c3cab7fef5b75a426d21c6de1e63fb6ddb19bf304ef8d361ce16cfda7fb2643323aa0265abc25c650e25d890430a5ab5c174b5c174439ea84e34e5d8b618da923de8c9ea24f1501cb5a012bfdb46659bc2f99f9f27b92349b5a5ca03db1ee0e4cc49dc4537e540996f0d7cab65fcedf1bedc5bb9f1f881b8e11479f1b8b7cdfbc5e463c9965ab1c6c8bb2304f40023132344ea119b1994352cd8362bf202d925230a0de6e71a363e67dbbe36d7f085869c9e6bd8fe9c666bcc10c82119b560fb925a506d320a620366cd2c7df7f7a1a3e39e7433fcd3618e7ffbf8a73266e64d87c3d1e294fdf2377a1eeef994bbee263595224c98b499b619addb4c35d58cad010025a8a0d6d5e6fd58c876cc4428b126b326afa2125250b1df5b1db45a6ce066b981994286de482fba5f27ec0a431e7aefedf524f625922dfe1dfefffce4934fb6a6de4d11fa30c4e9fc69e2ae38a222d690b86d3e34cc050551b17d606e698eb8336e9b872bc64475826e57f727caab66230765cee7cfa36cb5198f07e31b34d2c4ad32625e900c27399d394d6025c0647dd251982f5c71ca41d9850ec97b936b8c6f4281d8a00181ad5ea0a981cd4cdf88f9a6060aeb18efdc24df40039befeb1d3ab1400c608b532da82de56a999a5423b93b698738570c31279a78331f586dbf91ad6f96d7f723fbe566a81479811cdce403fe8dbeb07a3f7c358c56d4481e48323e396e496ee9334e25a838c6b571dc929b4030c091fb8fa0b9b45bf28155cdac329d26bd81f9f5f27a4d6e76d8cd3245bb7fada035ef47dba2a4cd34837f3448ed5c8db02bdc02385b7c3b7ccf0c1e1a74bcf4b72f11bf2f8e7bab9bf8e7e29c9f39cfee6bbb395b3a7b731f70aef9c0c4d204096782f4529a6e677753d6963462ce18134b13284e05754945be5be6fc7cc3f6e705f1adf1a6accd6b04b606ece4188c91caa408fd7308739bc9c1af1c449d509978638269a629968a975a060f0d3e430847724792f177c7897645e13688ee8e12700508740498589a40be4bbe3e0f54e736c47fadaad11deade20c74231b46ac3f6ab6a3374ae32bbeab84a508102048201445eb0f3f69d8cffb7710e7fe130f7dc7f0f816d014efcd509eab93a87be7688fa521d6d46cbb4f876f89ef9c3affea1435bd07860fb03549d55dced6eca8b65dcbfee46ba53227e5f9c457311659b82b6a035198fafd89a5995bb9ddd1b34b0415e9e686a327e779cf30be789fbe38879c19e3bf7909a4ed1566de35ce11cc9cf2529df5ee6cbbd5fa6ba52c59c3579faf9a7e90bf6b1fbb1ddb4b6b532727a844aa992750c1d1b5a197864c0811fbb40eb96a10c78010308acc38f815640075c340b3ba10b6201bbe68905ec64b55a03adb6af2f17c49c58ab85c20afeba1ff73eb75ddcb4038d4a67e4dc085255a2d256a1ff48bf3d2e801ca4b22986ff6e7894a38f1f5db1e62deb827ac1b2162c6bb9b46c599665954a251b176c9cbf326f2dcf2e5bafbcfc8ab57c79d99abf326fadbf9697edf7e6e7e72deb9a65cd5e9eb5ac05cbbaf4fe25cb5ab2acd9d9d90dfd5ad736be77e1fc056b56cc5acfffd9f3d6cf5ef899f5cacbaf58d6ac652d2fd9f72fbd7fc96a8e73deb29effb3e7ada3bf7774d431746ce817b187634e3928430188b1a681cd380d65b34c6a2a45a42dd2acf7b5458d6438895a51497626d12a1ac9ae2454003fa839958827829933313d26a9e914316f8cb7a6df6a6ae870f76102ae00740335c00d2c0212a8337652a3d0e8afa052d12ad6f03f0cbfe81439b11296c2a8051582502e97c17b035c2c4310b2d52cbdfb7aa9b45518383080e9313972ff117474925d4944c1ae6247de1d419fd43971e604817a80d44c0a2928a19b3afd3dfdd00983df1c24fcc530837f34089dc05ec8643350055553a1be3678b5a036071f69b34b6ee023869e1ebaf6cacbaf58cbb3cbd625f592add705ebc6386b59d6bc6559aa8d17cedbeab4ce5b9675a5215f69c8f396dddf826559ef5b9655b2ac4b994b9655b22c2bb3495eedaf611e9f285fb1ac678f3d6b5d18bdf0d191c78efc17a7288816e90389d173a3045c019be90e6e8c0d06567135431204b5d8908b0d39af12f54511332a78404cd9c9486dc86a4eb55776b975fd6d627ab31c768579ea2f9e62e0c000293dd52249d2671c43c78656a44ec92115250aae0283bf3768db6ea861831deb506fd864e17a9b5c2f8b1915a553b6173c817536dd882e22a7a274ddfcfdebfb134815895436c5938f3ec9d8c5313060f4bdd11f39455ed01beba52015f017fca4de4d019099cc401b18730674806118b7cc94d225939a51edc1d3183c0d5242a0dc2f23a61a9ab8597f799532658efff438624250912a3cf9f893a47229344d236b66c1450b43c786562c6159a5f74bd6ebafbd6e2d6796ad53274f5925b564bd937a67cd064b0d9bbe72eb36fbb3d3ef589f74bd232ed97ed57cfe67d66c6ad6fac10b3fb0de39f18ef5fa6bafdb3e74c5f6c31f1cff8175ea87a76c7f1bbd601d7dfce85fb7f876f89e39f4d543cd4cac2feb7c61fb17485d4e11dd12e5f4d469bc9297b35367d9eadcca687a14a92471d6384bf48e2813b909fc77f899c84f10bfd32e0b025b03b626b6c719fb47c1cecf86b8d1150a7530f6b6a0fa3f1639a19e40d9a650de52e6d0e143f83a7dec89edc1281914cf1579eeb5e7e87fb09ff8c371b80d46ff699472a96c67e2d8233187ec97210fec824c2e43d413a53653b3e3766357625c1bc75ff793cea7e9b9b7876c258b1256d016b5b5dd8640ec3acc5e35e87ff4a09dc56f70a5ce08920794355fb90a5461e4ad112453c26c37e97bb4cff645971d00c8c1f099e1d116df0edf33bfffc8ef3b5699d32b3a3b833bd18b3a1d5d1de8159d07b73f680f36a4707ae634ac40be92b7ebfe8a06d4292c15ec9597a991b83dc1b4354d329264da9c26b94361fced34d19d6168d934fa8f41aafa989c99a03e5f67786418de87f30be7e9bbbf8fd06f86d8f31b7bc84c66e8903a9afb51a313a32c2e2c665b060f0d7e57be4b76acaa3dda19850278b77a611e3a821d5084d0ce10d34bd33c147908b3d524194932559fe2815fefa372ad4877a3ea8cdd1563a234d1dc91933b56f7936416cd763aeeda348116682fb4525f7651be7d91bedfee23b42744548ec232b4d20a53d07167c786e854ffa86e4dcc4c9c738a9c58294be5e64d3daf830f1bfda0177408da280765b2d52c7dfbfaa848157abb0f83bf4cefeec3e87583c389c3182e83de582fd96ab6b97889d4144c4f99e86e9bf155e6a11162ef858ca923ef95ed4c5c696462b8619ea8b5d510ba4042fa88a1a787eaab059aa55a96b56459d6e59b606663b439355ab2ac65cbb2962d6bf6ecb275ea64692d2337a2d16caa64471bcb7eee8678d9b266cf966e2dba3532f1a5f14b1fffc137ff60c8290ac219ae84194d8f527695c9e433e0e7a6b871d700f4bc016ef0ef85e85518fb206567e4bc4a66d2c070e9288928b5ab3570731d96cb353b53ebe297e69932659efa8ba7e8efe967541b75e1e236c7d0b1a1157fccef702fba512b2a030706f09a5ee8824c2143d41f6d66c44c3e43d4b7268fbd97e2e0aea4bd53dda85a33ef95d14d08bb4c0a9241b247be7975dbc0f219303d650c977ec38c5c9ba9912d6619cf8ef3c4579fe085575f20b93bc98973274e38455e7070d741cade324929c9f09bc364b219c6de1e232c859b3698c9db9359cf4cb22bc189746aad5af582f75e08974dbb3aed919bed37437dda409f33c856b31b99cfab040870fc27c749a7d3182e838103033cf7ea733cf1f527c85ecde276b99df69af86e1cfbb7ef477248c8bb65ce5c394347bd837397cf11fd4c945426c59e2d7b601eeed97a0fea82cd4c6ba5956ab146a8ad03f7dd6e30a0fd6e371d77b4b3734f0816c07d97dd7e33f46e6b47cd4fd2712d8c54aa635e3379f9cd97f19a5e26e72739f2e011f29fced36ab472523dc9f7feedf7685d6945fab98476599bb2f3c0213b0f6cefdc8e56d278e8b30f317d759a1dcb3b189d1aa5582c32999ba4b5d8cae9dc69c2a530678db378eff092cea5f17e2a44e55a05efd6768c7983767f3b46c1a0fdce867c13742db7735a080e7e512175e92caecb73b8569ee6d081ef51f6d68987e2fcf0ef7f8871c5201c0bd3ff3bfde8791dafcbcb49ed24a162686ae39ab85122935fab02236d1152b914b24766441b21ec0a93cea5e9e9ea412bdafb36a9992c4f3c3688e18268274d1bfe24ac01a90f044aa7bd0fe4edaac199fdf0a802afa650dbbe43b66ed2ff483fb401ad76685df5914c31c34b6fbef4374e91dfe8fd9942063a57ab4afb90a1eff37d1892c1c0c303983e93a3bb8e922347b2cd3e264a48119efbcbefe3add4101733e0814cae914f7206f836c92e48cfa824ef55c85654bc7e83cc9bfbe1eb50cb8dc33724bcf517e8ff9d7e0cd368e685f53e92d6d316f0bf1c434f0fd52307222d4a97bd2f4367c36183515b13c135072607f8401404315f0c3367da9aca0ba26d32c36f8cd2bbb787727b8564970215700741e433c43c51cc3c78f7813a93415e8d6e9e3299b70e127d2c063f19857a056261d8d5033fd2e0c0086ac5d8189df22ae4b17efcd68fffbca56d5bdbe30f6d7968cb9c7b8ec0d6801d3a835132f90c1dc18ee66432f3b6ac2ed89b51930b93b6cf1435f677ed275b9de4777bfa383d739649b59d73174fd25a68e3c4fb27317221cebcf71a95a93ae7e6cf73e8371f2453d2e9f049a86f7e993d5f3329ffed04ee5205ae9950aa53b38ab4ee9750475e438e0ca096a609f8ed7227f54f292a543e9a484ffcd4f1ec6f3dfb9a11320e3ff5d8532d3a3acabdca46e6376b625d1ef8a495544daa31fe418a8847469bb3174dba99c5d02057d7193c90443d7310f9b1089c198776d3de7f0a61afdc764b80045d4978350b0fdb9a30a74d4441d0d7ddb7bc3db9bdaf255bc92e86b7857f4b5c16ee07a40798ac4d12de1e26337f034df8a3a8f36a9389559bbc913c5999647ff441e656a6f972ccd6901c94a9b61bb45f343166fe15f1af55a9bd3d49eb35a05e87db24301b5831ed64b730078956c44f7eccd90faa14313974e721f378eaf8505aa4df69a956ab1f9aa6f961df7d7d5f3a79f9a453be4b76bc5f781fd927d35a6ca5e39e3533621e0277063630bd7ef0b7246f0d60e48fa12442b09ca7b5cd040bd8d6061fd737e2421d7c2e583009251462536902bf31501f993d9d3a76ecd88f01cd6159160e87c3ef0ffa1feeede9fd0fb8d8eef5799d7ebf9fbeee3ed4a24ab22b6957978dc388eb4e507e55f44448bdba9fe4810a9835f0d134d3eb7035f416019f9bd4abd45e78c3f8f6f8c5ca88655985e639b1c3e1d802ecfbce97bef3db46c8784c092a9fce9ad9d69eae1eb2d52cc94892ec62d65e6155b3f4eeea6de6018abfdc27ae933d35523fda4ff2401810107437061d83bcd698540dfc0a1404f8dd50a8814fa1fcaa66983e7606fe3853dd7052ef70389cc076c92575c53e1ffb52241c3984445872491fbb25f76d9224394dd3a4a7ad876c5b1645da742ebcfe64dea5919012f6097e3dd6445117c8c8a8a88049b8384adfdeb2edbc5d5e2898e097e0a2014109664c289b2001110f144d9893ae8d4df1d707ff93febb37fc56a231912010f4b479fc915d91cf1dee3ebc57afeb71a553096805ed5a229890d285b423e14f902ea449f813a4f36912c1861c4ca015351b1b272d1b4e64c28a7d821f88a14f3c69f5f5180e24605f003ea880ab0679135c26cc991092ec28d5ed81828931992c06fecd898e5ffab54a63327700bf06f83c1ecfddb17db1dd814060afa7cd13c085c72b79db71f1e98494706b680ea00efc22466c4543734892e4045c8aa4b488bab8a6b8949f8bbaa8ca75794998a254291ab3b1fa5b0ff7efadfd1a61b3852e2fbc67efc5a255c0043c129826043c1084b157a50fc3a67bd72d7d6eb369422deb26e4066e5bfff3fbfc9f09f8035b3c3ecf16779bbb3d568f7d94aaa4962ac5ca929ed7af9aa66902d736fd6acfeef5af8413d2a9fe038471992e3cd8bed525c11b3988796c0d4424c89be8d381522a47e0579ec02d4cd0b16952ac1facf5097fa81e8ddea1514b0fec32c3f8cd56ea40c803f77ae15d03ae9ab66eeb70e23dcfe5fe17f5cf3affaf8e1e68ac723fb22cebaa65591f367e571b6d9fc896fc52a614f3b913c31f48b398d2c798d8b5d19b3a48a66d421d3072d1538a7894c7e116bfd8fa7f7d8923d13b346a6f1ef1b153ea2c78dc1236f3a6c48929cf8791bafbbfca7f95f92efc7f3a81d5ebf8bf0c7f33115406d305e18ff9dd75ad50bb1cf1297f9cfcf313efad3ef3bf01d1b13443b2ea54c40000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="888">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff610000033f49444154388d559351685b6518404f929b7253d3da1b566960939bb14ab29561a71b24e246034ec98ae28dce071ff650f0a57dabe2c3e683a53ee8dac9a411d456281265b0e4c175452a2e30e98a1d6d61e99ab076eb64c1942eb421bde6feac3ffb7d6837f5bc1fbe8fc3f7b9ce768c909593a025404e626909232d326124dd20026081cc6ea0e913681493243633721234400a5c9170821d1cc0f786239c732133f44a2412c268791fc810b7e30c1652ac160bd3680ca2e9bf20c58e16e91821124ed01f1ee98b7424ecb9f45f6aee86fa3f8f945275a5ce7f36aa3a5f1cb54d33dad77fe03ca619c5d31a7000efebcb2c8f5fedb9ac13151c7ea989a585555a5b0ce6175709060c9656cabcf5ce71b48672c3cdf9c5d766ed8559cdaddfa53f3cd26c1ee89a9e18bead7e9b9a536a7d679aaa2b35f1f3b4527794ba9cdddd645d29b5a1d4d94f46956946a7cdbdd1667746660e055b82b1825c20faf0088e0ef8768a9cea883196bb4af2eddd4cad90be728d8488e3f31b310187dc3ee836f6e824da2d86efa7a1b8d3d3e703daa0e783533c61e8429aea0f0e1fce0c6269163a747bfc81d0bbad81e0cba57a89782dcae7b3df70b87414fda0c4fb8cf75ff98b34d94b93e4651ebd41232ff30861df7627b5248e2de8f477925afb9e5839c6d0620a5f93efa9cc161cf1c710082cdd0240c74248f0945b9c984f73bd9a5f2b206a824a6b85b1efce8167f73ab61cbc4d5edac23af7efc5985a49a1356a54aa3308519df204032147e0ea39dd789a52f3033299e1a7f2d08534de3b06fbf61b789ff572f2b8419b88905bcc11b7a3e4ebf98f3dfe40b02625274a8da57d41a307ddff9017da83a4becef0eb95eb4cddbac683f5631c3dd68457834fbfbd48b552e5fa5aee06f0a53b8955438a01518d6d8bed2c14740607c668ab8468091af476f552584c5198d8a4b77f88f8569c72a5bc0d0c00354fb9d9c6a7e977b7c4c266d5b64f94ece586a4d722f7f8779afcef51aae738f3dc19c68be3acfdb9caa5a5ecdfc2ae7e04fc04e009ee69c70192ee37676fd90bf3e5f56ae8666de6f993f52e965d53c4f7c6f9ea8f8b4456f6932d66a7e523d107fca86b16f2710197694641d379f25d42620061a05bd7f500522084d81092095da3086cf21ffe01c9408531866efadd0000000049454e44ae426082</data>
+    </image>
+    <image name="image2">
+        <data format="PNG" length="786">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff61000002d949444154388d659231681b6718869f13bfe1175ce1040ef820830f5290551972473ae4b2245728444a879cdbc59a6a4d6d498a493c840c1ddc0ca15068a987403524281d8cad21b5b4f95c8873ce921b5a7a4d1b2199e058220d8a218a7560c1df418d699d6f7979e17d5e3ef83e3832bd5fd5a7b3d756eeacdf53fb9fdf5853ebcb4a5db9b9a6566eef577fbcbbfef1d1fce1eceef62666177a1b8bb71e28a594fabdd5fb9f3efaaba7ae7fa7943f5fbdf316ac9eab63d55bfbd15aa8fe8546aaf68ff8a74aedc64af9f3d5dfdeb02980d2372f9713b36b17b350dfea90d3e1e52b200d1c404e8760ab033afcd1ef60e74bf9b96bd50d80542b54be3432b69fb5a86c823b6e5279081931821983ca43b0c74d2a9b601b269609ee64e9ec4ae391a915e657bebf9e9db9d410115238404c811cb5e1c827c3085f3834886198a3fd22a4bde3d2edaf6224ce55ad7a57a9a01be1bfeb507b02fe147481f279e015f00e94bf0d71c65d9636eb305984c7750ad9229d61fd4fedf4675595314a0c08490b17080117ff749bf2798bc1019cf9121202c083611d283218d671268ba40a599fce1eec4db874f602ec09974e1f2cc302203d06890099f74004f8f9220848e78b2002525b7b41339190340312e1516b8620a0f1241edde900a484a41982f0a835031030d80e3084f734353755bc07217ede430a304eba4819313b9d1b158c812142e64eb91812e4490f44c84cdec394d453e6f1f82bcb700976220c1d323b11a6ee106cb70f37c8e82e1b3b11191de47684a1bbb45f04afbfbecc8dd419f7bdbe3dce42f97d878c8c99b51da68ec3d58bd6e80a63b07a11e6a61d0c19f3c5b48325c197d6054dd39e696f5e72b1f260b9dd773fc9e86d0a58348631881c0c477fb14a4c5ae6e87443e8bbe77e5ad47e01382c00f8e1b6ba609bfc1cf661260f8d26f827a0f6180a9350b90f9ec9b90ffc11fc560140abd53a61245679e97ef86149779d061183c4d9348f45eba58f9c254dd3fefe6ffe1f247e48ef7930d10d0000000049454e44ae426082</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>closeButton</sender>
+        <signal>clicked()</signal>
+        <receiver>qt_mainDialog</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

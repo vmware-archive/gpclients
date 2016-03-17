@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:53">
+    <title>CREATE RESOURCE QUEUE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_OPERATOR_CLASS.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_ROLE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE RESOURCE QUEUE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new resource queue.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE RESOURCE QUEUE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> ACTIVE THRESHOLD <code><font face="Courier New, Courier, mono" size="2"><i>integer</i></font></code> </font></p><a name="wp147475"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[COST THRESHOLD <code><font face="Courier New, Courier, mono" size="2"><i>float</i></font></code> [OVERCOMMIT | NOOVERCOMMIT] </font><a name="wp148051"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[IGNORE THRESHOLD <code><font face="Courier New, Courier, mono" size="2"><i>float</i></font></code>]]</font><a name="wp148055"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE RESOURCE QUEUE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> COST THRESHOLD <code><font face="Courier New, Courier, mono" size="2"><i>float</i></font></code> </font></p><a name="wp146631"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">[OVERCOMMIT | NOOVERCOMMIT] [IGNORE THRESHOLD <code><font face="Courier New, Courier, mono" size="2"><i>float</i></font></code>] </font><a name="wp148063"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">[ACTIVE THRESHOLD <code><font face="Courier New, Courier, mono" size="2"><i>integer</i></font></code>]</font><a name="wp148064"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp147496"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Creates a new resource queue for Greenplum Database workload management. A resource queue must have either an <code><font face="Courier New, Courier, mono" size="2">ACTIVE THRESHOLD</font></code> or a <code><font face="Courier New, Courier, mono" size="2">COST THRESHOLD</font></code> value (or it can have both). Only a superuser can create a resource queue.
+</font></p>
+<a name="wp147497"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Resource queues with an <code><font face="Courier New, Courier, mono" size="2">ACTIVE THRESHOLD</font></code> limit the number of queries that can be executed by roles assigned to that queue. It controls the number of active queries that are allowed to run at the same time. The value for <code><font face="Courier New, Courier, mono" size="2">ACTIVE THRESHOLD</font></code> should be an integer greater than 0. 
+</font></p>
+<a name="wp147498"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Resource queues with a <code><font face="Courier New, Courier, mono" size="2">COST THRESHOLD</font></code> limit the total cost of queries that can be executed by roles assigned to that queue. Cost is measured in the estimated total cost for the query as determined by the Greenplum Database query planner (as shown in the <code><font face="Courier New, Courier, mono" size="2">EXPLAIN</font></code> output for a query). Therefore, an administrator must be familiar with the queries typically executed on the system in order to set an appropriate cost threshold for a queue. Cost is measured in units of disk page fetches; 1.0 equals one sequential disk page read. The value for <code><font face="Courier New, Courier, mono" size="2">COST THRESHOLD</font></code> is specified as a floating point number (for example 100.0) or can also be specified as an exponent (for example 1e+2). If a resource queue is limited based on a cost threshold, then the administrator can allow <code><font face="Courier New, Courier, mono" size="2">OVERCOMMIT</font></code> (the default). This means that a query that exceeds the allowed cost threshold will be allowed to run but only when the queue is idle. If <code><font face="Courier New, Courier, mono" size="2">NOOVERCOMMIT</font></code> is specified, queries that exceed the cost limit will always be rejected and never allowed to run. Specifying <code><font face="Courier New, Courier, mono" size="2">IGNORE THRESHOLD</font></code> allows the administrator to define a cost for `small queries&#39; that will be exempt from resource queueing.
+</font></p>
+<a name="wp147491"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If a value is not defined for <code><font face="Courier New, Courier, mono" size="2">ACTIVE THRESHOLD</font></code> or <code><font face="Courier New, Courier, mono" size="2">COST THRESHOLD</font></code>, it is set to <code><font face="Courier New, Courier, mono" size="2">-1</font></code> by default (meaning no limit). After defining a resource queue, you must assign roles to the queue using the <a href="ALTER_ROLE.html">ALTER ROLE</a> or <a href="CREATE_ROLE.html">CREATE ROLE</a> command.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp147584"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp147591"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the resource queue.
+</font></div>
+<a name="wp147585"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ACTIVE THRESHOLD <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>integer</i></b></font>
+</b></font></h6>
+<a name="wp147592"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Resource queues with an <code><font face="Courier New, Courier, mono" size="2">ACTIVE THRESHOLD</font></code> limit the number of queries that can be executed by roles assigned to that queue. It controls the number of active queries that are allowed to run at the same time. The value for <code><font face="Courier New, Courier, mono" size="2">ACTIVE THRESHOLD</font></code> should be an integer greater than 0.
+</font></div>
+<a name="wp147586"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+COST THRESHOLD <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>float</i></b></font>
+</b></font></h6>
+<a name="wp147593"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Resource queues with a <code><font face="Courier New, Courier, mono" size="2">COST THRESHOLD</font></code> limit the total cost of queries that can be executed by roles assigned to that queue. Cost is measured in the estimated total cost for the query as determined by the Greenplum Database query planner (as shown in the <code><font face="Courier New, Courier, mono" size="2">EXPLAIN</font></code> output for a query). Therefore, an administrator must be familiar with the queries typically executed on the system in order to set an appropriate cost threshold for a queue. Cost is measured in units of disk page fetches; 1.0 equals one sequential disk page read. The value for <code><font face="Courier New, Courier, mono" size="2">COST THRESHOLD</font></code> is specified as a floating point number (for example 100.0) or can also be specified as an exponent (for example 1e+2).
+</font></div>
+<a name="wp147587"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+OVERCOMMIT<br>NOOVERCOMMIT
+</b></font></h6>
+<a name="wp147594"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If a resource queue is limited based <code><font face="Courier New, Courier, mono" size="2">COST THRESHOLD</font></code>, then the administrator can allow <code><font face="Courier New, Courier, mono" size="2">OVERCOMMIT</font></code> (the default). This means that a query that exceeds the allowed cost threshold will be allowed to run but only when the queue is idle. If <code><font face="Courier New, Courier, mono" size="2">NOOVERCOMMIT</font></code> is specified, queries that exceed the cost limit will always be rejected and never allowed to run.
+</font></div>
+<a name="wp147997"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+IGNORE THRESHOLD <font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>float</i></b></font>
+</b></font></h6>
+<a name="wp147998"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The query cost limit of what is considered a `small query&#39;. Queries with a cost under this limit will not be queued and run immediately. Cost is measured in the estimated total cost for the query as determined by the Greenplum Database query planner (as shown in the <code><font face="Courier New, Courier, mono" size="2">EXPLAIN</font></code> output for a query). Therefore, an administrator must be familiar with the queries typically executed on the system in order to set an appropriate cost for what is considered a small query. Cost is measured in units of disk page fetches; 1.0 equals one sequential disk page read. The value for <code><font face="Courier New, Courier, mono" size="2">IGNORE THRESHOLD</font></code> is specified as a floating point number (for example 100.0) or can also be specified as an exponent (for example 1e+2).
+</font></div>
+<a name="wp147581"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp147572"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Use the pg_resqueue_status system view to see the limit settings and current status of a resource queue:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">SELECT * from pg_resqueue_status WHERE rsqname=&#39;queue_name&#39;;</font><a name="wp147905"> </a>
+</pre>
+<a name="wp147920"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is also another system view named pg_stat_resqueues which shows statistical metrics for a resource queue over time. To use this view, however, you must enable the stats_queue_level server configuration parameter. See <a href="../../Output/Admin/workload_mgmt.html#wp150975">&quot;Managing Workload and Resources&quot; </a> for more information about using resource queues.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp147974"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a resource queue with an active query limit of 20: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE RESOURCE QUEUE myqueue ACTIVE THRESHOLD 20;</font><a name="wp147975"> </a>
+</pre>
+<a name="wp147976"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a resource queue with a query cost limit of 3000.0: 
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE RESOURCE QUEUE myqueue COST THRESHOLD 3000.0;</font><a name="wp147977"> </a>
+</pre>
+<a name="wp147978"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a resource queue with a query cost limit of 3<sup><sup>10</sup></sup> (or 30000000000.0) and do not allow overcommit. Allow small queries with a cost under 500 to run immediately:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE RESOURCE QUEUE myqueue COST THRESHOLD 3e+10 
+NOOVERCOMMIT IGNORE THRESHOLD 500.0;</font><a name="wp147979"> </a>
+</pre>
+<a name="wp147980"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a resource queue with both an active query limit and a query cost limit:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE RESOURCE QUEUE myqueue ACTIVE THRESHOLD 30 COST 
+THRESHOLD 5000.00;</font><a name="wp147562"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp146490"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE RESOURCE QUEUE</font></code> is a Greenplum Database extention. There is no provision for resource queues or workload management in the SQL standard.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ALTER_ROLE.html">ALTER ROLE</a>, <a href="CREATE_ROLE.html">CREATE ROLE</a>, <a href="ALTER_RESOURCE_QUEUE.html">ALTER RESOURCE QUEUE</a>, <a href="DROP_RESOURCE_QUEUE.html">DROP RESOURCE QUEUE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_OPERATOR_CLASS.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_ROLE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

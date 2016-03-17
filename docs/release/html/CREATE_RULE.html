@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:54">
+    <title>CREATE RULE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_ROLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_SCHEMA.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE RULE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new rewrite rule.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE [OR REPLACE] RULE <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> AS ON <code><font face="Courier New, Courier, mono" size="2"><i>event</i></font></code></font></p><a name="wp147547"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;TO <code><font face="Courier New, Courier, mono" size="2"><i>table</i></font></code> [WHERE <code><font face="Courier New, Courier, mono" size="2"><i>condition</i></font></code>] </font><a name="wp147565"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;DO [ALSO | INSTEAD] { NOTHING | <code><font face="Courier New, Courier, mono" size="2"><i>command</i></font></code> | (<code><font face="Courier New, Courier, mono" size="2"><i>command</i></font></code>; <code><font face="Courier New, Courier, mono" size="2"><i>command</i></font></code> 
+...) }</font><a name="wp147566"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp147633"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE RULE</font></code> defines a new rule applying to a specified table or view. <code><font face="Courier New, Courier, mono" size="2">CREATE OR REPLACE RULE</font></code> will either create a new rule, or replace an existing rule of the same name for the same table. 
+</font></p>
+<a name="wp147635"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The Greenplum Database rule system allows one to define an alternate action to be performed on insertions, updates, or deletions in database tables. A rule causes additional or alternate commands to be executed when a given command on a given table is executed. Rules can be used on views as well. It is important to realize that a rule is really a command transformation mechanism, or command macro. The transformation happens before the execution of the commands starts. It does not operate independently for each physical row as does a trigger.
+</font></p>
+<a name="wp147637"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">ON SELECT</font></code> rules must be unconditional <code><font face="Courier New, Courier, mono" size="2">INSTEAD</font></code> rules and must have actions that consist of a single <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> command. Thus, an <code><font face="Courier New, Courier, mono" size="2">ON SELECT</font></code> rule effectively turns the table into a view, whose visible contents are the rows returned by the rule&#39;s <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> command rather than whatever had been stored in the table (if anything). It is considered better style to write a <code><font face="Courier New, Courier, mono" size="2">CREATE VIEW</font></code> command than to create a real table and define an <code><font face="Courier New, Courier, mono" size="2">ON SELECT</font></code> rule for it.
+</font></p>
+<a name="wp147639"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You can create the illusion of an updatable view by defining <code><font face="Courier New, Courier, mono" size="2">ON INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">ON UPDATE</font></code>, and <code><font face="Courier New, Courier, mono" size="2">ON DELETE</font></code> rules to replace update actions on the view with appropriate updates on other tables. If you want to support <code><font face="Courier New, Courier, mono" size="2">INSERT RETURNING</font></code> and so on, then be sure to put a suitable <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> clause into each of these rules.
+</font></p>
+<a name="wp147829"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Rules are also helpful for managing partitioned tables. You can define <code><font face="Courier New, Courier, mono" size="2">ON INSERT</font></code> rules on the parent table to route inserted rows to the correct partitioned child table. Note that rules do not work for <code><font face="Courier New, Courier, mono" size="2">COPY</font></code> commands.
+</font></p>
+<a name="wp147641"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is a catch if you try to use conditional rules for view updates: there must be an unconditional <code><font face="Courier New, Courier, mono" size="2">INSTEAD</font></code> rule for each action you wish to allow on the view. If the rule is conditional, or is not <code><font face="Courier New, Courier, mono" size="2">INSTEAD</font></code>, then the system will still reject attempts to perform the update action, because it thinks it might end up trying to perform the action on the dummy table of the view in some cases. If you want to handle all the useful cases in conditional rules, add an unconditional <code><font face="Courier New, Courier, mono" size="2">DO INSTEAD NOTHING</font></code> rule to ensure that the system understands it will never be called on to update the dummy table. Then make the conditional rules non-<code><font face="Courier New, Courier, mono" size="2">INSTEAD</font></code>; in the cases where they are applied, they add to the default <code><font face="Courier New, Courier, mono" size="2">INSTEAD NOTHING</font></code> action. (This method does not currently work to support <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> queries, however.)
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp147677"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp147678"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a rule to create. This must be distinct from the name of any other rule for the same table. Multiple rules on the same table and same event type are applied in alphabetical name order.
+</font></div>
+<a name="wp147680"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>event</i></b></font>
+</b></font></h6>
+<a name="wp147681"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The event is one of <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>, <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>. 
+</font></div>
+<a name="wp147683"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table</i></b></font>
+</b></font></h6>
+<a name="wp147684"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the table or view the rule applies to. 
+</font></div>
+<a name="wp147686"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>condition</i></b></font>
+</b></font></h6>
+<a name="wp147687"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Any SQL conditional expression (returning boolean). The condition expression may not refer to any tables except <code><font face="Courier New, Courier, mono" size="2">NEW</font></code> and <code><font face="Courier New, Courier, mono" size="2">OLD</font></code>, and may not contain aggregate functions. <code><font face="Courier New, Courier, mono" size="2">NEW</font></code> and <code><font face="Courier New, Courier, mono" size="2">OLD</font></code> refer to values in the referenced table. <code><font face="Courier New, Courier, mono" size="2">NEW</font></code> is valid in <code><font face="Courier New, Courier, mono" size="2">ON INSERT</font></code> and <code><font face="Courier New, Courier, mono" size="2">ON UPDATE</font></code> rules to refer to the new row being inserted or updated. <code><font face="Courier New, Courier, mono" size="2">OLD</font></code> is valid in <code><font face="Courier New, Courier, mono" size="2">ON UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">ON DELETE</font></code> rules to refer to the existing row being updated or deleted.
+</font></div>
+<a name="wp147689"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+INSTEAD
+</b></font></h6>
+<a name="wp147690"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">INSTEAD</font></code> indicates that the commands should be executed instead of the original command. 
+</font></div>
+<a name="wp147692"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ALSO
+</b></font></h6>
+<a name="wp147693"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">ALSO</font></code> indicates that the commands should be executed in addition to the original command. If neither <code><font face="Courier New, Courier, mono" size="2">ALSO</font></code> nor <code><font face="Courier New, Courier, mono" size="2">INSTEAD</font></code> is specified, <code><font face="Courier New, Courier, mono" size="2">ALSO</font></code> is the default. 
+</font></div>
+<a name="wp147697"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>command</i></b></font>
+</b></font></h6>
+<a name="wp147698"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The command or commands that make up the rule action. Valid commands are <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code>, <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code>. The special table names <code><font face="Courier New, Courier, mono" size="2">NEW</font></code> and <code><font face="Courier New, Courier, mono" size="2">OLD</font></code> may be used to refer to values in the referenced table. <code><font face="Courier New, Courier, mono" size="2">NEW</font></code> is valid in <code><font face="Courier New, Courier, mono" size="2">ON INSERT</font></code> and <code><font face="Courier New, Courier, mono" size="2">ON</font></code> <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> rules to refer to the new row being inserted or updated. <code><font face="Courier New, Courier, mono" size="2">OLD</font></code> is valid in <code><font face="Courier New, Courier, mono" size="2">ON UPDATE</font></code> and <code><font face="Courier New, Courier, mono" size="2">ON DELETE</font></code> rules to refer to the existing row being updated or deleted.
+</font></div>
+<a name="wp147533"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp147844"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+You must be the owner of a table to create or change rules for it.
+</font></p>
+<a name="wp147846"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In a rule for <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code>, <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code>, or <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code> on a view, you can add a <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> clause that emits the view&#39;s columns. This clause will be used to compute the outputs if the rule is triggered by an <code><font face="Courier New, Courier, mono" size="2">INSERT RETURNING</font></code>, <code><font face="Courier New, Courier, mono" size="2">UPDATE RETURNING</font></code>, or <code><font face="Courier New, Courier, mono" size="2">DELETE RETURNING</font></code> command respectively. When the rule is triggered by a command without <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code>, the rule&#39;s <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> clause will be ignored. The current implementation allows only unconditional <code><font face="Courier New, Courier, mono" size="2">INSTEAD</font></code> rules to contain <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code>; furthermore there can be at most one <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> clause among all the rules for the same event. (This ensures that there is only one candidate <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> clause to be used to compute the results.) <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> queries on the view will be rejected if there is no <code><font face="Courier New, Courier, mono" size="2">RETURNING</font></code> clause in any available rule. 
+</font></p>
+<a name="wp147848"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+It is very important to take care to avoid circular rules. Recursive rules are not validated at rule create time, but will report an error at execution time.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp147646"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Create a rule that inserts rows into the child table b2001 when a user tries to insert into the partitioned parent table rank:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE RULE b2001 AS ON INSERT TO rank WHERE gender=&#39;M&#39; and 
+year=&#39;2001&#39; DO INSTEAD INSERT INTO b2001 VALUES (NEW.id, 
+NEW.rank, NEW.year, NEW.gender, NEW.count);</font><a name="wp147647"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp147617"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE RULE</font></code> is a Greenplum Database language extension, as is the entire query rewrite system.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp141954"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="DROP_RULE.html">DROP RULE</a>, <a href="CREATE_TABLE.html">CREATE TABLE</a>, <a href="CREATE_VIEW.html">CREATE VIEW</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_ROLE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_SCHEMA.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

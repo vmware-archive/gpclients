@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:58">
+    <title>CREATE TRIGGER</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_TABLESPACE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TYPE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE TRIGGER
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new trigger.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE TRIGGER <code><font face="Courier New, Courier, mono" size="2"><i>name</i></font></code> {BEFORE | AFTER} {<code><font face="Courier New, Courier, mono" size="2"><i>event</i></font></code> [OR ...]}</font></p><a name="wp152370"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;ON <code><font face="Courier New, Courier, mono" size="2"><i>table</i></font></code> [ FOR [EACH] {ROW | STATEMENT} ]</font><a name="wp152384"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;EXECUTE PROCEDURE <code><font face="Courier New, Courier, mono" size="2"><i>funcname</i></font></code> ( <code><font face="Courier New, Courier, mono" size="2"><i>arguments</i></font></code> )</font><a name="wp152390"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp152446"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE TRIGGER</font></code> creates a new trigger. The trigger will be associated with the specified table and will execute the specified function when certain events occur. 
+</font></p>
+<a name="wp152465"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Due to the distributed nature of a Greenplum Database system, the use of triggers is somewhat limited. The function used in the trigger must be <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>, meaning it cannot use information not directly present in its argument list. The function specified in the trigger also cannot execute any SQL or modify the database in any way. Given that triggers are most often used to alter the database (for example, update these other rows when this row is updated), these limitations offer very little practicle use of triggers in Greenplum Database.
+</font></p>
+<a name="wp152452"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If multiple triggers of the same kind are defined for the same event, they will be fired in alphabetical order by name. 
+</font></p>
+<a name="wp152454"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="SELECT.html">SELECT</a> does not modify any rows so you can not create <code><font face="Courier New, Courier, mono" size="2">SELECT</font></code> triggers. Rules and views are more appropriate in such cases.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp152515"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>name</i></b></font>
+</b></font></h6>
+<a name="wp152516"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name to give the new trigger. This must be distinct from the name of any other trigger for the same table.
+</font></div>
+<a name="wp152518"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+BEFORE <br>AFTER
+</b></font></h6>
+<a name="wp152520"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Determines whether the function is called before or after the event. If the trigger fires before the event, the trigger may skip the operation for the current row, or change the row being inserted (for <code><font face="Courier New, Courier, mono" size="2">INSERT</font></code> and <code><font face="Courier New, Courier, mono" size="2">UPDATE</font></code> operations only). If the trigger fires after the event, all changes, including the last insertion, update, or deletion, are visible to the trigger.
+</font></div>
+<a name="wp152522"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>event</i></b></font>
+</b></font></h6>
+<a name="wp152523"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifies the event that will fire the trigger (INSERT, UPDATE, or DELETE). Multiple events can be specified using OR. 
+</font></div>
+<a name="wp152525"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table</i></b></font>
+</b></font></h6>
+<a name="wp152526"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of the table the trigger is for. 
+</font></div>
+<a name="wp152528"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FOR EACH ROW <br>FOR EACH STATEMENT
+</b></font></h6>
+<a name="wp152664"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This specifies whether the trigger procedure should be fired once for every row affected by the trigger event, or just once per SQL statement. If neither is specified, <code><font face="Courier New, Courier, mono" size="2">FOR EACH STATEMENT</font></code> is the default. A trigger that is marked <code><font face="Courier New, Courier, mono" size="2">FOR EACH ROW</font></code> is called once for every row that the operation modifies. In contrast, a trigger that is marked <code><font face="Courier New, Courier, mono" size="2">FOR EACH STATEMENT</font></code> only executes once for any given operation, regardless of how many rows it modifies.
+</font></div>
+<a name="wp152532"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>funcname</i></b></font>
+</b></font></h6>
+<a name="wp152533"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A user-supplied function that is declared as <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>, taking no arguments, and returning type <code><font face="Courier New, Courier, mono" size="2">trigger</font></code>, which is executed when the trigger fires. This function must not execute SQL or modify the database in any way. 
+</font></div>
+<a name="wp152535"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>arguments</i></b></font>
+</b></font></h6>
+<a name="wp152536"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An optional comma-separated list of arguments to be provided to the function when the trigger is executed. The arguments are literal string constants. Simple names and numeric constants may be written here, too, but they will all be converted to strings. Please check the description of the implementation language of the trigger function about how the trigger arguments are accessible within the function; it may be different from normal function arguments.
+</font></div>
+<a name="wp147533"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp152428"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create a trigger on a table, the user must have the <code><font face="Courier New, Courier, mono" size="2">TRIGGER</font></code> privilege on the table.
+</font></p>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp152733"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Declare the trigger function and then a trigger:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE FUNCTION sendmail() RETURNS trigger AS 
+&#39;<code><font face="Courier New, Courier, mono" size="2">$GPHOME</font></code>/lib/emailtrig.so&#39; LANGUAGE C IMMUTABLE;</font><a name="wp152735"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"></font><a name="wp152785"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">CREATE TRIGGER t_sendmail AFTER INSERT OR UPDATE OR DELETE 
+ON mytable FOR EACH STATEMENT EXECUTE PROCEDURE sendmail();</font><a name="wp152739"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp152700"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">CREATE TRIGGER</font></code> statement in Greenplum Database implements a subset of the SQL standard. The following functionality is currently missing: 
+</font></p>
+<ul>
+<a name="wp152704"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The current release of Greenplum Database has strict limitations on the function that is called by a trigger, which makes triggers currently not very useful in Greenplum Database. </font></li>
+</ul>
+
+<ul>
+<a name="wp152900"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">SQL allows triggers to fire on updates to specific columns (e.g., <code><font face="Courier New, Courier, mono" size="2">AFTER UPDATE OF col1, col2</font></code>). </font></li>
+</ul>
+
+<ul>
+<a name="wp152838"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">SQL allows you to define aliases for the `old&#39; and `new&#39; rows or tables for use in the definition of the triggered action (e.g., <code><font face="Courier New, Courier, mono" size="2">CREATE TRIGGER ... ON tablename REFERENCING OLD ROW AS somename NEW ROW AS othername ...</font></code>). Since Greenplum Database allows trigger procedures to be written in any number of user-defined languages, access to the data is handled in a language-specific way.</font></li>
+</ul>
+
+<ul>
+<a name="wp152852"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Greenplum Database only allows the execution of a user-defined function for the triggered action. The standard allows the execution of a number of other SQL commands, such as <code><font face="Courier New, Courier, mono" size="2">CREATE TABLE</font></code> as the triggered action. This limitation is not hard to work around by creating a user-defined function that executes the desired commands.</font></li>
+</ul>
+
+<ul>
+<a name="wp152865"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">SQL specifies that multiple triggers should be fired in time-of-creation order. Greenplum Database uses name order, which was judged to be more convenient. </font></li>
+</ul>
+
+<ul>
+<a name="wp152873"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">SQL specifies that <code><font face="Courier New, Courier, mono" size="2">BEFORE DELETE</font></code> triggers on cascaded deletes fire after the cascaded <code><font face="Courier New, Courier, mono" size="2">DELETE</font></code> completes. The Greenplum Database behavior is for <code><font face="Courier New, Courier, mono" size="2">BEFORE DELETE</font></code> to always fire before the delete action, even a cascading one. This is considered more consistent. There is also unpredictable behavior when <code><font face="Courier New, Courier, mono" size="2">BEFORE</font></code> triggers modify rows that are later to be modified by referential actions. This can lead to constraint violations or stored data that does not honor the referential constraint. </font></li>
+</ul>
+
+<ul>
+<a name="wp152893"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The ability to specify multiple actions for a single trigger using <code><font face="Courier New, Courier, mono" size="2">OR</font></code> is a Greenplum Database extension of the SQL standard.</font></li>
+</ul>
+
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp152444"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_FUNCTION.html">CREATE FUNCTION</a>, <a href="ALTER_TRIGGER.html">ALTER TRIGGER</a>, <a href="DROP_TRIGGER.html">DROP TRIGGER</a>, <a href="CREATE_RULE.html">CREATE RULE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_TABLESPACE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_TYPE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

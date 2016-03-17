@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:15">
+    <title>VACUUM</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="UPDATE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="VALUES.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+VACUUM
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Garbage-collects and optionally analyzes a database.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">VACUUM [FULL] [FREEZE] [VERBOSE] [<code><font face="Courier New, Courier, mono" size="2"><i>table</i></font></code>]</font></p><a name="wp154190"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">VACUUM [FULL] [FREEZE] [VERBOSE] ANALYZE</font></p><a name="wp152372"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[<code><font face="Courier New, Courier, mono" size="2"><i>table</i></font></code> [(<code><font face="Courier New, Courier, mono" size="2"><i>column</i></font></code> [, ...] )]]</font><a name="wp154285"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp154231"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> reclaims storage occupied by deleted tuples. In normal Greenplum Database operation, tuples that are deleted or obsoleted by an update are not physically removed from their table; they remain present on disk until a <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> is done. Therefore it is necessary to do <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> periodically, especially on frequently-updated tables.
+</font></p>
+<a name="wp155115"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+With no parameter, <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> processes every table in the current database. With a parameter, <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> processes only that table.
+</font></p>
+<a name="wp155119"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VACUUM ANALYZE</font></code> performs a <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> and then an <code><font face="Courier New, Courier, mono" size="2">ANALYZE</font></code> for each selected table. This is a handy combination form for routine maintenance scripts. See <a href="ANALYZE.html">ANALYZE</a> for more details about its processing.
+</font></p>
+<a name="wp154237"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Plain <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> (without <code><font face="Courier New, Courier, mono" size="2">FULL</font></code>) simply reclaims space and makes it available for re-use. This form of the command can operate in parallel with normal reading and writing of the table, as an exclusive lock is not obtained. <code><font face="Courier New, Courier, mono" size="2">VACUUM FULL</font></code> does more extensive processing, including moving of tuples across blocks to try to compact the table to the minimum number of disk blocks. This form is much slower and requires an exclusive lock on each table while it is being processed.
+</font></p>
+<a name="wp154662"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Outputs
+</b></font></h4>
+<a name="wp154663"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When <code><font face="Courier New, Courier, mono" size="2">VERBOSE</font></code> is specified, <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> emits progress messages to indicate which table is currently being processed. Various statistics about the tables are printed as well.
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp154628"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FULL
+</b></font></h6>
+<a name="wp154629"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Selects a full vacuum, which may reclaim more space, but takes much longer and exclusively locks the table. A <code><font face="Courier New, Courier, mono" size="2">VACUUM FULL</font></code> is not recommended in Greenplum Database. See the <a href="VACUUM.html#wp144900">&quot;Notes&quot;</a> section.
+</font></div>
+<a name="wp154631"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+FREEZE
+</b></font></h6>
+<a name="wp154632"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Specifying <code><font face="Courier New, Courier, mono" size="2">FREEZE</font></code> is equivalent to performing <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> with the vacuum_freeze_min_age server configuration parameter set to zero. The <code><font face="Courier New, Courier, mono" size="2">FREEZE</font></code> option is deprecated and will be removed in a future release. Set the parameter in the master <code><font face="Courier New, Courier, mono" size="2">postgresql.conf</font></code> file instead.
+</font></div>
+<a name="wp154634"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+VERBOSE
+</b></font></h6>
+<a name="wp154635"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Prints a detailed vacuum activity report for each table.
+</font></div>
+<a name="wp154637"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+ANALYZE
+</b></font></h6>
+<a name="wp154638"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Updates statistics used by the planner to determine the most efficient way to execute a query.
+</font></div>
+<a name="wp154640"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>table</i></b></font>
+</b></font></h6>
+<a name="wp154641"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name (optionally schema-qualified) of a specific table to vacuum. Defaults to all tables in the current database.
+</font></div>
+<a name="wp154643"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>column</i></b></font>
+</b></font></h6>
+<a name="wp154644"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of a specific column to analyze. Defaults to all columns.
+</font></div>
+<a name="wp144900"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp154415"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> cannot be executed inside a transaction block.
+</font></p>
+<a name="wp154583"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Greenplum recommends that active production databases be vacuumed frequently (at least nightly), in order to remove expired rows. After adding or deleting a large number of rows, it may be a good idea to issue a <code><font face="Courier New, Courier, mono" size="2">VACUUM ANALYZE</font></code> command for the affected table. This will update the system catalogs with the results of all recent changes, and allow the Greenplum query planner to make better choices in planning queries.
+</font></p>
+<a name="wp154489"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> causes a substantial increase in I/O traffic, which can cause poor performance for other active sessions. Therefore, it is advisable to vacuum the database at low usage times.
+</font></p>
+<a name="wp154523"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Regular PostgreSQL has a separate optional server process called the autovacuum daemon, whose purpose is to automate the execution of <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> and <code><font face="Courier New, Courier, mono" size="2">ANALYZE</font></code> commands. Its use is not recommended in Greenplum Database.
+</font></p>
+<a name="wp154449"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Expired rows are held in what is called the free space map. The free space map must be sized large enough to cover the dead rows of all tables in your database. If not sized large enough, space occupied by dead rows that overflow the free space map cannot be reclaimed by a regular <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> command.
+</font></p>
+<a name="wp154450"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A <code><font face="Courier New, Courier, mono" size="2">VACUUM FULL</font></code> will reclaim all expired row space, but is a very expensive operation and may take an unacceptably long time to finish on large, distributed Greenplum Database tables. If you do get into a situation where the free space map has overflowed, it may be more timely to recreate the table with a <a href="CREATE_TABLE_AS.html">CREATE TABLE AS</a> statement and drop the old table. A <code><font face="Courier New, Courier, mono" size="2">VACUUM FULL</font></code> is not recommended in Greenplum Database.
+</font></p>
+<a name="wp154454"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+It is best to size the free space map appropriately. The free space map is configured with the following server configuration parameters:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2"><a href="../../Output/Admin/guc_configs.html#wp320452">max_fsm_pages</a></font><a name="wp154455"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"><a href="../../Output/Admin/guc_configs.html#wp320468">max_fsm_relations</a></font><a name="wp154456"> </a>
+</pre>
+<a name="wp154419"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+See <a href="../../Output/Admin/dml.html#wp140249">&quot;About Concurrency Control in Greenplum Database&quot; </a> for more information.
+</font></p>
+<a name="wp152617"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp154222"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Vacuum all tables in the current database:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">VACUUM;</font><a name="wp154693"> </a>
+</pre>
+<a name="wp154694"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Vacuum a specific table only:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">VACUUM mytable;</font><a name="wp154695"> </a>
+</pre>
+<a name="wp154696"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Vacuum all tables in the current database and collect statistics for the query planner:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">VACUUM ANALYZE;</font><a name="wp154697"> </a>
+</pre>
+<a name="wp152877"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp154683"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is no <code><font face="Courier New, Courier, mono" size="2">VACUUM</font></code> statement in the SQL standard.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp152557"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="ANALYZE.html">ANALYZE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="UPDATE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="VALUES.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

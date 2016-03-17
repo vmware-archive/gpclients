@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:22:08">
+    <title>MOVE</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="LOCK.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="PREPARE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+MOVE
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Positions a cursor.
+</font></div>
+<a name="wp149747"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">MOVE [ <code><font face="Courier New, Courier, mono" size="2"><i>forward_direction</i></font></code> {FROM | IN} ] <code><font face="Courier New, Courier, mono" size="2"><i>cursorname</i></font></code></font></p><a name="wp152874"> </a>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">where direction can be empty or one of:</font></p><a name="wp152875"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;NEXT</font><a name="wp152876"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;FIRST</font><a name="wp152877"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;LAST</font><a name="wp153044"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;ABSOLUTE <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code></font><a name="wp152879"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;RELATIVE <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code></font><a name="wp152881"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;<code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code></font><a name="wp152882"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;ALL</font><a name="wp152883"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;FORWARD</font><a name="wp152884"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;FORWARD count</font><a name="wp152885"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;FORWARD ALL</font><a name="wp152928"> </a>
+</pre>
+<a name="wp152932"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp153797"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">MOVE</font></code> repositions a cursor without retrieving any data. <code><font face="Courier New, Courier, mono" size="2">MOVE</font></code> works exactly like the <a href="FETCH.html">FETCH</a> command, except it only positions the cursor and does not return rows. 
+</font></p>
+<a name="wp153798"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Note that it is not possible to move a cursor position backwards in Greenplum Database, since scrollable cursors are not supported. You can only move a cursor forward in position using <code><font face="Courier New, Courier, mono" size="2">MOVE</font></code>.
+</font></p>
+<a name="wp153659"> </a><h4><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Outputs
+</b></font></h4>
+<a name="wp153665"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+On successful completion, a <code><font face="Courier New, Courier, mono" size="2">MOVE</font></code> command returns a command tag of the form
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">MOVE <code><font face="Courier New, Courier, mono" size="2"><i>count</i></font></code></font><a name="wp153668"> </a>
+</pre>
+<a name="wp153683"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The count is the number of rows that a <code><font face="Courier New, Courier, mono" size="2">FETCH</font></code> command with the same parameters would have returned (possibly zero). 
+</font></p>
+<a name="wp143248"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp153127"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>forward_direction</i></b></font>
+</b></font></h6>
+<a name="wp153163"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+See <a href="FETCH.html">FETCH</a> for more information.
+</font></div>
+<a name="wp153178"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>cursorname</i></b></font>
+</b></font></h6>
+<a name="wp153179"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of an open cursor.
+</font></div>
+<a name="wp152617"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp153624"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+-- Start the transaction:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">BEGIN;</font><a name="wp153566"> </a>
+</pre>
+<a name="wp153568"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+-- Set up a cursor:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">DECLARE mycursor CURSOR FOR SELECT * FROM films;</font><a name="wp153569"> </a>
+</pre>
+<a name="wp153571"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+-- Move forward 5 rows in the cursor mycursor:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">MOVE FORWARD 5 IN mycursor;</font><a name="wp153572"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">MOVE 5</font><a name="wp153574"> </a>
+</pre>
+<a name="wp153589"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+--Fetch the next row after that (row 6):
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">FETCH 1 FROM mycursor;</font><a name="wp153876"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"> code  | title  | did | date_prod  |  kind  |  len</font><a name="wp153877"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">-------+--------+-----+------------+--------+-------</font><a name="wp153878"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2"> P_303 | 48 Hrs | 103 | 1982-10-22 | Action | 01:37</font><a name="wp153879"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">(1 row)</font><a name="wp153880"> </a>
+</pre>
+<a name="wp153862"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+-- Close the cursor and end the transaction:
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CLOSE mycursor;</font><a name="wp153590"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">COMMIT;</font><a name="wp152774"> </a>
+</pre>
+<a name="wp144902"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp153843"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+There is no <code><font face="Courier New, Courier, mono" size="2">MOVE</font></code> statement in the SQL standard.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp152557"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="DECLARE.html">DECLARE</a>, <a href="FETCH.html">FETCH</a>, <a href="CLOSE.html">CLOSE</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="LOCK.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="PREPARE.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>

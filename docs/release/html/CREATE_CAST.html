@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Quadralay WebWorks Publisher 2003 for FrameMaker 8.6.6587.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="02/17/09 17:21:47">
+    <title>CREATE CAST</title>
+  </head>
+
+  <body link="#99cc33" vlink="#666699" text="#000000" alink="#FFCC66" bgcolor="#FFFFFF">
+
+    <table width="250" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+<a href="CREATE_AGGREGATE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_CONVERSION.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  
+    </table>
+
+    <img src="images/GreenplumLogo.jpg" alt="Greenplum" width="212" height="58">
+    <hr color="#99CC33" align="left">
+
+    <br>
+<a name="wp20941"> </a><h2><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="6"><b>
+CREATE CAST
+</b></font></h2>
+<hr color="#99cc33" align="left">
+<a name="wp133181"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Defines a new cast.
+</font></div>
+<a name="wp132855"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Synopsis
+</b></font></h3>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE CAST (<code><font face="Courier New, Courier, mono" size="2"><i>sourcetype</i></font></code> AS <code><font face="Courier New, Courier, mono" size="2"><i>targettype</i></font></code>) </font></p><a name="wp140298"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;WITH FUNCTION <code><font face="Courier New, Courier, mono" size="2"><i>funcname</i></font></code> (<code><font face="Courier New, Courier, mono" size="2"><i>argtypes</i></font></code>) </font><a name="wp140863"> </a>
+<font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[AS ASSIGNMENT | AS IMPLICIT]</font><a name="wp140864"> </a>
+</pre>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">CREATE CAST (<code><font face="Courier New, Courier, mono" size="2"><i>sourcetype</i></font></code> AS <code><font face="Courier New, Courier, mono" size="2"><i>targettype</i></font></code>) WITHOUT FUNCTION </font></p><a name="wp140302"> </a>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;[AS ASSIGNMENT | AS IMPLICIT]</font><a name="wp140865"> </a>
+</pre>
+<a name="wp118843"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Description
+</b></font></h3>
+<a name="wp140314"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<code><font face="Courier New, Courier, mono" size="2">CREATE CAST</font></code> defines a new cast. A cast specifies how to perform a conversion between two data types. For example,
+</font></p>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SELECT CAST(42 AS text);</font></p><a name="wp140316"> </a>
+<a name="wp140355"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+converts the integer constant 42 to type text by invoking a previously specified function, in this case <code><font face="Courier New, Courier, mono" size="2">text(int4)</font></code>. If no suitable cast has been defined, the conversion fails. 
+</font></p>
+<a name="wp140318"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Two types may be binary compatible, which means that they can be converted into one another without invoking any function. This requires that corresponding values use the same internal representation. For instance, the types <code><font face="Courier New, Courier, mono" size="2">text</font></code> and <code><font face="Courier New, Courier, mono" size="2">varchar</font></code> are binary compatible. 
+</font></p>
+<a name="wp140320"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+By default, a cast can be invoked only by an explicit cast request, that is an explicit <code><font face="Courier New, Courier, mono" size="2">CAST(x AS </font></code><code><font face="Courier New, Courier, mono" size="2"><i>typename</i></font></code><code><font face="Courier New, Courier, mono" size="2">)</font></code> or <code><font face="Courier New, Courier, mono" size="2">x::</font></code><code><font face="Courier New, Courier, mono" size="2"><i>typename</i></font></code> construct.
+</font></p>
+<a name="wp140322"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the cast is marked <code><font face="Courier New, Courier, mono" size="2">AS ASSIGNMENT</font></code> then it can be invoked implicitly when assigning a value to a column of the target data type. For example, supposing that foo.f1 is a column of type <code><font face="Courier New, Courier, mono" size="2">text</font></code>, then
+</font></p>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">INSERT INTO foo (f1) VALUES (42);</font></p><a name="wp140324"> </a>
+<a name="wp140366"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+will be allowed if the cast from type <code><font face="Courier New, Courier, mono" size="2">integer</font></code> to type <code><font face="Courier New, Courier, mono" size="2">text</font></code> is marked <code><font face="Courier New, Courier, mono" size="2">AS ASSIGNMENT</font></code>, otherwise not. The term assignment cast is typically used to describe this kind of cast.
+</font></p>
+<a name="wp140326"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If the cast is marked <code><font face="Courier New, Courier, mono" size="2">AS IMPLICIT</font></code> then it can be invoked implicitly in any context, whether assignment or internally in an expression. The term implicit cast is typically used to describe this kind of cast. For example, since <code><font face="Courier New, Courier, mono" size="2">||</font></code> takes <code><font face="Courier New, Courier, mono" size="2">text</font></code> operands,
+</font></p>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SELECT &#39;The time is &#39; || now();</font></p><a name="wp140328"> </a>
+<a name="wp140454"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+will be allowed only if the cast from type <code><font face="Courier New, Courier, mono" size="2">timestamp</font></code> to <code><font face="Courier New, Courier, mono" size="2">text</font></code> is marked <code><font face="Courier New, Courier, mono" size="2">AS IMPLICIT</font></code>. Otherwise, it will be necessary to write the cast explicitly, for example
+</font></p>
+<p><font color="Black" face="Courier New, Courier, mono" size="2">SELECT &#39;The time is &#39; || CAST(now() AS text);</font></p><a name="wp140330"> </a>
+<a name="wp140332"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+It is wise to be conservative about marking casts as implicit. An overabundance of implicit casting paths can cause Greenplum Database to choose surprising interpretations of commands, or to be unable to resolve commands at all because there are multiple possible interpretations. A good rule of thumb is to make a cast implicitly invokable only for information-preserving transformations between types in the same general type category. For example, the cast from <code><font face="Courier New, Courier, mono" size="2">int2</font></code> to <code><font face="Courier New, Courier, mono" size="2">int4</font></code> can reasonably be implicit, but the cast from <code><font face="Courier New, Courier, mono" size="2">float8</font></code> to <code><font face="Courier New, Courier, mono" size="2">int4</font></code> should probably be assignment-only. Cross-type-category casts, such as <code><font face="Courier New, Courier, mono" size="2">text</font></code> to <code><font face="Courier New, Courier, mono" size="2">int4</font></code>, are best made explicit-only. 
+</font></p>
+<a name="wp140334"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To be able to create a cast, you must own the source or the target data type. To create a binary-compatible cast, you must be superuser.
+</font></p>
+<a name="wp138453"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Parameters
+</b></font></h3>
+<a name="wp140517"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>sourcetype</i></b></font>
+</b></font></h6>
+<a name="wp140518"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the source data type of the cast. 
+</font></div>
+<a name="wp140520"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>targettype</i></b></font>
+</b></font></h6>
+<a name="wp140521"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The name of the target data type of the cast. 
+</font></div>
+<a name="wp140523"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>funcname</i></b></font>(<font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b><i>argtypes</i></b></font>)
+</b></font></h6>
+<a name="wp140524"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The function used to perform the cast. The function name may be schema-qualified. If it is not, the function will be looked up in the schema search path. The function&#39;s result data type must match the target type of the cast.
+</font></div>
+<a name="wp140624"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Cast implementation functions may have one to three arguments. The first argument type must be identical to the cast&#39;s source type. The second argument, if present, must be type <code><font face="Courier New, Courier, mono" size="2">integer</font></code>; it receives the type modifier associated with the destination type, or <code><font face="Courier New, Courier, mono" size="2">-1</font></code> if there is none. The third argument, if present, must be type <code><font face="Courier New, Courier, mono" size="2">boolean</font></code>; it receives true if the cast is an explicit cast, false otherwise. The SQL specification demands different behaviors for explicit and implicit casts in some cases. This argument is supplied for functions that must implement such casts. It is not recommended that you design your own data types this way.
+</font></div>
+<a name="wp140626"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Ordinarily a cast must have different source and target data types. However, it is allowed to declare a cast with identical source and target types if it has a cast implementation function with more than one argument. This is used to represent type-specific length coercion functions in the system catalogs. The named function is used to coerce a value of the type to the type modifier value given by its second argument. (Since the grammar presently permits only certain built-in data types to have type modifiers, this feature is of no use for user-defined target types.) 
+</font></div>
+<a name="wp140622"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When a cast has different source and target types and a function that takes more than one argument, it represents converting from one type to another and applying a length coercion in a single step. When no such entry is available, coercion to a type that uses a type modifier involves two steps, one to convert between data types and a second to apply the modifier.
+</font></div>
+<a name="wp140526"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+WITHOUT FUNCTION
+</b></font></h6>
+<a name="wp140527"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Indicates that the source type and the target type are binary compatible, so no function is required to perform the cast. 
+</font></div>
+<a name="wp140529"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+AS ASSIGNMENT
+</b></font></h6>
+<a name="wp140530"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Indicates that the cast may be invoked implicitly in assignment contexts.
+</font></div>
+<a name="wp140532"> </a><h6><font color="#E5B53A" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+AS IMPLICIT
+</b></font></h6>
+<a name="wp140533"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Indicates that the cast may be invoked implicitly in any context.
+</font></div>
+<a name="wp139173"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Notes
+</b></font></h3>
+<a name="wp140754"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Note that in this release of Greenplum Database, user-defined functions used in a user-defined cast must be defined as <code><font face="Courier New, Courier, mono" size="2">IMMUTABLE</font></code>. Any compiled code (shared library files) for custom functions must be placed in the same location on every host in your Greenplum Database array (master and all segments). This location must also be in the <code><font face="Courier New, Courier, mono" size="2">LD_LIBRARY_PATH</font></code> so that the server can locate the files.
+</font></p>
+<a name="wp140779"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Remember that if you want to be able to convert types both ways you need to declare casts both ways explicitly. 
+</font></p>
+<a name="wp140783"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+It is recommended that you follow the convention of naming cast implementation functions after the target data type, as the built-in cast implementation functions are named. Many users are used to being able to cast data types using a function-style notation, that is <code><font face="Courier New, Courier, mono" size="2"><i>typename</i></font></code><code><font face="Courier New, Courier, mono" size="2">(x)</font></code>.
+</font></p>
+<a name="wp136309"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Examples
+</b></font></h3>
+<a name="wp140580"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+To create a cast from type text to type int4 using the function int4(text) (This cast is already predefined in the system.):
+</font></p>
+<pre><font color="Black" face="Courier New, Courier, mono" size="2">CREATE CAST (text AS int4) WITH FUNCTION int4(text);</font><a name="wp140582"> </a>
+</pre>
+<a name="wp134733"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+Compatibility
+</b></font></h3>
+<a name="wp140556"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The <code><font face="Courier New, Courier, mono" size="2">CREATE CAST</font></code> command conforms to the SQL standard, except that SQL does not make provisions for binary-compatible types or extra arguments to implementation functions. <code><font face="Courier New, Courier, mono" size="2">AS IMPLICIT</font></code> is a Greenplum Database extension, too.
+</font></p>
+<a name="wp140235"> </a><h3><font color="#8CC63F" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+See Also
+</b></font></h3>
+<a name="wp140239"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a href="CREATE_FUNCTION.html">CREATE FUNCTION</a>, <a href="CREATE_TYPE.html">CREATE TYPE</a>, <a href="DROP_CAST.html">DROP CAST</a>
+</font></p>
+    <br>
+    <hr color="#99CC33" align="left"> 
+
+    <table width="157" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr valign="top"> 
+    <td width="157"  align="left"><p> 
+        <font size="1"><font size="1"><font face="Arial, Helvetica, sans-serif">Greenplum Customer Support <br>
+		
+        1-866-410-6060
+</font></font></font><font size="1"><font face="Arial, Helvetica, sans-serif"><br>
+<a href="mailto://support@greenplum.com">support@greenplum.com
+</a><br>
+</font> </font> <font size="1"><a href="http://gpn.greenplum.com"><font face="Arial, Helvetica, sans-serif"> www.gpn.greenplum.com</font></a></font>  <font size="1"></font> <font size="1"></font> <font size="1"><br>
+        </font> </p></td>
+  </tr>
+</table>
+	
+
+    
+
+
+    <table width="250" border="0" cellpadding="0" cellspacing="0">
+      <tr> 
+        <td>
+<a href="CREATE_AGGREGATE.html"><img src="images/sprev.gif" border="0" alt="Previous"></a><a href="CREATE_CONVERSION.html"><img src="images/snext.gif" border="0" alt="Next"></a><a href="IX.html"><img src="images/sindex.gif" border="0" alt="Index"></a>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><strong><font color="#000000" size="1" face="Arial, Helvetica, sans-serif">Greenplum Database 3.3 SQL Reference</font></strong></p>
+        </td>
+      </tr>
+	  <tr> 
+        <td>
+          <p><font size="1" face="Arial, Helvetica, sans-serif">Last Updated: February 17, 2009</font></p>
+        </td>
+      </tr>
+    </table>
+      
+  </body>
+</html>
