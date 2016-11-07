@@ -1,5 +1,5 @@
 /**********************************************************************
- * SQLFreeEnv
+ * sqlFreeEnv
  *
  * Do not try to Free Env if there are Dbcs... return an error. Let the
  * Driver Manager do a recursive clean up if it wants.
@@ -14,10 +14,37 @@
  **********************************************************************/
 
 #include "driver.h"
-
 SQLRETURN SQLFreeEnv( SQLHENV hDrvEnv )
 {
 	return sqlFreeEnv( hDrvEnv );
+}
+
+SQLRETURN sqlFreeEnv( SQLHENV hDrvEnv )
+{
+	HDRVENV hEnv	= (HDRVENV)hDrvEnv;
+
+	/* SANITY CHECKS */
+    if( hEnv == SQL_NULL_HENV )
+        return SQL_INVALID_HANDLE;
+
+	sprintf( hEnv->szSqlMsg, "hEnv = $%08lX", hEnv );
+    logPushMsg( hEnv->hLog, __FILE__, __FILE__, __LINE__, LOG_WARNING, LOG_WARNING, hEnv->szSqlMsg );
+
+	if ( hEnv->hFirstDbc != NULL )
+	{
+		logPushMsg( hEnv->hLog, __FILE__, __FILE__, __LINE__, LOG_WARNING, LOG_WARNING, "SQL_ERROR There are allocated Connections" );
+		return SQL_ERROR;
+	}
+
+/************
+ * 	!!! ADD CODE TO FREE DRIVER SPECIFIC MEMORY (hidden in hEnvExtras) HERE !!!
+ ************/
+    free( hEnv->hEnvExtras );
+	logPushMsg( hEnv->hLog, __FILE__, __FILE__, __LINE__, LOG_INFO, LOG_INFO, "SQL_SUCCESS" );
+	logClose( hEnv->hLog );
+    free( hEnv );
+
+	return SQL_SUCCESS;
 }
 
 

@@ -82,7 +82,7 @@ am__libodbcmini_la_SOURCES_DIST = SQLAllocConnect.c SQLAllocEnv.c \
 	_FreeStmt.c _FreeDbcList.c _FreeStmtList.c _FreeResults.c \
 	_GetData.c _NativeToSQLColumnHeader.c _NativeToSQLType.c \
 	_NativeTypeDesc.c _NativeTypeLength.c _NativeTypePrecision.c \
-	_Prepare.c sqlFreeConnect.c sqlFreeEnv.c sqlFreeStmt.c
+	_Prepare.c 
 @MSQL_TRUE@am_libodbcmini_la_OBJECTS = SQLAllocConnect.lo \
 @MSQL_TRUE@	SQLAllocEnv.lo SQLAllocHandle.lo SQLAllocStmt.lo \
 @MSQL_TRUE@	SQLBindCol.lo SQLBindParameter.lo \
@@ -119,8 +119,7 @@ am__libodbcmini_la_SOURCES_DIST = SQLAllocConnect.c SQLAllocEnv.c \
 @MSQL_TRUE@	_GetData.lo _NativeToSQLColumnHeader.lo \
 @MSQL_TRUE@	_NativeToSQLType.lo _NativeTypeDesc.lo \
 @MSQL_TRUE@	_NativeTypeLength.lo _NativeTypePrecision.lo \
-@MSQL_TRUE@	_Prepare.lo sqlFreeConnect.lo sqlFreeEnv.lo \
-@MSQL_TRUE@	sqlFreeStmt.lo
+@MSQL_TRUE@	_Prepare.lo 
 libodbcmini_la_OBJECTS = $(am_libodbcmini_la_OBJECTS)
 @MSQL_TRUE@am_libodbcmini_la_rpath = -rpath $(libdir)
 DEFAULT_INCLUDES = -I. -I$(srcdir)
@@ -380,11 +379,7 @@ target_alias = @target_alias@
 @MSQL_TRUE@	_NativeTypeDesc.c \
 @MSQL_TRUE@	_NativeTypeLength.c \
 @MSQL_TRUE@	_NativeTypePrecision.c \
-@MSQL_TRUE@	_Prepare.c \
-@MSQL_TRUE@	sqlFreeConnect.c \
-@MSQL_TRUE@	sqlFreeEnv.c \
-@MSQL_TRUE@	sqlFreeStmt.c
-
+@MSQL_TRUE@	_Prepare.c 
 EXTRA_DIST = \
 	SQLAllocConnect.c \
 	SQLAllocEnv.c \
@@ -475,10 +470,7 @@ EXTRA_DIST = \
 	_NativeTypePrecision.c \
 	_Prepare.c \
 	driver.h \
-	driverextras.h \
-	sqlFreeConnect.c \
-	sqlFreeEnv.c \
-	sqlFreeStmt.c 
+	driverextras.h 
 
 libodbcmini_la_LDFLAGS = -version-info 1:0:0 \
 	-L@msql_libraries@ -lmsql -module
@@ -640,9 +632,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/_NativeTypeLength.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/_NativeTypePrecision.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/_Prepare.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sqlFreeConnect.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sqlFreeEnv.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sqlFreeStmt.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
